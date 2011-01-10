@@ -12,4 +12,5 @@
 
   * ガジェット通信 http://getnews.jp/archives/92284
   * Gigazine http://gigazine.net/news/20110105_kinect_seven/
-  * ニコニコ動画 http://www.nicovideo.jp/watch/sm13217519
+  * ニコニコ動画1 http://www.nicovideo.jp/watch/sm13217519
+  * ニコニコ動画2 http://www.nicovideo.jp/watch/sm13271833
