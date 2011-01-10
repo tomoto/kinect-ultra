@@ -141,9 +141,9 @@ void EyeSluggerRenderer::drawShot(float dt)
 
 	float rotationStep = float(M_PI) * 2 * m_shotRotation * dt / m_shotTraceDencity;
 	float alphaStep = 1.0f / m_shotTraceDencity;
-	float alpha = 1.0f;
+	float alpha = 0;
 
-	for (int i = 0; i < m_shotTraceDencity; i++, alpha -= alphaStep) {
+	for (int i = 0; i < m_shotTraceDencity; i++) {
 		// set position
 		XV3 p;
 		if (m_shotLifeTime >= 1.0) {
@@ -159,6 +159,9 @@ void EyeSluggerRenderer::drawShot(float dt)
 		
 		// rotate
 		m_objectFrame.RotateLocal(rotationStep, 1, 0, 0);
+
+		// alpha
+		alpha += alphaStep;
 
 		m_rctx->modelViewMatrix.PushMatrix();
 		m_rctx->modelViewMatrix.MultMatrix(m_objectFrame);

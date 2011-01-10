@@ -41,7 +41,8 @@ See LICENSE.TXT.
 
 If you want to build this program yourself or modify, go to the project
 page, download the source code, and open build/kinect-ultra.sln with
-Visual C++ 2008.
+Visual C++ 2008. To use debugger, set the working directory to ".."
+in the project's preference.
 
 Enjoy!
 Tomoto
