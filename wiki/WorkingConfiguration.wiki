@@ -1,0 +1,20 @@
+@en This is the list of the hardware/software configurations where this program is reported to work (or not to work). *Please use comment to let me know of your configurations.*
+
+@ja 動作報告(または動作しなかった報告)のあった構成です。あなたの構成をコメントで教えてください。
+
+= Work =
+
+== Platform ==
+
+|| *CPU*       || *GPU*           || *OS*               || *Reported by* ||
+|| Core i7 920 || GeForce GTX 285 || Win XP Pro         || tomoto        ||
+|| Core i7 950 || GeForce GTX 460 || Win 7 Home 64      || sei0178       ||
+|| Core i7 920 || Radeon 4890     || Win 7 Home Prem 64 || mike.lightfox ||
+
+== OpenNI ==
+
+(to be writtern)
+
+= Not Work =
+
+  * Core2 Duo Laptop (too low frame rate, tomoto)
