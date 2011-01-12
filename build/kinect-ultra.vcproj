@@ -63,10 +63,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gltools.lib freeglut_static_d.lib highgui210d.lib cxcore210d.lib cv210d.lib OpenNI.lib opengl32.lib"
+				AdditionalDependencies="gltoolsd.lib freeglut_static_d.lib highgui210d.lib cxcore210d.lib cv210d.lib OpenNI.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OPEN_NI_LIB)&quot;;..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib"
-				IgnoreDefaultLibraryNames="LIBCMT;LIBCMTD"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -141,10 +141,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gltools.lib freeglut_static.lib highgui210.lib cxcore210.lib cv210.lib OpenNI.lib opengl32.lib"
+				AdditionalDependencies="gltools.lib freeglut_static.lib highgui210.lib cxcore210.lib cv210.lib OpenNI.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPEN_NI_LIB)&quot;;..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib"
-				IgnoreDefaultLibraryNames="LIBCMT"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
