@@ -9,7 +9,7 @@
 
 #include <GL/glut.h> // glut
 
-#include <cv.h> // OpenCV
+#include <opencv/cv.h> // OpenCV
 
 using namespace xn;
 
