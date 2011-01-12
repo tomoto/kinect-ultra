@@ -1,4 +1,5 @@
 #summary Hardware/software configurations reported to work
+#labels Featured
 
 = Working Configurations =
 
