@@ -1,1 +1,6 @@
 #summary My memo
+
+= TODO =
+
+  * Are debug/release libraries linked in mix?
+  * Need NITE? Uninstall nite and check if it works.
