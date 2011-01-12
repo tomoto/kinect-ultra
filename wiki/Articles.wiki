@@ -1,0 +1,20 @@
+#summary List of articles referencing to this project
+
+= Web Articles =
+
+== English ==
+
+  * Kinect Hacks
+    * http://kinecthacks.net/transform-yourself-into-a-japanese-superhero/
+    * http://kinecthacks.net/kinect-superhero-again-now-with-source-code/
+  * Siliconera http://www.siliconera.com/2011/01/04/kinect-completely-turns-an-ordinary-man-to-ultraseven/
+  * Asiajin http://asiajin.com/blog/2011/01/05/kinect-transforms-you-a-hero-ultra-seven/
+
+== Japanese ==
+
+  * ガジェット通信
+    * http://getnews.jp/archives/92284
+  * Gigazine http://gigazine.net/news/20110105_kinect_seven/
+  * ニコニコ動画
+    * http://www.nicovideo.jp/watch/sm13217519
+    * http://www.nicovideo.jp/watch/sm13271833
