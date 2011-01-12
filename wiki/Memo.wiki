@@ -4,3 +4,4 @@
 
   * Are debug/release libraries linked in mix?
   * Need NITE? Uninstall nite and check if it works.
+  * Put copyright notices to the source code.
