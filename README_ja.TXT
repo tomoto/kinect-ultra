@@ -1,6 +1,6 @@
-kinect-ultra V0.1
+kinect-ultra V0.1a
 Author: Tomoto S. Washio
-Release Date: 1/9/2011
+Release Date: 2011/1/12
 Project URL: http://code.google.com/p/kinect-ultra/
 
 1. 前提条件
@@ -14,16 +14,21 @@ Project URL: http://code.google.com/p/kinect-ultra/
 2. インストール
 
 (1) もしまだであれば、OpenNIをダウンロード、インストールしてください。
-    http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download
+    http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/
 
-(2) もしまだであれば、OpenNI互換Kinectドライバをダウンロード、
+(2) もしまだであれば、NITEをダウンロード、インストールしてください。
+    http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/stable/55-primesense-nite-beta-build-for-windows-v1-3-0/
+
+    ライセンスキーはこれを使ってください: 0KOIk2JeIBYClPWVnMoRKn5cdY4=
+
+(3) もしまだであれば、OpenNI互換Kinectドライバをダウンロード、
 　　インストールしてください。
     https://github.com/avin2/SensorKinect 
 
     OpenKinectなど、他のドライバを既にインストールしている場合、
     ドライバを切り替える必要があるでしょう。
 
-(3) このアーカイブを好きなところに展開してください。
+(4) このアーカイブを好きなところに展開してください。
 
 3. 使い方
 
