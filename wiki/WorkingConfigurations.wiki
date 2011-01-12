@@ -20,7 +20,7 @@
 === OpenNI & Kinect Drivers ===
 
 || *OpenNI* || *Kinect Driver* || *Reported by* ||
-|| [http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download OpenNI Alpha Build for Windows v1.0.0.23] || [https://github.com/avin2/SensorKinect Driver by avin2] || tomoto ||
+|| [http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download OpenNI Alpha Build for Windows v1.0.0.23] || [https://github.com/avin2/SensorKinect/blob/unstable/Bin/SensorKinect-Win32-5.0.0.exe SensorKinect-Win32-5.0.0.exe by avin2] || tomoto ||
 
 == Not Work ==
 
