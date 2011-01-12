@@ -28,7 +28,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy ..\contrib\opencv\bin\cv210d.dll $(OutDir)\&#x0D;&#x0A;copy ..\contrib\opencv\bin\cxcore210d.dll $(OutDir)\&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210d.dll $(OutDir)\&#x0D;&#x0A;"
+				CommandLine="copy ..\contrib\opencv\bin\cv210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\cxcore210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
 				Outputs="$(OutDir)\cv210d.dll;$(OutDir)\cxcore210d.dll;$(OutDir)\highgui210d.dll"
 			/>
 			<Tool
@@ -106,7 +106,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy ..\contrib\opencv\bin\cv210.dll $(OutDir)\&#x0D;&#x0A;copy ..\contrib\opencv\bin\cxcore210.dll $(OutDir)\&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210.dll $(OutDir)\&#x0D;&#x0A;"
+				CommandLine="copy ..\contrib\opencv\bin\cv210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\cxcore210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
 				Outputs="$(OutDir)\cv210.dll;$(OutDir)\cxcore210.dll;$(OutDir)\highgui210.dll"
 			/>
 			<Tool
