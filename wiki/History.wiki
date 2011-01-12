@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary History of the top page
 
 === 1/9/2011 V0.1 Released ==
   * Now the first public version is available for download! [http://kinect-ultra.googlecode.com/files/kinect-ultra-0.1a.zip Click here]
