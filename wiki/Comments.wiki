@@ -1,5 +1,5 @@
+#summary Placeholder to retain public comments
 #labels Featured
-#Placeholder to add comments from the community.
 
 = Comments =
 
