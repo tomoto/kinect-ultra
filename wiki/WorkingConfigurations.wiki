@@ -16,9 +16,10 @@
 || Core i7 950 || GeForce GTX 460 || Win 7 Home 64      || sei0178       ||
 || Core i7 920 || Radeon 4890     || Win 7 Home Prem 64 || mike.lightfox ||
 
-=== OpenNI ===
+=== OpenNI & Kinect Drivers ===
 
-(to be writtern)
+|| *OpenNI* || *Kinect Driver* || *Reported by* ||
+|| [http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download OpenNI Alpha Build for Windows v1.0.0.23] || [https://github.com/avin2/SensorKinect Driver by avin2] || tomoto ||
 
 == Not Work ==
 
