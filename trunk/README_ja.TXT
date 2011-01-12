@@ -27,7 +27,8 @@ Project URL: http://code.google.com/p/kinect-ultra/
 
 3. 使い方
 
-(1) kinect-ultra.exeを実行するだけです。
+(1) kinect-ultra.exeを実行するだけです。作業ディレクトリは実行ファイルと
+    同じ場所にしてください。
 (2) 下記でデモが見られます。
     http://www.youtube.com/watch?v=RUG-Uvq-J-w (English)
     http://www.youtube.com/watch?v=eCbURRDUUdI (Japanese).
