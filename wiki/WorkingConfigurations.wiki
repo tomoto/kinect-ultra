@@ -12,9 +12,10 @@
 === Platform ===
 
 || *CPU*       || *GPU*           || *OS*               || *Reported by* ||
-|| Core i7 920 || GeForce GTX 285 || Win XP Pro         || tomoto        ||
+|| Core i7 920 || GeForce GTX 285 || Win XP Pro 32      || tomoto        ||
 || Core i7 950 || GeForce GTX 460 || Win 7 Home 64      || sei0178       ||
 || Core i7 920 || Radeon 4890     || Win 7 Home Prem 64 || mike.lightfox ||
+|| Xeon 3470   || Quadro FX 3800  || Win XP 64          || Jiang         ||
 
 === OpenNI & Kinect Drivers ===
 
