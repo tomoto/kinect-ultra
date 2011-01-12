@@ -1,6 +1,6 @@
 #include "util.h"
 #include "config.h"
-#include <highgui.h>
+#include <opencv/highgui.h>
 
 std::string getResourceFile(const char* category, const char* name)
 {
