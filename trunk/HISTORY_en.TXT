@@ -1,0 +1,8 @@
+V7.0a 1/12/2011
+
+* Fixed the CRT option and rebuilt.
+
+V7.0 1/11/2011
+
+* First release!
+
