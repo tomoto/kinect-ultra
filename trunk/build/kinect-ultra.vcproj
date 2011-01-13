@@ -28,8 +28,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy ..\contrib\opencv\bin\cv210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\cxcore210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\cv210d.dll;$(OutDir)\cxcore210d.dll;$(OutDir)\highgui210d.dll"
+				CommandLine="copy ..\contrib\opencv\bin\cxcore210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
+				Outputs="$(OutDir)\cxcore210d.dll;$(OutDir)\highgui210d.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gltoolsd.lib freeglut_static_d.lib highgui210d.lib cxcore210d.lib cv210d.lib OpenNI.lib"
+				AdditionalDependencies="gltoolsd.lib freeglut_static_d.lib highgui210d.lib cxcore210d.lib OpenNI.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OPEN_NI_LIB)&quot;;..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib"
 				IgnoreDefaultLibraryNames=""
@@ -106,8 +106,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy ..\contrib\opencv\bin\cv210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\cxcore210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\cv210.dll;$(OutDir)\cxcore210.dll;$(OutDir)\highgui210.dll"
+				CommandLine="copy ..\contrib\opencv\bin\cxcore210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
+				Outputs="$(OutDir)\cxcore210.dll;$(OutDir)\highgui210.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -141,7 +141,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gltools.lib freeglut_static.lib highgui210.lib cxcore210.lib cv210.lib OpenNI.lib"
+				AdditionalDependencies="gltools.lib freeglut_static.lib highgui210.lib cxcore210.lib OpenNI.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPEN_NI_LIB)&quot;;..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib"
 				IgnoreDefaultLibraryNames=""
