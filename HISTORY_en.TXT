@@ -1,8 +1,12 @@
-V7.0a 1/12/2011
+1/12/2011 V0.1b
+
+* Added check for GPU capabilities. This program requires shader support by GPU.
+
+1/12/2011 V0.1a
 
 * Fixed the CRT option and rebuilt.
 
-V7.0 1/11/2011
+1/11/2011 V0.1
 
 * First release!
 

@@ -7,9 +7,10 @@ Project URL: http://code.google.com/p/kinect-ultra/
 
 (1) Kinect持ってますね？
 (2) Windowsで動きます。テストしたのはWindows XP Pro SP3だけです。
-(3) それなりに早いCPUとグラフィックカードが必要だと思います。
-    どこが最低ラインかはわかりません。少なくとも、Core i7 920と
-    GeForce GTX 285で快適に動いています。
+(3) それなりに早いCPUとGPUが必要だと思います。
+　　- どこが最低ラインかはわかりません。
+　　- 少なくともGPUはシェーダをサポートしている必要があります。
+　　- Core i7 920とGeForce GTX 285で快適に動いています。
 
 2. インストール
 
