@@ -30,4 +30,4 @@
 == Not Work ==
 
 || *CPU*             || *GPU*          || *OS*               || *Reported by* || *Remark* ||
-|| Core 2 Duo U9300  || Mobile Intel 4 || Win XP Pro 32      || tomoto        || Crashed during initialization ||
+|| Core 2 Duo U9300  || Mobile Intel 4 || Win XP Pro 32      || tomoto        || No shader supported ||
