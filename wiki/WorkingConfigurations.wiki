@@ -5,7 +5,11 @@
 
 @en This is the list of the hardware/software configurations where this program is reported to work (or not to work). *Please use comment to let me know of your configurations.*
 
+  * The GPU needs to support shaders.
+
 @ja 動作報告(または動作しなかった報告)のあった構成です。*あなたの構成をコメントで教えてください。*
+
+  * シェーダをサポートしているGPUでないと動作しません。
 
 == Work ==
 
