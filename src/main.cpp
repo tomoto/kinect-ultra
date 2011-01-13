@@ -21,6 +21,8 @@
 
 #include <GLShaderManager.h>
 
+#define APP_VERSION "0.1b"
+
 // OpenNI objects
 Context g_context;
 DepthGenerator g_depthGen;
@@ -211,6 +213,7 @@ static void initRenderers()
 
 static void displayWelcomeMessage()
 {
+	puts("kinect-ultra " APP_VERSION);
 	char file[64];
 	char line[256];
 	sprintf(file, "welcome-%d.txt", GetConsoleCP());
