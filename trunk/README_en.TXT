@@ -8,9 +8,10 @@ Project URL: http://code.google.com/p/kinect-ultra/
 (1) You already have Kinect, right?
 (2) This product is supposed to run on sevral Windows platforms although
     it is only tested on Windows XP Pro SP3 at this moment.
-(3) Your computer should have sufficiently fast CPU and graphic cards.
-    The minimum requirement is unknown, but it runs well on Core i7 920
-    with GeForce GTX 285.
+(3) Your computer should have sufficiently fast CPU and GPU.
+　　- The minimum requirement is unknown
+　　- The GPU must support shaders at least.
+　　- Core i7 920 + GeForce GTX 285 is sufficient at least.
 
 2. Installation
 
