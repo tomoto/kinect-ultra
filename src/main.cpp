@@ -128,6 +128,19 @@ static void initXN()
 	CALL_XN( g_context.StartGeneratingAll() );
 }
 
+static void checkOpenGLCapabilities()
+{
+	const char* openGLVersion = (const char*)(glGetString(GL_VERSION));
+	printf("OpenGL version = %s\n", openGLVersion);
+	const char* shaderLanguageVersion = (const char*)(glGetString(GL_SHADING_LANGUAGE_VERSION));
+	if (shaderLanguageVersion) {
+		printf("Shader language version = %s\n", shaderLanguageVersion);
+	} else {
+		puts("Failed: This GPU does not support shaders. Sorry this program cannot run.");
+		errorExit();
+	}
+}
+
 static void initGL(int* pArgc, char* argv[])
 {
 	glutInit(pArgc, argv);
@@ -135,6 +148,8 @@ static void initGL(int* pArgc, char* argv[])
 	glutInitWindowSize(X_RES, Y_RES);
 	glutCreateWindow(WIN_TITLE);
 	glutHideWindow();
+
+	checkOpenGLCapabilities();
 
 	glutKeyboardFunc(onGlutKeyboard);
 	glutDisplayFunc(onGlutDisplay);
