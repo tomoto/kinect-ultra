@@ -1,6 +1,6 @@
-kinect-ultra V0.1b
+kinect-ultra V0.1c
 Author: Tomoto S. Washio
-Release Date: 1/12/2011
+Release Date: 1/14/2011
 Project URL: http://code.google.com/p/kinect-ultra/
 
 1. Prerequisitive
