@@ -30,4 +30,6 @@
 == Not Work ==
 
 || *CPU*             || *GPU*          || *OS*               || *Reported by* || *Remark* ||
-|| Core 2 Duo U9300  || Mobile Intel 4 || Win XP Pro 32      || tomoto        || No shader supported ||
+|| Core 2 Duo U9300  || Mobile Intel Series Express (@1) || Win XP Pro 32      || tomoto        || Too low frame rate ||
+
+(@1) Driver version = 6.14.10.5303. Note 6.14.10.4953 does not support shader.
