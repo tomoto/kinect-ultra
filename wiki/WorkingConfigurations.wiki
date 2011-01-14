@@ -15,21 +15,21 @@
 
 === Platform ===
 
-|| *CPU*        || *GPU*           || *OS*               || *Reported by* ||
-|| Core i7 920  || GeForce GTX 285 || Win XP Pro 32      || tomoto        ||
-|| Core i7 950  || GeForce GTX 460 || Win 7 Home 64      || sei0178       ||
-|| Core i7 920  || Radeon 4890     || Win 7 Home Prem 64 || mike.lightfox ||
-|| Xeon 3470    || Quadro FX 3800  || Win XP 64          || Jiang         ||
+|| *CPU*        || *GPU*           || *OS*               || *Reported by* || *Remark* ||
+|| Core i7 920  || GeForce GTX 285 || Win XP Pro 32      || tomoto        ||||
+|| Core i7 950  || GeForce GTX 460 || Win 7 Home 64      || sei0178       ||||
+|| Core i7 920  || Radeon 4890     || Win 7 Home Prem 64 || mike.lightfox ||||
+|| Xeon 3470    || Quadro FX 3800  || Win XP 64          || Jiang         ||||
+|| Core 2 Duo U9300  || Mobile Intel 4 Series Express (`*1`) || Win XP Pro 32      || tomoto        || Low frame rate ||
+
+(`*1`) Driver version = 6.14.10.5303. Note 6.14.10.4953 does not support shader.
 
 === OpenNI & Kinect Drivers ===
 
 || *OpenNI* || *Kinect Driver* || *Reported by* ||
-|| [http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download OpenNI Alpha Build for Windows v1.0.0.23] || [https://github.com/avin2/SensorKinect/blob/unstable/Bin/SensorKinect-Win32-5.0.0.exe SensorKinect-Win32-5.0.0.exe by avin2] || tomoto ||
+|| [http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download OpenNI Alpha Build for Windows v1.0.0.23] ||[https://github.com/avin2/SensorKinect/blob/unstable/Bin/SensorKinect-Win32-5.0.0.exe SensorKinect-Win32-5.0.0.exe by avin2] || tomoto ||
 || [http://www.openni.org/downloadfiles/openni-binaries/latest-unstable/25-openni-unstable-build-for-windows-v1-0-0/download OpenNI Unstable Build for Windows v1.0.0.25] || (same) || mike.lightfox ||
 
 == Not Work ==
 
 || *CPU*             || *GPU*          || *OS*               || *Reported by* || *Remark* ||
-|| Core 2 Duo U9300  || Mobile Intel Series Express (@1) || Win XP Pro 32      || tomoto        || Too low frame rate ||
-
-(@1) Driver version = 6.14.10.5303. Note 6.14.10.4953 does not support shader.
