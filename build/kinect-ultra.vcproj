@@ -64,6 +64,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="gltoolsd.lib freeglut_static_d.lib highgui210d.lib cxcore210d.lib OpenNI.lib"
+				OutputFile="$(OutDir)\$(ProjectName)-debug.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OPEN_NI_LIB)&quot;;..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib"
 				IgnoreDefaultLibraryNames=""
