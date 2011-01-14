@@ -6,7 +6,7 @@ AbstractTextureRenderer::AbstractTextureRenderer(RenderingContext* rctx) : Abstr
 
 AbstractTextureRenderer::~AbstractTextureRenderer()
 {
-	if (m_textureData) delete[] m_textureData;
+	delete[] m_textureData;
 }
 
 void AbstractTextureRenderer::init(const cv::Rect& imageRect)
