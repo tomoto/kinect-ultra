@@ -1,6 +1,8 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
+#include "common.h"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 

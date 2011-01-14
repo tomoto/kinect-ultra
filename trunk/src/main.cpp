@@ -238,6 +238,9 @@ static void displayWelcomeMessage()
 
 void main(int argc, char* argv[])
 {
+	// enable memory leak report for Win32 debug
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	displayWelcomeMessage();
 
 	initGL(&argc, argv);

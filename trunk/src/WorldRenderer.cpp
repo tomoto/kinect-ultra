@@ -32,11 +32,15 @@ WorldRenderer::WorldRenderer(RenderingContext* rctx, DepthGenerator* depthGen, I
 		for (XnUInt32 ix = 0; ix < m_width; ix++) {
 			float x = 1.0f - ix * 2.0f / m_width;
 			(*vp)[0] = x;
+			(*vp)[1] = (*vp)[2] = 0;
 			vp++;
-			(*cp)[3] = 1.0f; // alpha is always 1.0
+			(*cp)[0] = (*cp)[1] = (*cp)[2] = 0;
+			(*cp)[3] = 1; // alpha is always 1.0
 			cp++;
 		}
 	}
+
+	m_batch.init(numPoints);
 
 	// texture for henshin glow
 	m_henshinGlowTextureID = readAlphaTexture("sparkAlpha.png");
@@ -217,8 +221,6 @@ void WorldRenderer::drawBackground()
 	M3DVector4f* cp = m_colorBuf;
 
 	XnUInt32 numPoints = getNumPoints();
-	GLBatch b;
-	b.Begin(GL_POINTS, numPoints);
 
 	bool tooLowAsHead = false; // for head-detection optimization
 
@@ -227,6 +229,10 @@ void WorldRenderer::drawBackground()
 	const float NECK_AREA_DIST = 148;
 	const float HEAD_AREA_DIST2 = square(HEAD_AREA_DIST);
 	const float NECK_AREA_DIST2 = square(NECK_AREA_DIST);
+
+	glEnable(GL_POINT_SIZE);
+	glPointSize(getPointSize());
+	// glBegin(GL_POINTS);
 
 	XnUInt32 ix = 0, iy = 0;
 	float y = 0;
@@ -271,14 +277,64 @@ void WorldRenderer::drawBackground()
 		}
 		
 		(*vp)[2] = (*dp) ? getNormalizedDepth(*dp, nearZ, PERSPECTIVE_Z_MAX) : Z_INFINITE;
+
+		// glVertexAttrib3fv(GLT_ATTRIBUTE_VERTEX, (float*)vp);
+		// glVertexAttrib4fv(GLT_ATTRIBUTE_COLOR, (float*)cp);
 	}
+	// glEnd();
 
-	b.CopyVertexData3f(m_vertexBuf);
-	b.CopyColorData4f(m_colorBuf);
-	b.End();
+	m_batch.draw(m_vertexBuf, m_colorBuf);
+}
 
-	glEnable(GL_POINT_SIZE);
-	glPointSize(getPointSize());
+WorldRenderer::Batch::Batch()
+{
+	m_numPoints = 0;
+	m_vertexArrayID = 0;
+	m_vertexBufID = 0;
+	m_colorBufID = 0;
+}
 
-	b.Draw();
+WorldRenderer::Batch::~Batch()
+{
+	if (m_vertexArrayID) glDeleteVertexArrays(1, &m_vertexArrayID);
+	if (m_vertexBufID) glDeleteBuffers(1, &m_vertexBufID);
+	if (m_colorBufID) glDeleteBuffers(1, &m_colorBufID);
+}
+
+void WorldRenderer::Batch::init(GLuint numPoints)
+{
+	m_numPoints = numPoints;
+
+	glGenBuffers(1, &m_vertexBufID);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(M3DVector3f) * numPoints, NULL, GL_DYNAMIC_DRAW);
+	glGenBuffers(1, &m_colorBufID);
+	glBindBuffer(GL_ARRAY_BUFFER, m_colorBufID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(M3DVector4f) * numPoints, NULL, GL_DYNAMIC_DRAW);
+
+	glGenVertexArrays(1, &m_vertexArrayID);
+	glBindVertexArray(m_vertexArrayID);
+	{
+		glEnableVertexAttribArray(GLT_ATTRIBUTE_VERTEX);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufID);
+		glVertexAttribPointer(GLT_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glEnableVertexAttribArray(GLT_ATTRIBUTE_COLOR);
+		glBindBuffer(GL_ARRAY_BUFFER, m_colorBufID);
+		glVertexAttribPointer(GLT_ATTRIBUTE_COLOR, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	}
+	glBindVertexArray(0);
+}
+
+void WorldRenderer::Batch::draw(M3DVector3f* vertexBuf, M3DVector4f* colorBuf)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufID);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(M3DVector3f) * m_numPoints, vertexBuf);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_colorBufID);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(M3DVector4f) * m_numPoints, colorBuf);
+
+	glBindVertexArray(m_vertexArrayID);
+	glDrawArrays(GL_POINTS, 0, m_numPoints);
+	glBindVertexArray(0);
 }
