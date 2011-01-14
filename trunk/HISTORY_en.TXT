@@ -1,12 +1,16 @@
-1/12/2011 V0.1b
+* 1/14/2011 V0.1c
 
-* Added check for GPU capabilities. This program requires shader support by GPU.
+  * (Hopefully) fixed mysterious memory leak that led the program to a crash on some platforms.
 
-1/12/2011 V0.1a
+* 1/12/2011 V0.1b
 
-* Fixed the CRT option and rebuilt.
+  * Added check for GPU capabilities. This program requires shader support by GPU.
 
-1/11/2011 V0.1
+* 1/12/2011 V0.1a
 
-* First release!
+  * Fixed the CRT option and rebuilt.
+
+* 1/11/2011 V0.1
+
+  * First release!
 
