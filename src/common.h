@@ -3,15 +3,20 @@
 
 #pragma warning(disable:4819) // disable annoying warning for UTF-8 characters
 
-#include <XnCppWrapper.h> // OpenNI
+// enable memory leak test for Win32 debug
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+// OpenNI
+#include <XnCppWrapper.h>
+using namespace xn;
 
 #include <GLTools.h> // GLTools
 
 #include <GL/glut.h> // glut
 
 #include <opencv/cv.h> // OpenCV
-
-using namespace xn;
 
 // Note: I'm using macro instead of inline for some part
 // so that I can get enough speed in debug version.

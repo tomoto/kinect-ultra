@@ -1,6 +1,7 @@
 #ifndef _EMERIUM_BEAM_RENDERER1_H_
 #define _EMERIUM_BEAM_RENDERER1_H_
 
+#include "common.h"
 #include "AbstractSimpleBeamRenderer.h"
 
 class EmeriumBeamRenderer1 : public AbstractSimpleBeamRenderer
