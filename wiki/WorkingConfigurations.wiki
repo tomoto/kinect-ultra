@@ -5,11 +5,11 @@
 
 @en This is the list of the hardware/software configurations where this program is reported to work (or not to work). *Please use comment to let me know of your configurations.*
 
-  * The GPU needs to support shaders. If the program ends saying "This GPU does not support shaders", install the latest graphic driver for your GPU and try again.
+  * The GPU (supposedly) needs to support OpenGL 2.x & programmable shaders. If the program ends saying "This GPU does not support shaders", install the latest graphic driver for your GPU and try again.
 
 @ja 動作報告(または動作しなかった報告)のあった構成です。*あなたの構成をコメントで教えてください。*
 
-  * シェーダをサポートしているGPUでないと動作しません。もしプログラムが "This GPU does not support shaders" と言って終了するようならグラフィックドライバを最新のものに更新して再び試してみてください。
+  * (おそらく)OpenGL 2.xとプログラマブルシェーダをサポートしたGPUでないと動作しません。もしプログラムが "This GPU does not support shaders" と言って終了するようならグラフィックドライバを最新のものに更新して再び試してみてください。
 
 == Work ==
 
@@ -34,3 +34,4 @@
 == Not Work ==
 
 || *CPU*             || *GPU*          || *OS*               || *Reported by* || *Remark* ||
+|| Celeron 550@2GHz  || Intel 82GM965 || Win XP Pro 32 || Dillony || GPU only supports OpenGL 1.5 ||
