@@ -41,8 +41,8 @@ GLuint readAlphaTexture(const char* file)
 float getPointSize()
 {
 	return std::max(
-		float(glutGet(GLUT_WINDOW_WIDTH)) / X_RES,
-		float(glutGet(GLUT_WINDOW_HEIGHT)) / Y_RES
+		ceil(float(glutGet(GLUT_WINDOW_WIDTH)) / X_RES),
+		ceil(float(glutGet(GLUT_WINDOW_HEIGHT)) / Y_RES)
 		);
 }
 
