@@ -20,7 +20,7 @@
 || Core i7 950  || GeForce GTX 460 || Win 7 Home 64       || sei0178       ||||
 || Core i7 920  || Radeon 4890     || Win 7 Home Prem 64  || mike.lightfox ||||
 || Xeon 3470    || Quadro FX 3800  || Win XP 64           || Jiang         ||||
-|| Core 2 Quad  || GeForce 8800    || Win Vista Home Prem || Ismael        ||||
+|| Core 2 Quad  || GeForce 8800    || Win Vista Home Prem 32 || Ismael        ||||
 || Core 2 Duo U9300  || Mobile Intel 4 Series Express (`*1`) || Win XP Pro 32 || tomoto        || Very low frame rate ||
 
 (`*1`) Driver version = 6.14.10.5303. Note 6.14.10.4953 does not support shader.
