@@ -1,0 +1,52 @@
+#summary FAQ English version
+#labels Featured
+
+<wiki:toc max_depth="3"/>
+
+= Doesn't work =
+
+== Exits with an error displayed on the console ==
+
+=== "Failed: Can't create any node of the requested type!" appears ==
+
+  * Possibly Kinect is not connected.
+  * Possibly NITE is not installed.
+
+=== "Failed: Unknown USB device speed!" appears ===
+
+  * Possibly Kinect is not connected to the power supply.
+
+=== "Failed: File not found!" appears ===
+
+  * Possibly the current directory (working directory) does not contain "data" directory. Put kinect-ultra.exe and "data" directory at the same location, and launch it with the current directory set there.
+
+=== "Failed: This GPU does not support shaders" appears ===
+
+  * Possibly GPU and graphics driver does not support a required feature called "programmable shader." This feature is supported by OpenGL 2 and later. If the OpenGL version that appears right above the error message shows less than 2.0, this is the cause. This may be solved by upgrading the graphics driver.
+
+== Terminated abnormally ==
+
+I got some reports of this kind, but the cause is not clear. This may be solved by following actions.
+
+  * Use the latest kinect-ultra.
+  * Use the latest graphics driver.
+
+I will investigate the reported issues as far as I can, but it is actually very difficult to track down the problems dependent on GPU and graphic driver without having the exact environment on which the issue can be reproduced. I would appreciate your help such as tracing the execution by the debugger..
+
+= Motion not detected =
+
+== Skeleton tracking easily lost ==
+
+  * I got some reports that the skeleton tracking easily got lost by making a motion after the calibration succeeded. The cause is unknown. I do not write any code for skeleton tracking but just call OpenNI+NITE, so I have no way to know of it.
+  * Your surroundings may impact on the ability of skeleton tracking.
+    * Baggy cloths could make a negative impact on the skeleton tracking. If so, change your cloths.
+    * Objects that reflect IR emitted by Kinect could make a negative impact on the skeleton tracking. For example, I have had a trouble that the carpet around my feet is detected as a part of my body. Changing the position of the objects in your room or changing the angle of Kinect could solve the issue.
+  * If your PC does not have a sufficient speed to get a high frame rate, it could make a negative impact on the skeleton tracking because the software cannot capture the smooth motion flow.
+
+== Power does not appear ==
+
+  * The parts of your body should be seen clearly and separate from the camera to get a good detection.
+    * For example, keeping your hands too close to your head or hiding your head by your hands could make it difficult to shoot Eye Slugger or Emerium Beam. You could have a better detection by having a little space between your head and your hands.
+    * For example, placing your left hand too close to your right elbow could make it difficult to shoot Wide Shot. You could have a better detection by having alittle space also.
+    * If you face the side of your body to the camera, it could make a negative impact on the pose detection because the other side of your body is hard to be seen from the camera.
+  * If yoru PC does not have a sufficient speed to get a high frame rate, it could make a negative impact on the pose detection.
