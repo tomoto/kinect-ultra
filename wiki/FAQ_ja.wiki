@@ -1,4 +1,5 @@
 #summary FAQ日本語版
+#labels Featured
 
 <wiki:toc max_depth="3"/>
 
