@@ -39,14 +39,14 @@ I will investigate the reported issues as far as I can, but it is actually very 
 
   * I got some reports that the skeleton tracking easily got lost by making a motion after the calibration succeeded. The cause is unknown. I do not write any code for skeleton tracking but just call OpenNI+NITE, so I have no way to know of it.
   * Your surroundings may impact on the ability of skeleton tracking.
-    * Baggy cloths could make a negative impact on the skeleton tracking. If so, change your cloths.
-    * Objects that reflect IR emitted by Kinect could make a negative impact on the skeleton tracking. For example, I have had a trouble that the carpet around my feet is detected as a part of my body. Changing the position of the objects in your room or changing the angle of Kinect could solve the issue.
-  * If your PC does not have a sufficient speed to get a high frame rate, it could make a negative impact on the skeleton tracking because the software cannot capture the smooth motion flow.
+    * Baggy cloths could make the skeleton tracking difficult. If so, change your cloths.
+    * Objects that reflect IR emitted by Kinect could make the skeleton tracking difficult. For example, I have had a trouble that the carpet around my feet is detected as a part of my body. Changing the position of the objects in your room or changing the angle of Kinect could solve the issue.
+  * You may need to have a reasonably high frame rate to get a good tracking. A low frame rate could make it difficult for the software to capture your motion flow smoothly.
 
 == Power does not appear ==
 
   * The parts of your body should be seen clearly and separate from the camera to get a good detection.
     * For example, keeping your hands too close to your head or hiding your head by your hands could make it difficult to shoot Eye Slugger or Emerium Beam. You could have a better detection by having a little space between your head and your hands.
     * For example, placing your left hand too close to your right elbow could make it difficult to shoot Wide Shot. You could have a better detection by having alittle space also.
-    * If you face the side of your body to the camera, it could make a negative impact on the pose detection because the other side of your body is hard to be seen from the camera.
-  * If yoru PC does not have a sufficient speed to get a high frame rate, it could make a negative impact on the pose detection.
+    * If you face the side of your body to the camera, it could make the pose detection difficult because the other side of your body is hard to be seen from the camera.
+  * You need to have a reasonably high frame rate (I assume more than 15 frames/sec) to get a good detection. You need to stay on the same pose for several frames until a power is triggered, and a low frame rate makes it difficult. In any ways, the powers would not look neat at a low frame rate.
