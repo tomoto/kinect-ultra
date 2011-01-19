@@ -27,71 +27,60 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef _FRAME_RATE_COUNTER_H_
+#define _FRAME_RATE_COUNTER_H_
 
-#pragma warning(disable:4819) // disable annoying warning for UTF-8 characters
+#include "common.h"
+#include "TimeTicker.h"
 
-// enable memory leak test for Win32 debug
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-
-// OpenNI
-#include <XnCppWrapper.h>
-using namespace xn;
-
-#include <GLTools.h> // GLTools
-
-#include <GL/glut.h> // glut
-
-#include <opencv/cv.h> // OpenCV
-
-// Note: I'm using macro instead of inline for some part
-// so that I can get enough speed in debug version.
-#define USE_MACRO
-
-void registerErrorExitFunc(void(*f)());
-void errorExit();
-
-#define CHECK_ERROR(expr, message) check_error(expr, message, #expr);
-
-inline void check_error(int expr, const char* message, const char* detail)
+class FrameRateCounter
 {
-	if (!expr) {
-		printf("Failed: %s (%s)\n", message, detail);
-		errorExit();
+private:
+	float m_interval;
+	bool m_enabled;
+	int m_frameCount;
+	TimeTicker m_ticker;
+
+public:
+	FrameRateCounter()
+	{
+		m_interval = 1;
+		m_enabled = false;
+		m_frameCount = 0;
 	}
-}
 
-#define CALL_XN(f) check_xn_status(f, #f);
-
-inline void check_xn_status(XnStatus rc, const char* detail)
-{
-	if (rc != XN_STATUS_OK) {
-		printf("Failed: %s (%s)\n", xnGetStatusString(rc), detail);
-		errorExit();
+	~FrameRateCounter()
+	{
 	}
-}
 
-#define CALL_GLEW(f) check_glew_status(f, #f)
-
-inline void check_glew_status(XnStatus rc, const char* detail)
-{
-	if (rc != GLEW_OK) {
-		printf("Failed: %s (%s)\n", glewGetErrorString(rc), detail);
-		errorExit();
+	void reset()
+	{
+		m_frameCount = 0;
+		m_ticker.lock();
 	}
-}
 
-// Uncomment this line to output verbose log information.
-// TODO: better log facility
-// #define ENABLE_LOG
+	void enable(bool value)
+	{
+		m_enabled = value;
+		reset();
+	}
 
-#ifdef ENABLE_LOG
-#define LOG(f) (puts("LOG: " #f), (f))
-#else
-#define LOG(f) f
-#endif
+	void toggleEnabled()
+	{
+		enable(!m_enabled);
+	}
+
+	void update()
+	{
+		if (m_enabled) {
+			m_frameCount++;
+			float dt = m_ticker.tick();
+			if (dt > m_interval) {
+				printf("Frame Rate = %.1f/s\n", m_frameCount / dt);
+				reset();
+			}
+		}
+	}
+};
 
 #endif

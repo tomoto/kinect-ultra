@@ -47,10 +47,11 @@
 #include "EyeSluggerRenderer.h"
 #include "VoxelObjectMapper.h"
 #include "TestTorusRenderer.h"
+#include "FrameRateCounter.h"
 
 #include <GLShaderManager.h>
 
-#define APP_VERSION "0.1b"
+#define APP_VERSION "0.1d-rc"
 
 // OpenNI objects
 Context g_context;
@@ -82,6 +83,8 @@ EmeriumBeamDetector2* g_emeriumBeamDetector2;
 VoxelObjectMapper* g_voxelObjectMapper;
 EyeSluggerDetector* g_eyeSluggerDetector;
 
+FrameRateCounter g_frameRateCounter;
+
 static void takeImageSnapshot()
 {
 	g_flatImageRenderer->lock(false);
@@ -103,11 +106,16 @@ static void onGlutKeyboard(unsigned char key, int x, int y)
 		case 's':
 			takeImageSnapshot();
 			break;
+		case 'f':
+			g_frameRateCounter.toggleEnabled();
+			break;
 	}
 }
 
 static void onGlutDisplay()
 {
+	g_frameRateCounter.update();
+
 	g_context.WaitAndUpdateAll();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -217,27 +225,27 @@ static void initRenderers()
 {
 	g_renderingCtx.shaderMan = &g_shaderMan;
 
-	initProjection();
+	LOG( initProjection() );
 
-	g_voxelObjectMapper = new VoxelObjectMapper(&g_depthGen);
-	g_sparkRenderer = new SparkRenderer(&g_renderingCtx);
+	LOG( g_voxelObjectMapper = new VoxelObjectMapper(&g_depthGen) );
+	LOG( g_sparkRenderer = new SparkRenderer(&g_renderingCtx) );
 
-	g_flatImageRenderer = new ImageRenderer(&g_renderingCtx, &g_imageGen);
-	g_flatImageRenderer->lock(false);
-	g_worldRenderer = new WorldRenderer(&g_renderingCtx, &g_depthGen, &g_imageGen, g_henshinDetector);
-	g_eyeSluggerRenderer = new EyeSluggerRenderer(&g_renderingCtx, g_henshinDetector);
-	g_eyeSluggerDetector = new EyeSluggerDetector(g_henshinDetector, g_eyeSluggerRenderer);
-	g_skeletonRenderer = new SkeletonRenderer(&g_renderingCtx, &g_depthGen, g_userDetector, g_henshinDetector);
-	g_wideshotRenderer = new WideshotRenderer(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer);
-	g_wideshotDetector = new WideshotDetector(&g_depthGen, g_userDetector, g_wideshotRenderer);
-	g_emeriumBeamRenderer1 = new EmeriumBeamRenderer1(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer);
-	g_emeriumBeamRenderer2 = new EmeriumBeamRenderer2(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer);
-	g_emeriumBeamDetector = new EmeriumBeamDetector1(&g_depthGen, g_userDetector, g_emeriumBeamRenderer1);
-	g_emeriumBeamDetector2 = new EmeriumBeamDetector2(&g_depthGen, g_userDetector, g_emeriumBeamRenderer2);
+	LOG( g_flatImageRenderer = new ImageRenderer(&g_renderingCtx, &g_imageGen) );
+	LOG( g_flatImageRenderer->lock(false) );
+	LOG( g_worldRenderer = new WorldRenderer(&g_renderingCtx, &g_depthGen, &g_imageGen, g_henshinDetector) );
+	LOG( g_eyeSluggerRenderer = new EyeSluggerRenderer(&g_renderingCtx, g_henshinDetector) );
+	LOG( g_eyeSluggerDetector = new EyeSluggerDetector(g_henshinDetector, g_eyeSluggerRenderer) );
+	LOG( g_skeletonRenderer = new SkeletonRenderer(&g_renderingCtx, &g_depthGen, g_userDetector, g_henshinDetector) );
+	LOG( g_wideshotRenderer = new WideshotRenderer(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer) );
+	LOG( g_wideshotDetector = new WideshotDetector(&g_depthGen, g_userDetector, g_wideshotRenderer) );
+	LOG( g_emeriumBeamRenderer1 = new EmeriumBeamRenderer1(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer) );
+	LOG( g_emeriumBeamRenderer2 = new EmeriumBeamRenderer2(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer) );
+	LOG( g_emeriumBeamDetector = new EmeriumBeamDetector1(&g_depthGen, g_userDetector, g_emeriumBeamRenderer1) );
+	LOG( g_emeriumBeamDetector2 = new EmeriumBeamDetector2(&g_depthGen, g_userDetector, g_emeriumBeamRenderer2) );
 
 	// g_testTorusRenderer = new TestTorusRenderer(&g_renderingCtx);
 
-	takeImageSnapshot();
+	LOG( takeImageSnapshot() );
 }
 
 static void displayWelcomeMessage()
@@ -259,6 +267,7 @@ static void displayWelcomeMessage()
 		puts("[ESC]  -- Exit");
 		puts("[q][a] -- Adjust the depth of 3D virtual objects.");
 		puts("[s]    -- Retake the background image overlayed when you fly.");
+		puts("[f]    -- Output framerate to the console.");
 		puts("");
 		puts("It may take a minute until initialization completes... Enjoy!");
 		puts("");
