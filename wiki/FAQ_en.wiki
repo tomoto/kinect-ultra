@@ -11,6 +11,7 @@
 
   * Possibly Kinect is not connected.
   * Possibly NITE is not installed.
+    * If you think you already installed NITE, possibly the installation is corrupted. Uninstalling & reinstalling NITE could solve the issue.
 
 === "Failed: Unknown USB device speed!" appears ===
 
