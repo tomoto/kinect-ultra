@@ -1,20 +1,6 @@
 #summary My memo
 
-= TODO =
+= 0.1d TODO =
 
-  * Put copyright notices to the source code.
-
-= FAQ candidate =
-
-  * Doesn't work
-    * update graphic driver
-  * Doesn't calibrate
-    * Kinect general question
-    * Frame rate
-  * Doesn't fire
-    * Frame rate
-    * Hidden
-      * Don't hide head by hands/arms
-    * Connected
-      * Touching hand to body or the other hand affects on recognition
-   
+  * Fix issue #4
+  * Fix issue #6 fixed by providing "trigger happy mode". Note on FAQ.
