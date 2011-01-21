@@ -27,35 +27,47 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _WIDESHOT_DETECTOR_H_
-#define _WIDESHOT_DETECTOR_H_
 
-#include "common.h"
-#include "Configurable.h"
-#include "AbstractPoseDetector.h"
-#include "WideshotRenderer.h"
+#include "Configuration.h"
 
-class WideshotDetector : public AbstractPoseDetector, protected Configurable
+Configuration* Configuration::getInstance()
 {
-private:
-	WideshotRenderer* m_beamRenderer;
+	static Configuration s_instance;
+	return &s_instance;
+}
 
-	XV3 m_pr0, m_pr1, m_vr01, m_vl01;
+Configuration::Configuration()
+{
+	m_triggerHappyMode = THMODE_NORMAL;
+}
 
-	cv::RNG m_random;
+Configuration::~Configuration()
+{
+}
 
-public:
-	WideshotDetector(DepthGenerator* depthGen, UserDetector* userDetector, WideshotRenderer* beamRenderer);
-	virtual ~WideshotDetector();
+Configuration::TriggerHappyMode Configuration::getTriggerHappyMode() const
+{
+	return m_triggerHappyMode;
+}
 
-private:
-	float getArmDistanceThreshold();
-	float getArmAngleThresnold();
+const char* s_getTriggerHappyModeDisplayName(Configuration::TriggerHappyMode value)
+{
+	static const char* s_displayNames[] = { "Normal", "Happy", "Happier", "-" };
+	return s_displayNames[value];
+}
 
-	virtual bool isPosing(float dt);
-	virtual void onPoseDetected(float dt);
+void Configuration::setTriggerHappyMode(TriggerHappyMode value)
+{
+	m_triggerHappyMode = value;
+	printf("Trigger Happy Mode = %s\n", s_getTriggerHappyModeDisplayName(value));
+}
 
-	void shootBeam(const XV3& p0, const XV3& p1, const XV3& dv);
-};
+void Configuration::changeTriggerHappyMode()
+{
+	setTriggerHappyMode(TriggerHappyMode((m_triggerHappyMode + 1) % THMODE_MAX));
+}
 
-#endif
+float Configuration::getTriggerHappyLevel() const
+{
+	return m_triggerHappyMode / 2.0f;
+}

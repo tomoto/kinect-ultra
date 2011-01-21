@@ -31,6 +31,7 @@
 #define _ABSTRACT_TEX_RENDERER_H_
 
 #include "common.h"
+#include "Configurable.h"
 #include "AbstractOpenGLRenderer.h"
 #include <GLShaderManager.h>
 #include <GLMatrixStack.h>
@@ -40,7 +41,7 @@
 /**
  * Base class to render 2D image using texture
  */
-class AbstractTextureRenderer : public AbstractOpenGLRenderer
+class AbstractTextureRenderer : public AbstractOpenGLRenderer, protected Configurable
 {
 protected:
 	int m_textureWidth;

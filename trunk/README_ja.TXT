@@ -1,6 +1,6 @@
-kinect-ultra V0.1c
+kinect-ultra V0.1d
 Author: Tomoto S. Washio
-Release Date: 2011/1/14
+Release Date: 2011/1/20
 Project URL: http://code.google.com/p/kinect-ultra/
 
 1. 前提条件
@@ -9,8 +9,10 @@ Project URL: http://code.google.com/p/kinect-ultra/
 (2) Windowsで動きます。テストしたのはWindows XP Pro SP3だけです。
 (3) それなりに早いCPUとGPUが必要だと思います。
 　　- どこが最低ラインかはわかりません。
-　　- 少なくともGPUはシェーダをサポートしている必要があります。
+　　- 少なくともGPUはプログラマブルシェーダをサポートしている必要があります。
 　　- Core i7 920とGeForce GTX 285で快適に動いています。
+    動作報告のあった構成が下記のページにあるので参考にしてください。
+    http://code.google.com/p/kinect-ultra/wiki/WorkingConfigurations
 
 2. インストール
 
@@ -35,9 +37,18 @@ Project URL: http://code.google.com/p/kinect-ultra/
 
 (1) kinect-ultra.exeを実行するだけです。作業ディレクトリは実行ファイルと
     同じ場所にしてください。
+
 (2) 下記でデモが見られます。
-    http://www.youtube.com/watch?v=RUG-Uvq-J-w (English)
-    http://www.youtube.com/watch?v=eCbURRDUUdI (Japanese).
+    - 日本語
+      http://www.youtube.com/watch?v=eCbURRDUUdI
+      http://www.youtube.com/watch?v=kxvn98lqr5Y
+    - 英語
+      http://www.youtube.com/watch?v=RUG-Uvq-J-w
+  　　http://www.youtube.com/watch?v=Uuq9SCL_LXY
+
+(3) 問題があった場合...
+    - 次のページのFAQを参照ください: http://code.google.com/p/kinect-ultra/wiki/FAQ_ja
+    - 次のページに報告お願いします: http://code.google.com/p/kinect-ultra/issues
 
 4. ライセンス
 

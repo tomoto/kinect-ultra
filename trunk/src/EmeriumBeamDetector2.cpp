@@ -39,6 +39,16 @@ EmeriumBeamDetector2::~EmeriumBeamDetector2()
 {
 }
 
+float EmeriumBeamDetector2::getNeckDistanceThreshold()
+{
+	return 200.0f + 100.0f * getConfiguration()->getTriggerHappyLevel();
+}
+
+float EmeriumBeamDetector2::getArmAngleThreshold()
+{
+	return 0.9f - 0.1f * getConfiguration()->getTriggerHappyLevel();
+}
+
 bool EmeriumBeamDetector2::isPosing(float dt)
 {
 	UserGenerator* userGen = m_userDetector->getUserGenerator();
@@ -58,11 +68,8 @@ bool EmeriumBeamDetector2::isPosing(float dt)
 	m_vnh = pl1 - pn; // neck to hand
 	m_ph = m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD);
 	
-	const float NECK_DISTANCE_THRESHOLD = 200.0f;
-	const float ARM_ANGLE_THRESHOLD = 0.9f;
-
-	bool isHandCloseToNeck = m_vnh.magnitude2() < square(NECK_DISTANCE_THRESHOLD);
-	bool isHandHorizontal = vsh.dotNormalized(vl) > ARM_ANGLE_THRESHOLD;
+	bool isHandCloseToNeck = m_vnh.magnitude2() < square(getNeckDistanceThreshold());
+	bool isHandHorizontal = vsh.dotNormalized(vl) > getArmAngleThreshold();
 	bool isOtherHandLow = pr1.Y < pl1.Y;
 
 	return isHandCloseToNeck && isHandHorizontal && isOtherHandLow;

@@ -208,6 +208,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\Configuration.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\DepthRenderer.cpp"
 				>
 			</File>
@@ -331,6 +335,14 @@
 			</File>
 			<File
 				RelativePath="..\src\config.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Configurable.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Configuration.h"
 				>
 			</File>
 			<File

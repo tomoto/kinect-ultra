@@ -46,9 +46,6 @@ void AbstractTextureRenderer::init(const cv::Rect& imageRect)
 	glGenTextures(1, &m_textureID);
 
 	m_imageRect = imageRect;
-
-	m3dLoadIdentity44(m_orthoProjectionMatrix);
-
 	m_isLocked = FALSE;
 
 	setupBatch();
@@ -115,7 +112,7 @@ void AbstractTextureRenderer::executeDraw()
 	// float mod[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	// m_rctx->shaderMan->UseStockShader(GLT_SHADER_TEXTURE_MODULATE, m_projectionMatrix, mod, 0);
 
-	m_rctx->shaderMan->UseStockShader(GLT_SHADER_TEXTURE_REPLACE, m_orthoProjectionMatrix, 0);
+	m_rctx->shaderMan->UseStockShader(GLT_SHADER_TEXTURE_REPLACE, m_rctx->orthoMatrix.GetMatrix(), 0);
 	m_batch.Draw();
 }
 

@@ -31,10 +31,11 @@
 #define _ABSTRACT_EMERIUM_BEAM_DETECTOR_H_
 
 #include "common.h"
+#include "Configurable.h"
 #include "AbstractPoseDetector.h"
 #include "AbstractSimpleBeamRenderer.h"
 
-class AbstractEmeriumBeamDetector : public AbstractPoseDetector
+class AbstractEmeriumBeamDetector : public AbstractPoseDetector, protected Configurable
 {
 private:
 	AbstractSimpleBeamRenderer* m_beamRenderer;

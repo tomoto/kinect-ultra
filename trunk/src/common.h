@@ -32,6 +32,8 @@
 
 #pragma warning(disable:4819) // disable annoying warning for UTF-8 characters
 
+#define _CRT_SECURE_NO_WARNINGS // disable warnings to fopen, sprintf, etc.
+
 // enable memory leak test for Win32 debug
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>

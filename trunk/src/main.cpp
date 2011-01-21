@@ -31,6 +31,8 @@
 #include "config.h"
 #include "util.h"
 
+#include "Configuration.h"
+
 #include "RenderingContext.h"
 
 #include "ImageRenderer.h"
@@ -51,7 +53,7 @@
 
 #include <GLShaderManager.h>
 
-#define APP_VERSION "0.1d-rc"
+#define APP_VERSION "0.1d"
 
 // OpenNI objects
 Context g_context;
@@ -108,6 +110,12 @@ static void onGlutKeyboard(unsigned char key, int x, int y)
 			break;
 		case 'f':
 			g_frameRateCounter.toggleEnabled();
+			break;
+		case 't':
+			Configuration::getInstance()->changeTriggerHappyMode();
+			break;
+		case 'm':
+			g_renderingCtx.mirror();
 			break;
 	}
 }
@@ -261,6 +269,7 @@ static void displayWelcomeMessage()
 		}
 		fclose(fp);
 	} else {
+		//    123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
 		puts("Welcome to Ultra Seven on Kinect!");
 		puts("");
 		puts("Available keys during the play:");
@@ -268,6 +277,9 @@ static void displayWelcomeMessage()
 		puts("[q][a] -- Adjust the depth of 3D virtual objects.");
 		puts("[s]    -- Retake the background image overlayed when you fly.");
 		puts("[f]    -- Output framerate to the console.");
+		puts("[m]    -- Mirror the screen.");
+		puts("[t]    -- Change Trigger Happy Mode. (Normal/Happy/Happier)");
+		puts("          This makes it easier to trigger the powers.");
 		puts("");
 		puts("It may take a minute until initialization completes... Enjoy!");
 		puts("");

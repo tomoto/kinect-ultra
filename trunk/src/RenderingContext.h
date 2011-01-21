@@ -41,7 +41,7 @@ public:
 
 	GLMatrixStack modelViewMatrix;
 	GLMatrixStack projectionMatrix;
-	GLFrame cameraFrame;
+	GLMatrixStack orthoMatrix;
 	GLGeometryTransform transform;
 
 public:
@@ -54,11 +54,10 @@ public:
 	{
 	}
 
-	void cameraFrameUpdated()
+	void mirror()
 	{
-		M3DMatrix44f cm;
-		cameraFrame.GetCameraMatrix(cm);
-		modelViewMatrix.LoadMatrix(cm);
+		projectionMatrix.Scale(-1, 1, 1);
+		orthoMatrix.Scale(-1, 1, 1);
 	}
 };
 
