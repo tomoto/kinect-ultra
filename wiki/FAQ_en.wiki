@@ -51,3 +51,4 @@ I will investigate the reported issues as far as I can, but it is actually very 
     * For example, placing your left hand too close to your right elbow could make it difficult to shoot Wide Shot. You could have a better detection by having alittle space also.
     * If you face the side of your body to the camera, it could make the pose detection difficult because the other side of your body is hard to be seen from the camera.
   * You need to have a reasonably high frame rate (I assume more than 15 frames/sec) to get a good detection. You need to stay on the same pose for several frames until a power is triggered, and a low frame rate makes it difficult. In any ways, the powers would not look neat at a low frame rate.
+  * Try to set the Trigger Happy Mode to Happy or Happier by hitting 't' key. This will make the pose detection easier.
