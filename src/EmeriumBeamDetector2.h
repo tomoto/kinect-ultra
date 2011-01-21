@@ -44,6 +44,9 @@ public:
 	virtual ~EmeriumBeamDetector2();
 
 private:
+	float getNeckDistanceThreshold();
+	float getArmAngleThreshold();
+
 	virtual bool isPosing(float dt);
 	virtual void onPoseDetected(float dt);
 };

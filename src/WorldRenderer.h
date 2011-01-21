@@ -31,11 +31,12 @@
 #define _DEPTH_IMAGE_RENDERER_H_
 
 #include "common.h"
+#include "Configurable.h"
 #include "AbstractOpenGLRenderer.h"
 #include "HenshinDetector.h"
 #include "TimeTicker.h"
 
-class WorldRenderer : public AbstractOpenGLRenderer
+class WorldRenderer : public AbstractOpenGLRenderer, protected Configurable
 {
 private:
 	// This should be GLBatch's job, but GLBatch has memory leak!
@@ -60,7 +61,6 @@ protected:
 
 	Batch m_batch; 
 
-	M3DMatrix44f m_orthoProjectionMatrix;
 	XnUInt32 m_width;
 	XnUInt32 m_height;
 	M3DVector3f* m_vertexBuf;

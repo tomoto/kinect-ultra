@@ -30,9 +30,6 @@
 #include "WideshotDetector.h"
 #include "util.h"
 
-const float ARM_DISTANCE_THRESHOLD = 180.0f;
-const float ARM_ANGLE_THRESHOLD = 0.25f;
-
 WideshotDetector::WideshotDetector(DepthGenerator* depthGen, UserDetector* userDetector, WideshotRenderer* beamRenderer)
 : AbstractPoseDetector(userDetector)
 {
@@ -42,6 +39,16 @@ WideshotDetector::WideshotDetector(DepthGenerator* depthGen, UserDetector* userD
 
 WideshotDetector::~WideshotDetector()
 {
+}
+
+float WideshotDetector::getArmDistanceThreshold()
+{
+	return 180.0f + 100.0f * getConfiguration()->getTriggerHappyLevel();
+}
+
+float WideshotDetector::getArmAngleThresnold()
+{
+	return 0.25f;
 }
 
 bool WideshotDetector::isPosing(float dt)
@@ -62,9 +69,10 @@ bool WideshotDetector::isPosing(float dt)
 	m_vr01 = vr01;
 	m_vl01 = vl01;
 
-	bool areArmsClose = (pl1 - pr0).magnitude() < ARM_DISTANCE_THRESHOLD;
-	bool isArmsOrthogonal = abs(vl01.dotNormalized(vr01)) < ARM_ANGLE_THRESHOLD;
-	bool isRightArmOrthogonal = abs(vr01.dotNormalized(vrs0)) < ARM_ANGLE_THRESHOLD;
+
+	bool areArmsClose = (pl1 - pr0).magnitude() < getArmDistanceThreshold();
+	bool isArmsOrthogonal = abs(vl01.dotNormalized(vr01)) < getArmAngleThresnold();
+	bool isRightArmOrthogonal = abs(vr01.dotNormalized(vrs0)) < getArmAngleThresnold();
 	bool isRightHandHigherThanLeft = pr1.Y > pl1.Y;
 
 	return areArmsClose && isArmsOrthogonal && isRightArmOrthogonal && isRightHandHigherThanLeft;

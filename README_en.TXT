@@ -1,6 +1,6 @@
-kinect-ultra V0.1c
+kinect-ultra V0.1d
 Author: Tomoto S. Washio
-Release Date: 1/14/2011
+Release Date: 1/20/2011
 Project URL: http://code.google.com/p/kinect-ultra/
 
 1. Prerequisitive
@@ -10,8 +10,11 @@ Project URL: http://code.google.com/p/kinect-ultra/
     it is only tested on Windows XP Pro SP3 at this moment.
 (3) Your computer should have sufficiently fast CPU and GPU.
 　　- The minimum requirement is unknown
-　　- The GPU must support shaders at least.
+　　- The GPU must support programmable shaders at least.
 　　- Core i7 920 + GeForce GTX 285 is sufficient at least.
+    See http://code.google.com/p/kinect-ultra/wiki/WorkingConfigurations
+    for the list of the hardware/software configurations this program is
+    reported to work.
 
 2. Installation
 
@@ -37,6 +40,7 @@ Project URL: http://code.google.com/p/kinect-ultra/
 
 (1) Just run kinect-ultra.exe. Set the working directory to the same
     location as the executable.
+
 (2) See the demo at:
     - English
       http://www.youtube.com/watch?v=RUG-Uvq-J-w
@@ -44,6 +48,10 @@ Project URL: http://code.google.com/p/kinect-ultra/
     - Japanese
       http://www.youtube.com/watch?v=eCbURRDUUdI
       http://www.youtube.com/watch?v=kxvn98lqr5Y
+
+(3) If you have any issues...
+    - See FAQ at http://code.google.com/p/kinect-ultra/wiki/FAQ_ja
+    - Report issues at http://code.google.com/p/kinect-ultra/issues
 
 4. License
 

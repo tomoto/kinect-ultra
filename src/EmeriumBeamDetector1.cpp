@@ -39,6 +39,11 @@ EmeriumBeamDetector1::~EmeriumBeamDetector1()
 {
 }
 
+float EmeriumBeamDetector1::getHeadDistanceThreshold()
+{
+	return 250.0f + 50.0f * getConfiguration()->getTriggerHappyLevel();
+}
+
 bool EmeriumBeamDetector1::isPosing(float dt)
 {
 	XnSkeletonJointPosition jr0, jr1, jl0,jl1;
@@ -60,9 +65,10 @@ bool EmeriumBeamDetector1::isPosing(float dt)
 	XV3 ph = m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD);
 	XV3 vhr(pr1 - ph), vhl(pl1 - ph), vhrl(m_prl - ph);
 
-	const float HEAD_DISTANCE_THRESHOLD = 250.0f;
+	vhr.Y *= 2;
+	vhl.Y *= 2;
 
-	bool areBothHandsCloseToHead = std::max(vhr.magnitude2() , vhl.magnitude2()) < square(HEAD_DISTANCE_THRESHOLD);
+	bool areBothHandsCloseToHead = std::max(vhr.magnitude2() , vhl.magnitude2()) < square(getHeadDistanceThreshold());
 	bool isArmAngleWide = m_vl.dot(m_vr) < 0;
 	bool areHandsInFront = m_userDetector->getForwardVector().dot(vhrl) > 0;
 

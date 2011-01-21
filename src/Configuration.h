@@ -27,35 +27,34 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _WIDESHOT_DETECTOR_H_
-#define _WIDESHOT_DETECTOR_H_
+#ifndef _CONFIGURATION_H_
+#define _CONFIGURATION_H_
 
 #include "common.h"
-#include "Configurable.h"
-#include "AbstractPoseDetector.h"
-#include "WideshotRenderer.h"
 
-class WideshotDetector : public AbstractPoseDetector, protected Configurable
+class Configuration
 {
+public:
+	enum TriggerHappyMode {
+		THMODE_NORMAL,
+		THMODE_HAPPY,
+		THMODE_HAPPIER,
+		THMODE_MAX,
+	};
+
+	static Configuration* getInstance();
+
 private:
-	WideshotRenderer* m_beamRenderer;
-
-	XV3 m_pr0, m_pr1, m_vr01, m_vl01;
-
-	cv::RNG m_random;
+	TriggerHappyMode m_triggerHappyMode;
 
 public:
-	WideshotDetector(DepthGenerator* depthGen, UserDetector* userDetector, WideshotRenderer* beamRenderer);
-	virtual ~WideshotDetector();
+	Configuration();
+	~Configuration();
 
-private:
-	float getArmDistanceThreshold();
-	float getArmAngleThresnold();
-
-	virtual bool isPosing(float dt);
-	virtual void onPoseDetected(float dt);
-
-	void shootBeam(const XV3& p0, const XV3& p1, const XV3& dv);
+	TriggerHappyMode getTriggerHappyMode() const;
+	void setTriggerHappyMode(TriggerHappyMode value);
+	void changeTriggerHappyMode();
+	float getTriggerHappyLevel() const;
 };
 
 #endif

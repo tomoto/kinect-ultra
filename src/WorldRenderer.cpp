@@ -41,8 +41,6 @@ WorldRenderer::WorldRenderer(RenderingContext* rctx, DepthGenerator* depthGen, I
 	m_imageGen = imageGen;
 	m_henshinDetector = henshinDetector;
 
-	m3dLoadIdentity44(m_orthoProjectionMatrix);
-
 	DepthMetaData dmd;
 	m_depthGen->GetMetaData(dmd);
 	m_width = dmd.XRes();
@@ -225,7 +223,7 @@ void WorldRenderer::drawHenshiningGlow()
 void WorldRenderer::drawBackground()
 {
 	// setup shader
-	m_rctx->shaderMan->UseStockShader(GLT_SHADER_SHADED, m_orthoProjectionMatrix);
+	m_rctx->shaderMan->UseStockShader(GLT_SHADER_SHADED, m_rctx->orthoMatrix.GetMatrix());
 
 	// get depth buffer
 	DepthMetaData dmd;

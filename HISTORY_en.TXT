@@ -1,3 +1,9 @@
+* 1/20/2011 V0.1d
+
+  * Fixed black lines shown in some particular window sizes.
+  * Added "Trigger Happy Mode" to loosen the pose detection to trigger powers more easily.
+  * Added mirror mode.
+
 * 1/14/2011 V0.1c
 
   * (Hopefully) fixed mysterious memory leak that led the program to a crash on some platforms.
