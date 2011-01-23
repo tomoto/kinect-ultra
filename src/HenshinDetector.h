@@ -47,9 +47,7 @@ public:
 	};
 
 private:
-	UserDetector* m_userDetector;
 	TimeTicker m_ticker;
-
 	Stage m_stage;
 
 public:
