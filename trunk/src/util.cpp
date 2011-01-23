@@ -38,6 +38,19 @@ std::string getResourceFile(const char* category, const char* name)
 	return result;
 }
 
+static void loadMipmappedTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (!GLEW_VERSION_3_0) {
+		LOG( glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE) );
+	}
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+	if (GLEW_VERSION_3_0) {
+		LOG( glGenerateMipmap(GL_TEXTURE_2D) );
+	}
+}
+
 GLuint readAlphaTexture(const char* file)
 {
 	// Specify 0 to read the file as grayscale image
@@ -56,10 +69,7 @@ GLuint readAlphaTexture(const char* file)
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	loadMipmappedTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
 	delete[] pixels;
 	cvReleaseImage(&image);

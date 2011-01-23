@@ -53,7 +53,7 @@
 
 #include <GLShaderManager.h>
 
-#define APP_VERSION "0.1d"
+#define APP_VERSION "0.1e-rc"
 
 // OpenNI objects
 Context g_context;
