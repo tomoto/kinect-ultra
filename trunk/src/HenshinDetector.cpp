@@ -32,7 +32,6 @@
 
 HenshinDetector::HenshinDetector(UserDetector* userDetector) : AbstractPoseDetector(userDetector)
 {
-	m_userDetector = userDetector;
 	m_userDetector->addListener(this);
 	setRequiredPosingStability(5);
 	transitToHuman();
