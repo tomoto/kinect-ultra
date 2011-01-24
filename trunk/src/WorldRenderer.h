@@ -70,8 +70,6 @@ protected:
 
 	float m_depthAdjustment;
 
-	bool m_tooLowAsHead;
-
 public:
 	WorldRenderer(RenderingContext* rctx, DepthGenerator* depthGen, ImageGenerator* imageGen, HenshinDetector* henshinDetector);
 	virtual ~WorldRenderer();
