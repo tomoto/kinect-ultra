@@ -9,9 +9,9 @@ Project URL: http://code.google.com/p/kinect-ultra/
 (2) This product is supposed to run on sevral Windows platforms although
     it is only tested on Windows XP Pro SP3 at this moment.
 (3) Your computer should have sufficiently fast CPU and GPU.
-　　- The minimum requirement is unknown
-　　- The GPU must support programmable shaders at least.
-　　- Core i7 920 + GeForce GTX 285 is sufficient at least.
+    - The minimum requirement is unknown
+    - The GPU must support programmable shaders at least.
+    - Core i7 920 + GeForce GTX 285 is sufficient at least.
     See http://code.google.com/p/kinect-ultra/wiki/WorkingConfigurations
     for the list of the hardware/software configurations this program is
     reported to work.
