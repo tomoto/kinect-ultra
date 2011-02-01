@@ -50,7 +50,7 @@ Project URL: http://code.google.com/p/kinect-ultra/
       http://www.youtube.com/watch?v=kxvn98lqr5Y
 
 (3) If you have any issues...
-    - See FAQ at http://code.google.com/p/kinect-ultra/wiki/FAQ_ja
+    - See FAQ at http://code.google.com/p/kinect-ultra/wiki/FAQ_en
     - Report issues at http://code.google.com/p/kinect-ultra/issues
 
 4. License
