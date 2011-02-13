@@ -1,5 +1,9 @@
 kinect-ultra Change History
 
+* 2/13/2011 V0.1e
+
+  * Made Wideshot easier to shoot.
+
 * 1/20/2011 V0.1d
 
   * Fixed black lines shown in some particular window sizes.
