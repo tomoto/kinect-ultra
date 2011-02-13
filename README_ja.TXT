@@ -1,6 +1,6 @@
-kinect-ultra V0.1d
+kinect-ultra V0.1e
 Author: Tomoto S. Washio
-Release Date: 2011/1/20
+Release Date: 2011/2/13
 Project URL: http://code.google.com/p/kinect-ultra/
 
 1. ‘O’ñğŒ
