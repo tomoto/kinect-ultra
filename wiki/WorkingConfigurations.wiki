@@ -6,10 +6,18 @@
 @en This is the list of the hardware/software configurations where this program is reported to work (or not to work). *Please use comment to let me know of your configurations.*
 
   * The GPU (supposedly) needs to support OpenGL 2.x & programmable shaders. If the program ends saying "This GPU does not support shaders", install the latest graphic driver for your GPU and try again.
+  * I noticed that the unstable versions of OpenNI, NITE, and SensorKinect easily lose the skeleton tracking. I strongly recommend you to use the stable versions listed below.
+    # OpenNI stable: http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download
+    # NITE stable: http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/stable/55-primesense-nite-beta-build-for-windows-v1-3-0/download
+    # SensorKinect driver for stable OpenNI: https://github.com/avin2/SensorKinect/blob/4e91f689fc5c8320f920b2976abdd9b50ee1baf0/Bin/SensorKinect-Win32-5.0.0.exe
 
 @ja 動作報告(または動作しなかった報告)のあった構成です。*あなたの構成をコメントで教えてください。*
 
   * (おそらく)OpenGL 2.xとプログラマブルシェーダをサポートしたGPUでないと動作しません。もしプログラムが "This GPU does not support shaders" と言って終了するようならグラフィックドライバを最新のものに更新して再び試してみてください。
+  * unstable版のOpenNI、NITE、SensorKinectドライバではキャリブレーションがすぐ外れてしまうようです。以下のstable版に揃えることを強くお勧めします。
+    # OpenNI stable: http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download
+    # NITE stable: http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/stable/55-primesense-nite-beta-build-for-windows-v1-3-0/download
+    # SensorKinect driver for stable OpenNI: https://github.com/avin2/SensorKinect/blob/4e91f689fc5c8320f920b2976abdd9b50ee1baf0/Bin/SensorKinect-Win32-5.0.0.exe
 
 == Work ==
 
