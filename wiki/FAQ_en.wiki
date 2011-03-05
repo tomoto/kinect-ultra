@@ -38,7 +38,11 @@ I will investigate the reported issues as far as I can, but it is actually very 
 
 == Skeleton tracking easily lost ==
 
-  * I got some reports that the skeleton tracking easily got lost by making a motion after the calibration succeeded. The cause is unknown. I do not write any code for skeleton tracking but just call OpenNI+NITE, so I have no way to know of it.
+  * I noticed that the unstable versions of OpenNI, NITE, and SensorKinect easily lose the skeleton tracking. I strongly recommend you to use the stable versions listed below.
+    # OpenNI stable: http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/download
+    # NITE stable: http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/stable/55-primesense-nite-beta-build-for-windows-v1-3-0/download
+    # SensorKinect driver for stable OpenNI: https://github.com/avin2/SensorKinect/blob/4e91f689fc5c8320f920b2976abdd9b50ee1baf0/Bin/SensorKinect-Win32-5.0.0.exe
+
   * Your surroundings may impact on the ability of skeleton tracking.
     * Baggy cloths could make the skeleton tracking difficult. If so, change your cloths.
     * Objects that reflect IR emitted by Kinect could make the skeleton tracking difficult. For example, I have had a trouble that the carpet around my feet is detected as a part of my body. Changing the position of the objects in your room or changing the angle of Kinect could solve the issue.
