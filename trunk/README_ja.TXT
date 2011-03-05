@@ -1,6 +1,6 @@
-kinect-ultra V0.1e
+kinect-ultra V0.1f (rc)
 Author: Tomoto S. Washio
-Release Date: 2011/2/13
+Release Date: yyyy/mm/dd
 Project URL: http://code.google.com/p/kinect-ultra/
 
 1. 前提条件
@@ -9,27 +9,31 @@ Project URL: http://code.google.com/p/kinect-ultra/
 (2) Windowsで動きます。テストしたのはWindows XP Pro SP3だけです。
 (3) それなりに早いCPUとGPUが必要だと思います。
 　　- どこが最低ラインかはわかりません。
-　　- 少なくともGPUはプログラマブルシェーダをサポートしている必要があります。
+　　- 少なくともGPUはOpenGL 2.x以上、プログラマブルシェーダ、
+　　　VAOをサポートしている必要があります。
 　　- Core i7 920とGeForce GTX 285で快適に動いています。
     動作報告のあった構成が下記のページにあるので参考にしてください。
     http://code.google.com/p/kinect-ultra/wiki/WorkingConfigurations
 
 2. インストール
 
-(1) もしまだであれば、OpenNIをダウンロード、インストールしてください。
+(1) もしまだであれば、OpenNI(安定版)をダウンロード、インストールしてください。
     http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/
 
-(2) もしまだであれば、NITEをダウンロード、インストールしてください。
+(2) もしまだであれば、NITE(安定版)をダウンロード、インストールしてください。
     http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/stable/55-primesense-nite-beta-build-for-windows-v1-3-0/
 
     ライセンスキーはこれを使ってください: 0KOIk2JeIBYClPWVnMoRKn5cdY4=
 
-(3) もしまだであれば、OpenNI互換Kinectドライバをダウンロード、
-　　インストールしてください。
-    https://github.com/avin2/SensorKinect 
+(3) もしまだであれば、OpenNI(安定版)互換Kinectドライバをダウンロード、
+    インストールしてください。
+    https://github.com/avin2/SensorKinect/blob/4e91f689fc5c8320f920b2976abdd9b50ee1baf0/Bin/SensorKinect-Win32-5.0.0.exe
 
     OpenKinectなど、他のドライバを既にインストールしている場合、
     ドライバを切り替える必要があるでしょう。
+
+    これらのソフトウェアの不安定版を使うと、キャリブレーションが
+    簡単に解除されてしまう場合があります。安定版の使用をお勧めします。
 
 (4) このアーカイブを好きなところに展開してください。
 

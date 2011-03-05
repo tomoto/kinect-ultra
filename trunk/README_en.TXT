@@ -1,6 +1,6 @@
-kinect-ultra V0.1e
+kinect-ultra V0.1f-rc
 Author: Tomoto S. Washio
-Release Date: 2/13/2011
+Release Date: mm/dd/yyyy
 Project URL: http://code.google.com/p/kinect-ultra/
 
 1. Prerequisitive
@@ -10,7 +10,8 @@ Project URL: http://code.google.com/p/kinect-ultra/
     it is only tested on Windows XP Pro SP3 at this moment.
 (3) Your computer should have sufficiently fast CPU and GPU.
     - The minimum requirement is unknown
-    - The GPU must support programmable shaders at least.
+    - The GPU must support OpenGL 2.x or higher, programmable shaders,
+      and VAOs at least.
     - Core i7 920 + GeForce GTX 285 is sufficient at least.
     See http://code.google.com/p/kinect-ultra/wiki/WorkingConfigurations
     for the list of the hardware/software configurations this program is
@@ -18,21 +19,25 @@ Project URL: http://code.google.com/p/kinect-ultra/
 
 2. Installation
 
-(1) If you have not yet done, download OpenNI and install it.
+(1) If you have not yet done, download OpenNI(stable) and install it.
     http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/
 
-(2) If you have not yet done, download NITE and install it.
+(2) If you have not yet done, download NITE(stable) and install it.
     http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/stable/55-primesense-nite-beta-build-for-windows-v1-3-0/
 
     Use the following string as the license key during installation:
     0KOIk2JeIBYClPWVnMoRKn5cdY4=
 
-(3) If you have not yet done, download OpenNI-compatible Kinect driver
+(3) If you have not yet done, download OpenNI(stable)-compatible Kinect driver
     and install it.
-    https://github.com/avin2/SensorKinect 
+    https://github.com/avin2/SensorKinect/blob/4e91f689fc5c8320f920b2976abdd9b50ee1baf0/Bin/SensorKinect-Win32-5.0.0.exe
 
     If you already have OpenKinect or other drivers installed, you will
     need to switch those drivers.
+
+    Note if you use the unstable versions of these middleware and drivers,
+    you may have a trouble in calibration. I strongly recommend you to use
+    the stable versions.
 
 (4) Unpack this archive anywhere you like.
 
