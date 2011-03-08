@@ -20,6 +20,7 @@
 === "Failed: File not found!" appears ===
 
   * Possibly the current directory (working directory) does not contain "data" directory. Put kinect-ultra.exe and "data" directory at the same location, and launch it with the current directory set there.
+  * If you attempt to run this program on VC++, set working directory to .. in the debugger settings. You need to do it manually because this setting is not saved to VC project files, sln or vcproj. (sigh...)
 
 === "Failed: This GPU does not support shaders" appears ===
 
