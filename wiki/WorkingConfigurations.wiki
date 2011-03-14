@@ -30,6 +30,7 @@
 || Xeon 3470    || Quadro FX 3800  || Win XP 64           || Jiang         ||||
 || Core 2 Quad  || GeForce 8800    || Win Vista Home Prem 32 || Ismael        ||||
 || Core 2 Duo U9300  || Mobile Intel 4 Series Express (`*1`) || Win XP Pro 32 || tomoto        || Very low frame rate ||
+|| Amdx2 64 3200 || GeForce 9500GT || Win 7 Pro || rg7strin... || ||
 
 (`*1`) Driver version = 6.14.10.5303. Note 6.14.10.4953 does not support shader.
 
