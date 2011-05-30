@@ -34,9 +34,10 @@
 #include "AbstractPoseDetector.h"
 #include "UserListener.h"
 #include "UserDetector.h"
+#include "Configurable.h"
 #include "TimeTicker.h"
 
-class HenshinDetector : public AbstractPoseDetector, UserListener
+class HenshinDetector : public AbstractPoseDetector, UserListener, Configurable
 {
 public:
 	enum Stage {
@@ -57,8 +58,6 @@ public:
 	UserDetector* getUserDetector() { return m_userDetector; }
 	HenshinDetector::Stage getStage() { return m_stage; }
 
-	void detect();
-
 	float getHenshiningProgress();
 	float getHenshinedTime();
 	float getDehenshiningProgress();
@@ -69,6 +68,7 @@ public:
 
 	virtual bool isPosing(float dt);
 	virtual void onPoseDetected(float dt);
+	virtual void onDetectPost(float dt);
 
 	//
 	// user listener methods

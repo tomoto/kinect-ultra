@@ -183,7 +183,7 @@ bool EyeSluggerDetector::isHandBackOfHead()
 	return handsPosed[0] || handsPosed[1];
 }
 
-bool EyeSluggerDetector::isPosingNomal(float dt)
+bool EyeSluggerDetector::processPosingNomal(float dt)
 {
 	if (isHandBackOfHead()) {
 		posingNormal(dt);
@@ -230,7 +230,7 @@ void EyeSluggerDetector::unposingInHand(float dt)
 	}
 }
 
-bool EyeSluggerDetector::isPosingInHand(float dt)
+bool EyeSluggerDetector::processPosingInHand(float dt)
 {
 	XV3 pr = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
 	XV3 pl = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND);
@@ -259,7 +259,7 @@ void EyeSluggerDetector::unposingInAir(float dt)
 	// TODO release ES at some time
 }
 
-bool EyeSluggerDetector::isPosingInAir(float dt)
+bool EyeSluggerDetector::processPosingInAir(float dt)
 {
 	XV3 p = m_renderer->getOrigin();
 	XV3 pr = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
@@ -276,30 +276,26 @@ bool EyeSluggerDetector::isPosingInAir(float dt)
 	}
 }
 
-bool EyeSluggerDetector::isPosing(float dt)
+void EyeSluggerDetector::onDetectPre(float dt)
 {
 	if (m_henshinDetector->getStage() != HenshinDetector::STAGE_HENSHINED) {
-		return false;
+		return;
 	}
 
 	if (m_renderer->isShot()) {
-		return false; // already shot, nothing to do
+		return; // already shot, nothing to do
 	}
 
 	switch (m_stage) {
 		case STAGE_NORMAL:
-			return isPosingNomal(dt);
+			processPosingNomal(dt);
+			break;
 		case STAGE_HOLDING_IN_HAND:
 		case STAGE_HOLDING_IN_HAND_POST:
-			return isPosingInHand(dt);
+			processPosingInHand(dt);
+			break;
 		case STAGE_HOLDING_IN_AIR:
-			return isPosingInAir(dt);
+			processPosingInAir(dt);
+			break;
 	}
-
-	return false; // should not come
-}
-
-void EyeSluggerDetector::onPoseDetected(float dt)
-{
-	// TODO process is done in isPosing. could be more elegant.
 }

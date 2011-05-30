@@ -71,20 +71,19 @@ private:
 	void posingNormal(float dt);
 	void unposingNormal(float dt);
 	bool isHandBackOfHead();
-	bool isPosingNomal(float dt);
+	bool processPosingNomal(float dt);
 
 
 	void fixSlugger();
 	void posingInHand(float dt);
 	void unposingInHand(float dt);
-	bool isPosingInHand(float dt);
+	bool processPosingInHand(float dt);
 
 	void posingInAir(float dt);
 	void unposingInAir(float dt);
-	bool isPosingInAir(float dt);
+	bool processPosingInAir(float dt);
 
-	virtual bool isPosing(float dt);
-	virtual void onPoseDetected(float dt);
+	virtual void onDetectPre(float dt);
 };
 
 #endif
