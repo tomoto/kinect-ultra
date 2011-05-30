@@ -99,4 +99,6 @@ inline float convertRGBtoGray(float r, float g, float b)
 
 float getPointSize();
 
+void renderStrokeText(const char* text, const XnVector3D& position, const XnVector3D& scale, float thickness, float color[4]);
+
 #endif

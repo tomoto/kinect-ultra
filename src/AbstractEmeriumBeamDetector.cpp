@@ -34,7 +34,7 @@ AbstractEmeriumBeamDetector::AbstractEmeriumBeamDetector(DepthGenerator* depthGe
 : AbstractPoseDetector(userDetector)
 {
 	m_beamRenderer = beamRenderer;
-	setRequiredPosingStability(8);
+	setRequiredPosingStability(0.25f);
 }
 
 AbstractEmeriumBeamDetector::~AbstractEmeriumBeamDetector()

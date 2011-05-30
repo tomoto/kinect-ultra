@@ -33,7 +33,7 @@
 HenshinDetector::HenshinDetector(UserDetector* userDetector) : AbstractPoseDetector(userDetector)
 {
 	m_userDetector->addListener(this);
-	setRequiredPosingStability(5);
+	setRequiredPosingStability(0.15f);
 	transitToHuman();
 }
 
@@ -92,15 +92,13 @@ bool HenshinDetector::isDehenshinPosing()
 	XV3 vlse((ple - pls).normalize()), vleh((plh - ple).normalize());
 	XV3 up(0, 1, 0);
 
-	const float STRAIGHT_THRESHOLD = 0.9f;
+	const float STRAIGHT_THRESHOLD = 0.85f - 0.1f * getConfiguration()->getTriggerHappyLevel();
 	return vrse.dot(vreh) > STRAIGHT_THRESHOLD && vrse.dot(vleh) > STRAIGHT_THRESHOLD &&
 		vrse.Y > STRAIGHT_THRESHOLD && vlse.Y > STRAIGHT_THRESHOLD;
 }
 
-void HenshinDetector::detect()
+void HenshinDetector::onDetectPost(float dt)
 {
-	AbstractPoseDetector::detect();
-
 	switch (m_stage) {
 		case STAGE_HENSHINING:
 			if (getHenshiningProgress() > 1) {
@@ -118,7 +116,6 @@ void HenshinDetector::detect()
 			}
 			break;
 	}
-
 }
 
 float HenshinDetector::getHenshiningProgress()

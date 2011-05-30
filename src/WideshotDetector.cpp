@@ -34,7 +34,7 @@ WideshotDetector::WideshotDetector(DepthGenerator* depthGen, UserDetector* userD
 : AbstractPoseDetector(userDetector)
 {
 	m_beamRenderer = beamRenderer;
-	setRequiredPosingStability(5);
+	setRequiredPosingStability(0.15f);
 }
 
 WideshotDetector::~WideshotDetector()

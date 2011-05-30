@@ -111,3 +111,17 @@ void readBatchDef(const char* file, const XnVector3D& origin, float scale, std::
 	fclose(fp);
 }
 
+void renderStrokeText(const char* text, const XnVector3D& position, const XnVector3D& scale, float thickness, float color[4])
+{
+	glUseProgram(0);
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(position.X, position.Y, position.Z);
+	glScalef(scale.X, scale.Y, scale.Z);
+	glLineWidth(getPointSize() * thickness);
+	glColor4fv(color);
+	for (const char* p = text; *p; p++) {
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+	}
+	glPopMatrix();
+}
