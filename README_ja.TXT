@@ -17,23 +17,27 @@ Project URL: http://code.google.com/p/kinect-ultra/
 
 2. インストール
 
-(1) もしまだであれば、OpenNI(安定版)をダウンロード、インストールしてください。
-    http://www.openni.org/downloadfiles/openni-binaries/stable/26-openni-alpha-build-for-windows-v1-0-0/
+(1) もしまだであれば、OpenNIをダウンロード、インストールしてください。
+    http://www.openni.org/downloadfiles/2-openni-binaries
 
-(2) もしまだであれば、NITE(安定版)をダウンロード、インストールしてください。
-    http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/stable/55-primesense-nite-beta-build-for-windows-v1-3-0/
+(2) もしまだであれば、NITEをダウンロード、インストールしてください。
+    http://www.openni.org/downloadfiles/12-openni-compliant-middleware-binaries
 
     ライセンスキーはこれを使ってください: 0KOIk2JeIBYClPWVnMoRKn5cdY4=
 
-(3) もしまだであれば、OpenNI(安定版)互換Kinectドライバをダウンロード、
+(3) もしまだであれば、OpenNI互換Kinectドライバをダウンロード、
     インストールしてください。
-    https://github.com/avin2/SensorKinect/blob/4e91f689fc5c8320f920b2976abdd9b50ee1baf0/Bin/SensorKinect-Win32-5.0.0.exe
+    https://github.com/avin2/SensorKinect/tree/master/Bin
 
     OpenKinectなど、他のドライバを既にインストールしている場合、
     ドライバを切り替える必要があるでしょう。
 
-    これらのソフトウェアの不安定版を使うと、キャリブレーションが
-    簡単に解除されてしまう場合があります。安定版の使用をお勧めします。
+    これらのソフトウェアの推奨バージョンは、現在知る限り、以下の通りです。
+    推奨バージョンは変わる可能性があるので、プロジェクトサイトを見て
+    最新情報をチェックしてください。
+    - OpenNI unstable v1.1.0.41: http://www.openni.org/downloadfiles/openni-binaries/latest-unstable/108-openni-unstable-build-for-windows-x86-32-bit-v1-1-0/download
+    - NITE unstable v1.3.1.5: http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/latest-unstable/115-primesense-nite-unstable-build-for-windows-x86-32-bit-v1-3-1/download
+    - SensorKinect driver for unstable OpenNI 5.0.1: https://github.com/avin2/SensorKinect/blob/unstable/Bin/SensorKinect-Win-OpenSource32-5.0.1.msi
 
 (4) このアーカイブを好きなところに展開してください。
 
