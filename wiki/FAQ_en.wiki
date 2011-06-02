@@ -39,7 +39,7 @@ I will investigate the reported issues as far as I can, but it is actually very 
 
 == Skeleton tracking easily lost ==
 
-  * I noticed that the skeleton tracking could be easily lost with some unstable versions of OpenNI, NITE, and SensorKinect. See [WorkingConfigurations] for the recommended version combination.
+  * I noticed that the skeleton tracking could be easily lost if you were using some unstable versions of OpenNI, NITE, and SensorKinect. See [WorkingConfigurations] for the recommended version combination for these software components.
 
   * Your surroundings may impact on the ability of skeleton tracking.
     * Baggy cloths could make the skeleton tracking difficult. If so, change your cloths.
