@@ -265,6 +265,7 @@ static void initRenderers()
 
 	// g_testTorusRenderer = new TestTorusRenderer(&g_renderingCtx);
 
+	LOG( g_renderingCtx.mirror() ); // flip the screen by default
 	LOG( takeImageSnapshot() );
 }
 
