@@ -60,3 +60,4 @@ I will investigate the reported issues as far as I can, but it is actually very 
 == Does not run on the debugger ==
 
   * Make sure you set ".." (parent directory) to the working directory in the debugger settings. You will get "File Not Found" error otherwise.
+  * Run VC++ in administrator mode. You may get "Runtime Error R6030 - CRT not initialized" otherwise.
