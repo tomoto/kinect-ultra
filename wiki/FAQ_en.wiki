@@ -55,7 +55,7 @@ I will investigate the reported issues as far as I can, but it is actually very 
   * You need to have a reasonably high frame rate (I assume more than 15 frames/sec) to get a good detection. You need to stay on the same pose for several frames until a power is triggered, and a low frame rate makes it difficult. In any ways, the powers would not look neat at a low frame rate.
   * Try to set the Trigger Happy Mode to Happy or Happier by hitting 't' key. This will make the pose detection easier.
 
-= Compilation and build issues =
+= For Kinect Hackers: Compilation and build issues =
 
 == Does not run on the debugger ==
 
