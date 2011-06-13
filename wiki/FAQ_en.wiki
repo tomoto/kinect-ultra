@@ -24,7 +24,11 @@
 
 === "Failed: This GPU does not support shaders" appears ===
 
-  * Possibly GPU and graphics driver does not support a required feature called "programmable shader." This feature is supported by OpenGL 2 and later. If the OpenGL version that appears right above the error message shows less than 2.0, this is the cause. This may be solved by upgrading the graphics driver.
+  * Possibly GPU and graphics driver does not support the required feature called "programmable shader." This feature is supported by OpenGL 2 or later. If the OpenGL version that appears right above the error message shows less than 2.0, this is the cause. This may be solved by upgrading the graphics driver.
+
+=== "Sorry this program cannot run because VAOs are not supported" appears ===
+
+  * Possibly GPU and graphics driver does not support the required feature called "VAO." This feature is supported by OpenGL 3 or later. OpenGL 2 is also OK if your GPU and graphics driver supports VAO extension. This may be solved by upgrading the graphics driver.
 
 == Terminated abnormally ==
 
