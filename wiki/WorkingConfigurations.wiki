@@ -10,6 +10,9 @@
     # OpenNI unstable v1.1.0.41: http://www.openni.org/downloadfiles/openni-binaries/latest-unstable/108-openni-unstable-build-for-windows-x86-32-bit-v1-1-0/download
     # NITE unstable v1.3.1.5: http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/latest-unstable/115-primesense-nite-unstable-build-for-windows-x86-32-bit-v1-3-1/download
     # SensorKinect driver for unstable OpenNI 5.0.1: https://github.com/avin2/SensorKinect/blob/unstable/Bin/SensorKinect-Win-OpenSource32-5.0.1.msi
+  * This program does not work if you installed Microsoft's official KinectSDK. This issue generally happens for any Kinect Hacks created by OpenNI+NITE+SensorKinect. You can workaround this issue by the following steps. (Sorry this is a kind of tricky.) The behavior is not exactly the same as the original, but it "a sort of" works.
+    # Download the workaround module from the following URL and extract the archive somewhere: https://www.assembla.com/code/kinect-mssdk-openni-bridge/git/nodes/release/kinect-mssdk-openni-bridge-0.0.zip
+    # Install the module as to README, and modify data/OpenNIConfig.xml in this program as instructed by the same README.
 
 @ja 動作報告(または動作しなかった報告)のあった構成です。*あなたの構成をコメントで教えてください。*
 
@@ -18,6 +21,9 @@
     # OpenNI unstable v1.1.0.41: http://www.openni.org/downloadfiles/openni-binaries/latest-unstable/108-openni-unstable-build-for-windows-x86-32-bit-v1-1-0/download
     # NITE unstable v1.3.1.5: http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/latest-unstable/115-primesense-nite-unstable-build-for-windows-x86-32-bit-v1-3-1/download
     # SensorKinect driver for unstable OpenNI 5.0.1: https://github.com/avin2/SensorKinect/blob/unstable/Bin/SensorKinect-Win-OpenSource32-5.0.1.msi
+  * Microsoft公式KinectSDKをインストールすると動かなくなるという問題があります。これは本プログラムに限らず、OpenNI+NITE+SensorKinectを使って作られたKinect Hack一般で発生する問題です。この問題は次の手順で回避することができます(ややこしい手順ですみません)。オリジナルと完全に同じ動きにはならないものの一応動く状態にはなります。
+    # 次のURLから回避用モジュールをダウンロードし、どこかに展開する: https://www.assembla.com/code/kinect-mssdk-openni-bridge/git/nodes/release/kinect-mssdk-openni-bridge-0.0.zip
+    # READMEにしたがってインストールし、さらに同READMEにしたがって本プログラムのdata/OpenNIConfig.xmlを書き換える。
 
 == Work ==
 
