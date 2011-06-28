@@ -24,7 +24,7 @@
   * Microsoft公式KinectSDKをインストールすると動かなくなるという問題があります。これは本プログラムに限らず、OpenNI+NITE+SensorKinectを使って作られたKinect Hack一般で発生する問題です。この問題は次の手順で回避することができます(ややこしい手順ですみません)。オリジナルと完全に同じ動きにはならないものの一応動く状態にはなります。
     # 次のURLから回避用モジュールをダウンロードし、どこかに展開する: https://www.assembla.com/code/kinect-mssdk-openni-bridge/git/nodes/release/kinect-mssdk-openni-bridge-0.0.zip
     # READMEにしたがってインストールし、さらに同READMEにしたがって本プログラムのdata/OpenNIConfig.xmlを書き換える。
-    * 補足: [http://d.hatena.ne.jp/kaorun55/20110627/1309193339 この手順をわかりやすく説明した記事]をkaorun55さんに書いていただきました。合わせて参照してください。(なおkaorun55さんの記事では回避用モジュールを取得するためにgitをインストールしていますが、上記のzipをダウンロードすればこれは不要です。)
+    * 補足: [http://d.hatena.ne.jp/kaorun55/20110627/1309193339 この手順をわかりやすく説明した記事]をkaorun55さんに書いていただきました。合わせて参照してください。
 
 == Work ==
 
