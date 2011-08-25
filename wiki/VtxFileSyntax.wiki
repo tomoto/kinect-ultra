@@ -14,7 +14,10 @@ A vtx file is a text file that defines a sequence of OpenGL functions to render 
 
 Each `Polygon Block` is mapped to the following OpenGL function invocations: `glBegin(<mode number>)`, followed by `glNormal3f(<nx>, <ny>, <nz>)` and `glVertex3f(<x>, <y>, <z>)` repeating for each `Vertex Line`, and then followed by `glEnd()`.
 
-== Example ==
+= Example =
+
+This is an extract of actual eyeSlugger.vtx with annotations.
+
 {{{
 64 <- 64 polygons will follow
 9 4 <- starts the first polygon by glBegin(GL_POLYGON) with 4 vertices
