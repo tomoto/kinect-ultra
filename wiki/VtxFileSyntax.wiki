@@ -70,3 +70,11 @@ This is an extract of actual eyeSlugger.vtx with annotations.
 5.0000 266.1489 94.2641 1.0000 0.0000 0.0000
 ...
 }}}
+
+= Converting .obj to .vtx =
+
+You can use a Perl script obj2vtx.pl (http://kinect-ultra.googlecode.com/svn/trunk/model/obj2vtx.pl) to create a scaffold of .vtx file. You need to have Perl to run it.
+
+`perl obj2vtx.pl my_model.obj > my_model.vtx`
+
+This script creates a .vtx file by simply mapping each surface in .obj file to an OpenGL polygon rendered by GL_POLYGON mode. This will work fine without modifications if all your polygons are convex. However, if you have one or more non-convex polygons (Eye Slugger has them unfortunattely), you need to fix them manually -- change the mode from GL_POLYGON (number = 9) to GL_TRIANGLE_STRIP (number = 5) or some other mode, and exchange the order of vertices to be rendered appropriately. (In theory, this process could be automated, but I simply did not do it to spare my time.)
