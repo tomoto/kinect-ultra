@@ -1,4 +1,5 @@
 #summary URLs for OpenNI and other prerequisitive downloads
+#labels Featured
 
 @en Below is the list of the URLs to download the OpenNI and other prerequisitive modules that I tested.
 
