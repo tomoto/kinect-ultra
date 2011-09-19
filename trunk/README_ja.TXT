@@ -1,12 +1,17 @@
-kinect-ultra V0.1f (rc)
+kinect-ultra V0.1f
 Author: Tomoto S. Washio
-Release Date: yyyy/mm/dd
+Release Date: 2011/9/18
 Project URL: http://code.google.com/p/kinect-ultra/
+
+0. これは何？
+
+ウルトラセブンのようなものに変身できるKinect Hackです。
 
 1. 前提条件
 
 (1) Kinect持ってますね？
-(2) Windowsで動きます。テストしたのはWindows XP Pro SP3だけです。
+(2) Windowsで動きます。テストしたのはWindows XP Pro SP3 32bitと
+    Windows 7 Pro 64bitだけです。
 (3) それなりに早いCPUとGPUが必要だと思います。
 　　- どこが最低ラインかはわかりません。
 　　- 少なくともGPUはOpenGL 2.x以上、プログラマブルシェーダ、
@@ -18,10 +23,10 @@ Project URL: http://code.google.com/p/kinect-ultra/
 2. インストール
 
 (1) もしまだであれば、OpenNIをダウンロード、インストールしてください。
-    http://www.openni.org/downloadfiles/2-openni-binaries
+    http://www.openni.org/downloadfiles/opennimodules/2-openni-binaries
 
 (2) もしまだであれば、NITEをダウンロード、インストールしてください。
-    http://www.openni.org/downloadfiles/12-openni-compliant-middleware-binaries
+    http://www.openni.org/downloadfiles/opennimodules/12-openni-compliant-middleware-binaries
 
     ライセンスキーはこれを使ってください: 0KOIk2JeIBYClPWVnMoRKn5cdY4=
 
@@ -32,12 +37,10 @@ Project URL: http://code.google.com/p/kinect-ultra/
     OpenKinectなど、他のドライバを既にインストールしている場合、
     ドライバを切り替える必要があるでしょう。
 
-    これらのソフトウェアの推奨バージョンは、現在知る限り、以下の通りです。
-    推奨バージョンは変わる可能性があるので、プロジェクトサイトを見て
-    最新情報をチェックしてください。
-    - OpenNI unstable v1.1.0.41: http://www.openni.org/downloadfiles/openni-binaries/latest-unstable/108-openni-unstable-build-for-windows-x86-32-bit-v1-1-0/download
-    - NITE unstable v1.3.1.5: http://www.openni.org/downloadfiles/openni-compliant-middleware-binaries/latest-unstable/115-primesense-nite-unstable-build-for-windows-x86-32-bit-v1-3-1/download
-    - SensorKinect driver for unstable OpenNI 5.0.1: https://github.com/avin2/SensorKinect/blob/unstable/Bin/SensorKinect-Win-OpenSource32-5.0.1.msi
+    上記ソフトウェアの推奨バージョンを、現在知る限りにおいて、
+    下記ページに掲載しています。推奨バージョンは変わる可能性が
+    あるので、ときどきサイトを見て最新情報をチェックしてください。
+    http://code.google.com/p/kinect-ultra/wiki/OpenNI_Downloads
 
 (4) このアーカイブを好きなところに展開してください。
 
@@ -65,9 +68,9 @@ LICENSE.TXTを見てください。
 5. ビルド方法
 
 自分でソースからビルドしたり変更したいという方は、プロジェクトページから
-ソースコードをダウンロードし、build/kinect-ultra.slnをVisual C++ 2008で
-開いてください。デバッガを使うには、プロジェクトの設定で作業ディレクトリを
-".." に設定してください。
+ソースコードをダウンロードし、build/kinect-kamehameha.slnをVisual C++ 2008
+または2010で開いてください。デバッガを使うには、プロジェクトの設定で
+作業ディレクトリを ".." に設定してください。
 
 Enjoy!
 Tomoto

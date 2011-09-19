@@ -32,6 +32,7 @@
 
 const int X_RES = 640;
 const int Y_RES = 480;
+const float XY_ASPECT = float(X_RES)/float(Y_RES);
 const char* const WIN_TITLE = "Ultra Seven";
 
 const float PERSPECTIVE_Z_MIN = 100;

@@ -56,8 +56,25 @@ public:
 
 	void mirror()
 	{
-		projectionMatrix.Scale(-1, 1, 1);
-		orthoMatrix.Scale(-1, 1, 1);
+		scaleMasterMatrix(-1, 1, 1);
+	}
+
+	void pushMasterMatrix()
+	{
+		projectionMatrix.PushMatrix();
+		orthoMatrix.PushMatrix();
+	}
+
+	void popMasterMatrix()
+	{
+		projectionMatrix.PopMatrix();
+		orthoMatrix.PopMatrix();
+	}
+
+	void scaleMasterMatrix(GLfloat x, GLfloat y, GLfloat z)
+	{
+		projectionMatrix.Scale(x, y, z);
+		orthoMatrix.Scale(x, y, z);
 	}
 };
 

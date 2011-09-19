@@ -1,5 +1,11 @@
 kinect-ultra Change History
 
+* 9/18/2011 V0.1f
+
+  * Supported toggle full-screen by [ENTER]
+  * Maintains aspect ratio when resizing the window
+  * Better error reporting when VAO is not supported
+
 * 2/13/2011 V0.1e
 
   * Made Wideshot easier to shoot.

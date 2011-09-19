@@ -125,3 +125,14 @@ void renderStrokeText(const char* text, const XnVector3D& position, const XnVect
 	}
 	glPopMatrix();
 }
+
+void getAspectRatioAdjustment(float targetAspectRatio, float areaAspectRatio, float* pScaleX, float *pScaleY)
+{
+	if (areaAspectRatio >= targetAspectRatio) {
+		*pScaleY = 1;
+		*pScaleX = targetAspectRatio / areaAspectRatio;
+	} else {
+		*pScaleY = areaAspectRatio / targetAspectRatio;
+		*pScaleX = 1;
+	}
+}
