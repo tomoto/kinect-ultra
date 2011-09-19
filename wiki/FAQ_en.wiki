@@ -31,6 +31,14 @@
 
   * Possibly GPU and graphics driver does not support the required feature called "VAO." This feature is supported by OpenGL 3 or later. OpenGL 2 is also OK if your GPU and graphics driver supports VAO extension. This may be solved by upgrading the graphics driver.
 
+== Exits with an error displayed in a popup dialog ==
+
+=== "OpenNI.dll is missing" appears ==
+
+  * This may show up when you use OpenNI 64-bit. Use OpenNI 32-bit to workaround. Whether your OS is 64-bit or 32-bit, OpenNI 32-bit works fine. You will not experience any performance drawback.
+
+  * Maybe I am over-simplifying, but there are only few advantages in using OpenNI 64-bit such as you can run a program that requires a huge amount of memory. As I do not see any advantages for my program, it has not been my priority to build 64-bit version of my program. I may do it when I get some time in the future, but please use OpenNI 32-bit for the time being.
+
 == Terminated abnormally ==
 
 I got some reports of this kind, but the cause is not clear. This may be solved by following actions.
