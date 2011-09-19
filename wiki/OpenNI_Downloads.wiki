@@ -6,7 +6,7 @@
 
   * OpenNI stable v1.3.2.1: http://www.openni.org/downloadfiles/opennimodules/openni-binaries/stable/132-openni-stable-build-for-windows-x86-32-bit-v1-3-2/download
   * NITE stable v1.4.0.5:http://www.openni.org/downloadfiles/opennimodules/openni-compliant-middleware-binaries/stable/146-primesense-nite-stable-build-for-windows-x86-32-bit-v1-4-0/download
-  * SensorKinect driver for stable OpenNI 5.0.3.3: https://github.com/avin2/SensorKinect/blob/12ad25d5e665dc061b0b7f1820d37af2fea43224/Bin/SensorKinect-Win-OpenSource32-5.0.3.3.msi
+  * SensorKinect driver for stable OpenNI 5.0.3.3: https://github.com/avin2/SensorKinect/blob/master/Bin/SensorKinect-Win-OpenSource32-5.0.3.3.msi?raw=true
 
 @en The module's provider may change the URLs and the links may become invalid. In case it happened, let me know or look for the files from the sites below by yourself.
 
