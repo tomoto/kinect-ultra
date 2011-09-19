@@ -12,5 +12,6 @@
 
 @ja モジュール提供元がURLを変え、リンクが無効になってしまう場合があります。このような場合にはお知らせいただくか、または下記のサイトからファイルを自力で検索してください。。
 
-  * OpenNI and Nite: http://www.openni.org/downloadfiles/opennimodules
+  * OpenNI: http://www.openni.org/downloadfiles/opennimodules/2-openni-binaries
+  * NITE: http://www.openni.org/downloadfiles/opennimodules/12-openni-compliant-middleware-binaries
   * SensorKinect: https://github.com/avin2/SensorKinect
