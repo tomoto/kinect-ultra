@@ -53,7 +53,7 @@
 
 #include <GLShaderManager.h>
 
-#define APP_VERSION "0.1f-rc"
+#define APP_VERSION "0.1f"
 
 // OpenNI objects
 Context g_context;
@@ -94,11 +94,29 @@ static void takeImageSnapshot()
 	g_flatImageRenderer->lock(true);
 }
 
+static void toggleFullScreenMode()
+{
+	static int x = -1, y, w, h;
+	if (x < 0) {
+		x = glutGet(GLUT_WINDOW_X);
+		y = glutGet(GLUT_WINDOW_Y);
+		w = glutGet(GLUT_WINDOW_WIDTH);
+		h = glutGet(GLUT_WINDOW_HEIGHT);
+		glutFullScreen();
+	} else {
+		glutPositionWindow(x, y);
+		glutReshapeWindow(w, h);
+		x = -1;
+	}
+}
+
 static void onGlutKeyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
 		case 27:
 			exit(1);
+		case 13:
+			toggleFullScreenMode();
 		case 'q':
 			g_worldRenderer->addDepthAdjustment(5);
 			break;
@@ -120,6 +138,17 @@ static void onGlutKeyboard(unsigned char key, int x, int y)
 	}
 }
 
+static void adjustViewport()
+{
+	float scaleX, scaleY;
+	int winWidth = glutGet(GLUT_WINDOW_WIDTH);
+	int winHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	getAspectRatioAdjustment(XY_ASPECT, float(winWidth) / float(winHeight), &scaleX, &scaleY);
+	GLsizei vpWidth = GLsizei(winWidth * scaleX);
+	GLsizei vpHeight = GLsizei(winHeight * scaleY);
+	glViewport((winWidth-vpWidth)/2, (winHeight-vpHeight)/2, vpWidth, vpHeight);
+}
+
 static void onGlutDisplay()
 {
 	g_frameRateCounter.update();
@@ -127,6 +156,8 @@ static void onGlutDisplay()
 	g_context.WaitAndUpdateAll();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	adjustViewport();
 
 	g_voxelObjectMapper->update();
 	g_henshinDetector->detect();
@@ -265,7 +296,7 @@ static void initRenderers()
 
 	// g_testTorusRenderer = new TestTorusRenderer(&g_renderingCtx);
 
-	LOG( g_renderingCtx.mirror() ); // flip the screen by default
+	// LOG( g_renderingCtx.mirror() ); // remove comment to flip the screen by default
 	LOG( takeImageSnapshot() );
 }
 
@@ -287,6 +318,7 @@ static void displayWelcomeMessage()
 		puts("");
 		puts("Available keys during the play:");
 		puts("[ESC]  -- Exit");
+		puts("[ENTER]-- Toggle full screen");
 		puts("[q][a] -- Adjust the depth of 3D virtual objects.");
 		puts("[s]    -- Retake the background image overlayed when you fly.");
 		puts("[f]    -- Output framerate to the console.");
