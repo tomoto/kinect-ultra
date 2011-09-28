@@ -70,6 +70,13 @@ I will investigate the reported issues as far as I can, but it is actually very 
 
 = For Kinect Hackers: Compilation and build issues =
 
+== How can I get the source code? ==
+
+  * Get Subversion (version control system) first. Google to know where to get and how to install.
+    * The master project is now in [http://subversion.apache.org/ Apache] although there are several derived works.
+    * If you prefer GUI, the popular [http://tortoisesvn.tigris.org/ TortoiseSVN] is recommended.
+  * Follow the instruction in the [http://code.google.com/p/kinect-ultra/source/checkout checkout] page. "Checkout" from https://kinect-ultra.googlecode.com/svn/trunk
+
 == Does not run on the debugger ==
 
   * Make sure you set ".." (parent directory) to the working directory in the debugger settings. You will get "File Not Found" error otherwise.
