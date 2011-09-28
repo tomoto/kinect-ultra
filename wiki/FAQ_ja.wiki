@@ -71,11 +71,10 @@ Issuesに報告していただければできる限り調査しますが、こ�
 
 == ソースコードを取得する方法は? ==
 
-  * checkoutページに書かれているようにソースコード管理ツールSubversionでチェックアウトします。(http://code.google.com/p/kinect-ultra/source/checkout)
-  * まずはSubversionを入手してください。ダウンロード方法やインストール方法はググればすぐ見つかります。
-    * 派生物が幾つかありますが、現在の本家はApacheのようです。(http://subversion.apache.org/)
-    * GUIがよければTortoiseSVNがポピュラーです。(http://tortoisesvn.tigris.org/)
-  * Subversionをインストールしたら、次のURLから "checkout" してください: https://kinect-ultra.googlecode.com/svn/trunk
+  * まずはソースコード管理ツールSubversionを入手してください。ダウンロード方法やインストール方法はググればすぐ見つかります。
+    * 派生物が幾つかありますが、現在の本家は[http://subversion.apache.org/ Apache]のようです。
+    * GUIがよければ[http://tortoisesvn.tigris.org/ TortoiseSVN]がポピュラーです。
+  * [http://code.google.com/p/kinect-ultra/source/checkout checkout]ページの説明に従い、次のURLから "checkout" してください: https://kinect-ultra.googlecode.com/svn/trunk
 
 == デバッガ上で実行できない ==
 
