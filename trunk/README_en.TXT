@@ -1,6 +1,6 @@
-kinect-ultra V0.1f
+kinect-ultra V0.1g-rc
 Author: Tomoto S. Washio
-Release Date: 9/18/2011
+Release Date: **/**/2011
 Project URL: http://code.google.com/p/kinect-ultra/
 
 0. What's this?
@@ -50,8 +50,10 @@ his superpowers.
 
 3. How to Use
 
-(1) Just run kinect-ultra.exe. Set the working directory to the same
-    location as the executable.
+(1) Just run kinect-ultra.exe.
+    - Set the working directory to the same location as the executable.
+    - Hit [ESC] key to end.
+    - Hit [Enter] key to make it full screen.
 
 (2) See the demo at:
     - English

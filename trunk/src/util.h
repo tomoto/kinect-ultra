@@ -105,4 +105,8 @@ void renderStrokeText(const char* text, const XnVector3D& position, const XnVect
 
 void getAspectRatioAdjustment(float targetAspectRatio, float areaAspectRatio, float* pScaleX, float *pScaleY);
 
+void adjustViewport();
+
+void toggleFullScreenMode();
+
 #endif
