@@ -1,9 +1,9 @@
 #summary URLs for OpenNI and other prerequisitive downloads
 #labels Featured
 
-@en Below is the list of the URLs to download the OpenNI and other prerequisitive modules that I tested.
+@en Below is the list of the URLs to download the OpenNI and other prerequisitive modules that I tested. Use 32bit version although your OS may be 64bit.
 
-@ja 現在動作確認できているOpenNI以下のモジュールのダウンロードURLです。
+@ja 現在動作確認できているOpenNI以下のモジュールのダウンロードURLです。お手持ちのOSが64ビット版でも32ビット版を使ってください。
 
   * OpenNI Stable Build for Windows x86 (32-bit) v1.3.3.6 Development Edition: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Binaries > Stable)
   * PrimeSense NITE Stable Build for Windows x86 (32-bit) v1.4.2.4 Development Edition: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Compliant Middleware Binaries > Stable)
