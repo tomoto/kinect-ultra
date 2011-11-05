@@ -5,14 +5,13 @@
 
 @ja 現在動作確認できているOpenNI以下のモジュールのダウンロードURLです。
 
-  * OpenNI stable v1.3.2.1: http://www.openni.org/downloadfiles/opennimodules/openni-binaries/stable/132-openni-stable-build-for-windows-x86-32-bit-v1-3-2/download
-  * NITE stable v1.4.0.5:http://www.openni.org/downloadfiles/opennimodules/openni-compliant-middleware-binaries/stable/146-primesense-nite-stable-build-for-windows-x86-32-bit-v1-4-0/download
-  * SensorKinect driver for stable OpenNI 5.0.3.3: https://github.com/avin2/SensorKinect/blob/master/Bin/SensorKinect-Win-OpenSource32-5.0.3.3.msi?raw=true
+  * OpenNI Stable Build for Windows x86 (32-bit) v1.3.3.6 Development Edition: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Binaries > Stable)
+  * PrimeSense NITE Stable Build for Windows x86 (32-bit) v1.4.2.4 Development Edition: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Compliant Middleware Binaries > Stable)
+  * SensorKinect driver unstable for OpenNI 5.0.3.4: https://github.com/avin2/SensorKinect/raw/unstable/Bin/SensorKinect-Win-OpenSource32-5.0.3.4.msi
 
 @en The module's provider may change the URLs and the links may become invalid. In case it happened, let me know or look for the files from the sites below by yourself.
 
 @ja モジュール提供元がURLを変え、リンクが無効になってしまう場合があります。このような場合にはお知らせいただくか、または下記のサイトからファイルを自力で検索してください。。
 
-  * OpenNI: http://www.openni.org/downloadfiles/opennimodules/2-openni-binaries
-  * NITE: http://www.openni.org/downloadfiles/opennimodules/12-openni-compliant-middleware-binaries
+  * OpenNI and NITE: http://www.openni.org/Downloads/OpenNIModules.aspx
   * SensorKinect: https://github.com/avin2/SensorKinect
