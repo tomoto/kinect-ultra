@@ -136,3 +136,31 @@ void getAspectRatioAdjustment(float targetAspectRatio, float areaAspectRatio, fl
 		*pScaleX = 1;
 	}
 }
+
+void adjustViewport()
+{
+	float scaleX, scaleY;
+	int winWidth = glutGet(GLUT_WINDOW_WIDTH);
+	int winHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	getAspectRatioAdjustment(XY_ASPECT, float(winWidth) / float(winHeight), &scaleX, &scaleY);
+	GLsizei vpWidth = GLsizei(winWidth * scaleX);
+	GLsizei vpHeight = GLsizei(winHeight * scaleY);
+	glViewport((winWidth-vpWidth)/2, (winHeight-vpHeight)/2, vpWidth, vpHeight);
+}
+
+void toggleFullScreenMode()
+{
+	static int x = -1, y, w, h;
+	if (x < 0) {
+		x = glutGet(GLUT_WINDOW_X);
+		y = glutGet(GLUT_WINDOW_Y);
+		w = glutGet(GLUT_WINDOW_WIDTH);
+		h = glutGet(GLUT_WINDOW_HEIGHT);
+		glutFullScreen();
+	} else {
+		glutPositionWindow(x, y);
+		glutReshapeWindow(w, h);
+		x = -1;
+	}
+}
+

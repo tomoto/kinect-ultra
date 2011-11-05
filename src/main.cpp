@@ -53,7 +53,7 @@
 
 #include <GLShaderManager.h>
 
-#define APP_VERSION "0.1f"
+#define APP_VERSION "0.1g-rc"
 
 // OpenNI objects
 Context g_context;
@@ -94,22 +94,6 @@ static void takeImageSnapshot()
 	g_flatImageRenderer->lock(true);
 }
 
-static void toggleFullScreenMode()
-{
-	static int x = -1, y, w, h;
-	if (x < 0) {
-		x = glutGet(GLUT_WINDOW_X);
-		y = glutGet(GLUT_WINDOW_Y);
-		w = glutGet(GLUT_WINDOW_WIDTH);
-		h = glutGet(GLUT_WINDOW_HEIGHT);
-		glutFullScreen();
-	} else {
-		glutPositionWindow(x, y);
-		glutReshapeWindow(w, h);
-		x = -1;
-	}
-}
-
 static void onGlutKeyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
@@ -136,17 +120,6 @@ static void onGlutKeyboard(unsigned char key, int x, int y)
 			g_renderingCtx.mirror();
 			break;
 	}
-}
-
-static void adjustViewport()
-{
-	float scaleX, scaleY;
-	int winWidth = glutGet(GLUT_WINDOW_WIDTH);
-	int winHeight = glutGet(GLUT_WINDOW_HEIGHT);
-	getAspectRatioAdjustment(XY_ASPECT, float(winWidth) / float(winHeight), &scaleX, &scaleY);
-	GLsizei vpWidth = GLsizei(winWidth * scaleX);
-	GLsizei vpHeight = GLsizei(winHeight * scaleY);
-	glViewport((winWidth-vpWidth)/2, (winHeight-vpHeight)/2, vpWidth, vpHeight);
 }
 
 static void onGlutDisplay()
@@ -342,5 +315,6 @@ void main(int argc, char* argv[])
 	initXN();
 	initRenderers();
 	glutShowWindow();
+	// toggleFullScreenMode(); // remove comment to run in the full-screen mode by default
 	glutMainLoop();
 }
