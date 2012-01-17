@@ -1,17 +1,16 @@
 #summary URLs for OpenNI and other prerequisitive downloads
 #labels Featured
 
-@en Below is the list of the URLs to download the OpenNI and other prerequisitive modules that I tested. Use 32bit version although your OS may be 64bit.
+@en Download OpenNI, NITE, and SensorKinect of the consistent version from below URLs. Use 32bit version although your OS may be 64bit. Refer to WorkingConfigurations for the version combinations I tested.
 
-@ja 現在動作確認できているOpenNI以下のモジュールのダウンロードURLです。お手持ちのOSが64ビット版でも32ビット版を使ってください。
+@ja OpenNI, NITE, SensorKinectの互換性のあるバージョン一式を下記URLからダウンロードしてください。お手持ちのOSが64ビット版でも32ビット版を使ってください。WorkingConfiguration ページに筆者がテストしたバージョンの組み合わせを載せてあるので参考にしてください。
 
-  * OpenNI 32-bit v1.3.3.6: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Binaries > Stable > OpenNI Stable Build for Windows x86 (32-bit) v1.3.3.6 Development Edition)
-  * NITE 32-bit v1.4.2.4: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Compliant Middleware Binaries > Stable > PrimeSense NITE Stable Build for Windows x86 (32-bit) v1.4.2.4 Development Edition)
-  * SensorKinect driver unstable for OpenNI 5.0.3.4: https://github.com/avin2/SensorKinect/raw/unstable/Bin/SensorKinect-Win-OpenSource32-5.0.3.4.msi
+  * OpenNI: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Binaries > Stable > OpenNI Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition)
+  * NITE: http//www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Compliant Middleware Binaries > Stable > PrimeSense NITE Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition)
+  * SensorKinect driver: https://github.com/avin2/SensorKinect
 
-@en The module's provider may change the URLs and the links may become invalid. In case it happened, let me know or look for the files from the sites below by yourself.
+@en Our folks in ZigFu created an easy-to-install all-in-one package. Thanks to them, you can download and install all of these modules with almost no hustle. You may want to get this from below URL. 
 
-@ja モジュール提供元がURLを変え、リンクが無効になってしまう場合があります。このような場合にはお知らせいただくか、または下記のサイトからファイルを自力で検索してください。。
+@ja ZigFuの仲間が簡単にインストールできる全部入りパッケージを作ってくれました。下記URLからこれをダウンロードして使うこともできます。
 
-  * OpenNI and NITE: http://www.openni.org/Downloads/OpenNIModules.aspx
-  * SensorKinect: https://github.com/avin2/SensorKinect
+  * http://zigfu.com/devtools.html (download DevBundle)
