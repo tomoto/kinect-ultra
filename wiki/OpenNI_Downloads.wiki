@@ -3,7 +3,7 @@
 
 @en Download OpenNI, NITE, and SensorKinect of the consistent version from below URLs. Use 32bit version although your OS may be 64bit. Refer to WorkingConfigurations for the version combinations I tested.
 
-@ja OpenNI, NITE, SensorKinectの互換性のあるバージョン一式を下記URLからダウンロードしてください。お手持ちのOSが64ビット版でも32ビット版を使ってください。WorkingConfiguration ページに筆者がテストしたバージョンの組み合わせを載せてあるので参考にしてください。
+@ja OpenNI, NITE, SensorKinectの互換性のあるバージョン一式を下記URLからダウンロードしてください。お手持ちのOSが64ビット版でも32ビット版を使ってください。WorkingConfigurations ページに筆者がテストしたバージョンの組み合わせを載せてあるので参考にしてください。
 
   * OpenNI: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Binaries > Stable > OpenNI Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition)
   * NITE: http//www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Compliant Middleware Binaries > Stable > PrimeSense NITE Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition)
