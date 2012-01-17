@@ -6,7 +6,7 @@
 @ja OpenNI, NITE, SensorKinectの互換性のあるバージョン一式を下記URLからダウンロードしてください。お手持ちのOSが64ビット版でも32ビット版を使ってください。WorkingConfigurations ページに筆者がテストしたバージョンの組み合わせを載せてあるので参考にしてください。
 
   * OpenNI: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Binaries > Stable > OpenNI Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition)
-  * NITE: http//www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Compliant Middleware Binaries > Stable > PrimeSense NITE Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition)
+  * NITE: http://www.openni.org/Downloads/OpenNIModules.aspx (Choose OpenNI Compliant Middleware Binaries > Stable > PrimeSense NITE Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition)
   * SensorKinect driver: https://github.com/avin2/SensorKinect
 
 @en Our folks in ZigFu created an easy-to-install all-in-one package. Thanks to them, you can download and install all of these modules with almost no hustle. You may want to get this from below URL. 
