@@ -69,7 +69,7 @@ GLuint readAlphaTexture(const char* file)
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	loadMipmappedTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	loadMipmappedTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
 
 	delete[] pixels;
 	cvReleaseImage(&image);
@@ -85,7 +85,7 @@ float getPointSize()
 		);
 }
 
-void readBatchDef(const char* file, const XnVector3D& origin, float scale, std::vector<GLBatch>* pBatches)
+void readBatchDef(const char* file, const XV3& origin, float scale, std::vector<GLBatch>* pBatches)
 {
 	FILE* fp = fopen(file, "r");
 	CHECK_ERROR(fp != NULL, "Model definition cannot be opened.");
@@ -111,7 +111,7 @@ void readBatchDef(const char* file, const XnVector3D& origin, float scale, std::
 	fclose(fp);
 }
 
-void renderStrokeText(const char* text, const XnVector3D& position, const XnVector3D& scale, float thickness, float color[4])
+void renderStrokeText(const char* text, const XV3& position, const XV3& scale, float thickness, float color[4])
 {
 	glUseProgram(0);
 	glPushMatrix();

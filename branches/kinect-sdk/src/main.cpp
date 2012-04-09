@@ -28,12 +28,16 @@
 //@COPYRIGHT@//
 
 #include "common.h"
-#include "config.h"
+//#include "config.h"
 #include "util.h"
 
 #include "Configuration.h"
 
 #include "RenderingContext.h"
+
+#include "ImageProvider.h"
+#include "DepthProvider.h"
+#include "UserProvider.h"
 
 #include "ImageRenderer.h"
 #include "WorldRenderer.h"
@@ -48,50 +52,49 @@
 #include "EyeSluggerDetector.h"
 #include "EyeSluggerRenderer.h"
 #include "VoxelObjectMapper.h"
-#include "TestTorusRenderer.h"
+//#include "TestTorusRenderer.h"
 #include "FrameRateCounter.h"
 
 #include <GLShaderManager.h>
 
-#define APP_VERSION "0.1g-rc"
+#define APP_VERSION "k1.0"
 
-// OpenNI objects
-Context g_context;
-DepthGenerator g_depthGen;
-ImageGenerator g_imageGen;
-UserGenerator g_userGen;
+static DepthProvider* s_depthProvider;
+static ImageProvider* s_imageProvider;
+static UserProvider* s_userProvider;
+
+// NUI objects
+static INuiSensor* s_pSensor;
 
 // GL objects
-GLShaderManager g_shaderMan;
+static GLShaderManager s_shaderMan;
 
 // App objects
-RenderingContext g_renderingCtx;
+static RenderingContext* s_renderingContext;
 
-ImageRenderer* g_flatImageRenderer;
-WorldRenderer* g_worldRenderer;
-SkeletonRenderer* g_skeletonRenderer;
-WideshotRenderer* g_wideshotRenderer;
-EmeriumBeamRenderer1* g_emeriumBeamRenderer1;
-EmeriumBeamRenderer2* g_emeriumBeamRenderer2;
-SparkRenderer* g_sparkRenderer;
-EyeSluggerRenderer* g_eyeSluggerRenderer;
-//TestTorusRenderer* g_testTorusRenderer;
+static ImageRenderer* s_flatImageRenderer;
+static WorldRenderer* s_worldRenderer;
+static SkeletonRenderer* s_skeletonRenderer;
+static WideshotRenderer* s_wideshotRenderer;
+EmeriumBeamRenderer1* s_emeriumBeamRenderer1;
+EmeriumBeamRenderer2* s_emeriumBeamRenderer2;
+static SparkRenderer* s_sparkRenderer;
+static EyeSluggerRenderer* s_eyeSluggerRenderer;
+//TestTorusRenderer* s_testTorusRenderer;
 
-UserDetector* g_userDetector;
-HenshinDetector* g_henshinDetector;
-WideshotDetector* g_wideshotDetector;
-EmeriumBeamDetector1* g_emeriumBeamDetector;
-EmeriumBeamDetector2* g_emeriumBeamDetector2;
-VoxelObjectMapper* g_voxelObjectMapper;
-EyeSluggerDetector* g_eyeSluggerDetector;
+static UserDetector* s_userDetector;
+static HenshinDetector* s_henshinDetector;
+static WideshotDetector* s_wideshotDetector;
+EmeriumBeamDetector1* s_emeriumBeamDetector1;
+EmeriumBeamDetector2* s_emeriumBeamDetector2;
+static VoxelObjectMapper* s_voxelObjectMapper;
+static EyeSluggerDetector* s_eyeSluggerDetector;
 
-FrameRateCounter g_frameRateCounter;
+static FrameRateCounter s_frameRateCounter;
 
 static void takeImageSnapshot()
 {
-	g_flatImageRenderer->lock(false);
-	g_flatImageRenderer->draw();
-	g_flatImageRenderer->lock(true);
+	s_flatImageRenderer->lock(false);
 }
 
 static void onGlutKeyboard(unsigned char key, int x, int y)
@@ -102,81 +105,99 @@ static void onGlutKeyboard(unsigned char key, int x, int y)
 		case 13:
 			toggleFullScreenMode();
 		case 'q':
-			g_worldRenderer->addDepthAdjustment(5);
+			s_worldRenderer->addDepthAdjustment(5);
 			break;
 		case 'a':
-			g_worldRenderer->addDepthAdjustment(-5);
+			s_worldRenderer->addDepthAdjustment(-5);
 			break;
 		case 's':
 			takeImageSnapshot();
 			break;
 		case 'f':
-			g_frameRateCounter.toggleEnabled();
+			s_frameRateCounter.toggleEnabled();
 			break;
 		case 't':
 			Configuration::getInstance()->changeTriggerHappyMode();
 			break;
-		case 'm':
-			g_renderingCtx.mirror();
-			break;
+//		case 'm':
+//			s_renderingContext.mirror();
+//			break;
 	}
+}
+
+static BOOL waitForEvent(HANDLE hEvent, DWORD timeout)
+{
+	return WaitForSingleObjectEx(hEvent, timeout, TRUE) != WAIT_TIMEOUT;
 }
 
 static void onGlutDisplay()
 {
-	g_frameRateCounter.update();
+	if (!s_imageProvider->waitForNextFrameAndLock()) return;
+	if (!s_depthProvider->waitForNextFrameAndLock()) return;
+	if (!s_userProvider->waitForNextFrameAndLock()) return;
 
-	g_context.WaitAndUpdateAll();
+	s_frameRateCounter.update();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	adjustViewport();
 
-	g_voxelObjectMapper->update();
-	g_henshinDetector->detect();
-	g_wideshotDetector->detect();
-	g_emeriumBeamDetector->detect();
-	g_emeriumBeamDetector2->detect();
-	g_eyeSluggerDetector->detect();
+	s_voxelObjectMapper->update();
+	s_userDetector->detect();
+	s_henshinDetector->detect();
+	s_wideshotDetector->detect();
+	s_emeriumBeamDetector1->detect();
+	s_emeriumBeamDetector2->detect();
+	s_eyeSluggerDetector->detect();
 
-	if (g_henshinDetector->getStage() == HenshinDetector::STAGE_DEHENSHINING) {
-		g_flatImageRenderer->draw();
+	if (!s_flatImageRenderer->isLocked() ||
+			s_henshinDetector->getStage() == HenshinDetector::STAGE_DEHENSHINING) {
+		s_flatImageRenderer->draw();
+		s_flatImageRenderer->lock(true);
 	}
-	g_worldRenderer->draw();
-	g_eyeSluggerRenderer->draw();
-	g_skeletonRenderer->draw();
-	g_wideshotRenderer->draw();
-	g_emeriumBeamRenderer1->draw();
-	g_emeriumBeamRenderer2->draw();
-	g_sparkRenderer->draw();
 
-	// g_testTorusRenderer->draw();
+	s_worldRenderer->draw();
+	s_skeletonRenderer->draw();
+	s_eyeSluggerRenderer->draw();
+	s_wideshotRenderer->draw();
+	s_emeriumBeamRenderer1->draw();
+	s_emeriumBeamRenderer2->draw();
+	s_sparkRenderer->draw();
+
+	// s_testTorusRenderer->draw();
 	glutSwapBuffers();
+
+	s_userProvider->unlock();
+	s_depthProvider->unlock();
+	s_imageProvider->unlock();
 }
+
 static void onGlutIdle()
 {
 	glutPostRedisplay();
 }
 
-static void initXN()
+static void initNUI()
 {
-	CALL_XN( g_context.InitFromXmlFile(getResourceFile("config", "OpenNIConfig.xml").c_str()) );
-	CALL_XN( g_context.SetGlobalMirror(TRUE) );
-	CALL_XN( g_context.FindExistingNode(XN_NODE_TYPE_IMAGE, g_imageGen) );
-	CALL_XN( g_context.FindExistingNode(XN_NODE_TYPE_DEPTH, g_depthGen) );
-	CALL_XN( g_depthGen.GetAlternativeViewPointCap().SetViewPoint(g_imageGen) );
-	CALL_XN( g_context.FindExistingNode(XN_NODE_TYPE_USER, g_userGen) );
-	CALL_XN( g_userGen.Create(g_context) );
-	g_userGen.GetSkeletonCap().SetSkeletonProfile(XN_SKEL_PROFILE_ALL);
+	CALL_NUI(NuiCreateSensorByIndex(0, &s_pSensor));
+	DWORD flags = NUI_INITIALIZE_FLAG_USES_COLOR | NUI_INITIALIZE_FLAG_USES_DEPTH_AND_PLAYER_INDEX | NUI_INITIALIZE_FLAG_USES_SKELETON;
+	CALL_NUI(s_pSensor->NuiInitialize(flags));
+	s_imageProvider = new ImageProvider(s_pSensor);
+	s_depthProvider = new DepthProvider(s_pSensor);
+	s_userProvider = new UserProvider(s_pSensor);
+	s_userDetector = new UserDetector(s_userProvider);
+	s_henshinDetector = new HenshinDetector(s_userDetector);
+}
 
-	ImageMetaData imageMD;
-	g_imageGen.GetMetaData(imageMD);
-	CHECK_ERROR(imageMD.PixelFormat() == XN_PIXEL_FORMAT_RGB24, "This camera is not supported.");
+static void shutdownNUI()
+{
+	if (s_imageProvider != NULL) {
+		delete s_imageProvider;
+	}
 
-	g_userDetector = new UserDetector(&g_userGen);
-	g_henshinDetector = new HenshinDetector(g_userDetector);
-
-	CALL_XN( g_context.StartGeneratingAll() );
+	if (s_pSensor) {
+		s_pSensor->Release();
+	}
 }
 
 static void sorryThisProgramCannotRunBecause(const char* reason)
@@ -219,7 +240,7 @@ static void initGL(int* pArgc, char* argv[])
 	glutDisplayFunc(onGlutDisplay);
 	glutIdleFunc(onGlutIdle);
 
-	g_shaderMan.InitializeStockShaders();
+	s_shaderMan.InitializeStockShaders();
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -233,43 +254,43 @@ static void initGL(int* pArgc, char* argv[])
 
 static void initProjection()
 {
-	XnFieldOfView fov;
-	g_depthGen.GetFieldOfView(fov);
+	const float hfov = 1.0145f;
+	const float vfov = 0.7898f;
 
 	GLFrustum frustum;
-	float verticalFOVInDegree = float(m3dRadToDeg(fov.fVFOV));
-	float aspect = float(tan(fov.fHFOV/2)/tan(fov.fVFOV/2));
+	float verticalFOVInDegree = float(m3dRadToDeg(vfov));
+	float aspect = float(tan(hfov/2)/tan(vfov/2));
 	frustum.SetPerspective(verticalFOVInDegree, aspect, PERSPECTIVE_Z_MIN, PERSPECTIVE_Z_MAX);
 
-	g_renderingCtx.projectionMatrix.LoadMatrix(frustum.GetProjectionMatrix());
-	g_renderingCtx.projectionMatrix.Scale(-1, 1, -1);
+	s_renderingContext->projectionMatrix.LoadMatrix(frustum.GetProjectionMatrix());
+	s_renderingContext->projectionMatrix.Scale(-1, 1, -1);
 }
 
 static void initRenderers()
 {
-	g_renderingCtx.shaderMan = &g_shaderMan;
+	s_renderingContext = new RenderingContext(&s_shaderMan);
 
 	LOG( initProjection() );
 
-	LOG( g_voxelObjectMapper = new VoxelObjectMapper(&g_depthGen) );
-	LOG( g_sparkRenderer = new SparkRenderer(&g_renderingCtx) );
+	LOG( s_voxelObjectMapper = new VoxelObjectMapper(s_depthProvider) );
+	LOG( s_sparkRenderer = new SparkRenderer(s_renderingContext) );
 
-	LOG( g_flatImageRenderer = new ImageRenderer(&g_renderingCtx, &g_imageGen) );
-	LOG( g_flatImageRenderer->lock(false) );
-	LOG( g_worldRenderer = new WorldRenderer(&g_renderingCtx, &g_depthGen, &g_imageGen, g_henshinDetector) );
-	LOG( g_eyeSluggerRenderer = new EyeSluggerRenderer(&g_renderingCtx, g_henshinDetector) );
-	LOG( g_eyeSluggerDetector = new EyeSluggerDetector(g_henshinDetector, g_eyeSluggerRenderer) );
-	LOG( g_skeletonRenderer = new SkeletonRenderer(&g_renderingCtx, &g_depthGen, g_userDetector, g_henshinDetector) );
-	LOG( g_wideshotRenderer = new WideshotRenderer(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer) );
-	LOG( g_wideshotDetector = new WideshotDetector(&g_depthGen, g_userDetector, g_wideshotRenderer) );
-	LOG( g_emeriumBeamRenderer1 = new EmeriumBeamRenderer1(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer) );
-	LOG( g_emeriumBeamRenderer2 = new EmeriumBeamRenderer2(&g_renderingCtx, g_voxelObjectMapper, g_sparkRenderer) );
-	LOG( g_emeriumBeamDetector = new EmeriumBeamDetector1(&g_depthGen, g_userDetector, g_emeriumBeamRenderer1) );
-	LOG( g_emeriumBeamDetector2 = new EmeriumBeamDetector2(&g_depthGen, g_userDetector, g_emeriumBeamRenderer2) );
+	LOG( s_flatImageRenderer = new ImageRenderer(s_renderingContext, s_imageProvider) );
+	LOG( s_flatImageRenderer->lock(false) );
+	LOG( s_worldRenderer = new WorldRenderer(s_renderingContext, s_depthProvider, s_imageProvider, s_henshinDetector) );
+	LOG( s_skeletonRenderer = new SkeletonRenderer(s_renderingContext, s_depthProvider, s_userDetector, s_henshinDetector) );
+	LOG( s_eyeSluggerRenderer = new EyeSluggerRenderer(s_renderingContext, s_henshinDetector) );
+	LOG( s_eyeSluggerDetector = new EyeSluggerDetector(s_henshinDetector, s_eyeSluggerRenderer) );
+	LOG( s_wideshotRenderer = new WideshotRenderer(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
+	LOG( s_wideshotDetector = new WideshotDetector(s_depthProvider, s_userDetector, s_wideshotRenderer) );
+	LOG( s_emeriumBeamRenderer1 = new EmeriumBeamRenderer1(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
+	LOG( s_emeriumBeamRenderer2 = new EmeriumBeamRenderer2(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
+	LOG( s_emeriumBeamDetector1 = new EmeriumBeamDetector1(s_depthProvider, s_userDetector, s_emeriumBeamRenderer1) );
+	LOG( s_emeriumBeamDetector2 = new EmeriumBeamDetector2(s_depthProvider, s_userDetector, s_emeriumBeamRenderer2) );
 
-	// g_testTorusRenderer = new TestTorusRenderer(&g_renderingCtx);
+	 //s_testTorusRenderer = new TestTorusRenderer(&s_renderingContext);
 
-	// LOG( g_renderingCtx.mirror() ); // remove comment to flip the screen by default
+//	// LOG( s_renderingContext.mirror() ); // remove comment to flip the screen by default
 	LOG( takeImageSnapshot() );
 }
 
@@ -287,7 +308,7 @@ static void displayWelcomeMessage()
 		fclose(fp);
 	} else {
 		//    123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
-		puts("Welcome to Ultra Seven on Kinect!");
+		puts("Welcome to kinect-ultra!");
 		puts("");
 		puts("Available keys during the play:");
 		puts("[ESC]  -- Exit");
@@ -295,7 +316,7 @@ static void displayWelcomeMessage()
 		puts("[q][a] -- Adjust the depth of 3D virtual objects.");
 		puts("[s]    -- Retake the background image overlayed when you fly.");
 		puts("[f]    -- Output framerate to the console.");
-		puts("[m]    -- Mirror the screen.");
+		//puts("[m]    -- Mirror the screen.");
 		puts("[t]    -- Change Trigger Happy Mode. (Normal/Happy/Happier)");
 		puts("          This makes it easier to trigger the powers.");
 		puts("");
@@ -308,11 +329,12 @@ void main(int argc, char* argv[])
 {
 	// enable memory leak report for Win32 debug
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	atexit(shutdownNUI);
 
 	displayWelcomeMessage();
 
 	initGL(&argc, argv);
-	initXN();
+	initNUI();
 	initRenderers();
 	glutShowWindow();
 	// toggleFullScreenMode(); // remove comment to run in the full-screen mode by default

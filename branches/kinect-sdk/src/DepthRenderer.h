@@ -36,11 +36,11 @@
 class DepthRenderer : public AbstractTextureRenderer
 {
 private:
-	DepthGenerator* m_depthGen;
+	DepthProvider* m_depthProvider;
 	const XnDepthPixel* m_currentData;
 
 public:
-	DepthRenderer(RenderingContext* rctx, DepthGenerator* depthGen);
+	DepthRenderer(RenderingContext* rctx, DepthProvider* depthProvider);
 	virtual ~DepthRenderer();
 
 protected:

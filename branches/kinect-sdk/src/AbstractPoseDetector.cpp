@@ -47,7 +47,7 @@ void AbstractPoseDetector::detect()
 
 	onDetectPre(dt);
 
-	XnUserID userID = m_userDetector->getTrackedUserID();
+	XuUserID userID = m_userDetector->getTrackedUserID();
 	if (!userID) {
 		return;
 	}

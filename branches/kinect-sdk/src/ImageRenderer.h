@@ -32,20 +32,21 @@
 
 #include "common.h"
 #include "AbstractTextureRenderer.h"
+#include "ImageProvider.h"
 
 class ImageRenderer : public AbstractTextureRenderer
 {
 private:
-	ImageGenerator* m_imageGen;
-	const XnRGB24Pixel* m_currentData;
+	ImageProvider* m_imageProvider;
 
 public:
-	ImageRenderer(RenderingContext* rctx, ImageGenerator* imageGen);
+	ImageRenderer(RenderingContext* rctx, ImageProvider* imageProvider);
 	virtual ~ImageRenderer();
 
 protected:
 	virtual void setupCopy();
-	virtual void copyRow(XnRGB24Pixel* dst, int srcOffset);
+	virtual void copyRow(XuColorPixel* dst, int srcOffset);
+	virtual void finalizeCopy();
 
 };
 

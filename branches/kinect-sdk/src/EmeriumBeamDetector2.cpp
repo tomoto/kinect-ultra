@@ -30,8 +30,8 @@
 #include "EmeriumBeamDetector2.h"
 #include "util.h"
 
-EmeriumBeamDetector2::EmeriumBeamDetector2(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
-: AbstractEmeriumBeamDetector(depthGen, userDetector, beamRenderer)
+EmeriumBeamDetector2::EmeriumBeamDetector2(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
+: AbstractEmeriumBeamDetector(depthProvider, userDetector, beamRenderer)
 {
 }
 
@@ -51,8 +51,6 @@ float EmeriumBeamDetector2::getArmAngleThreshold()
 
 bool EmeriumBeamDetector2::isPosing(float dt)
 {
-	UserGenerator* userGen = m_userDetector->getUserGenerator();
-
 	XV3 pl0 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW);
 	XV3 pl1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND);
 	XV3 plsh = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER);

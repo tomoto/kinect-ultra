@@ -36,12 +36,8 @@ class UserListener
 {
 public:
 	virtual ~UserListener() = 0;
-	virtual void onNewUser(XnUserID userID) = 0;
-	virtual void onLostUser(XnUserID userID) = 0;
-	virtual void onCalibrationStart(XnUserID userID) = 0;
-	virtual void onCalibrationEnd(XnUserID userID, bool isSuccess) = 0;
-	virtual void onPoseStart(XnUserID userID, const XnChar* pose) = 0;
-	virtual void onPoseEnd(XnUserID userID, const XnChar* pose) = 0;
+	virtual void onNewUser(XuUserID userID) = 0;
+	virtual void onLostUser(XuUserID userID) = 0;
 };
 
 #endif

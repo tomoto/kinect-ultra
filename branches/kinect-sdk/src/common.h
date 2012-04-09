@@ -40,14 +40,25 @@
 #include <crtdbg.h>
 
 // OpenNI
-#include <XnCppWrapper.h>
-using namespace xn;
+// #include <XnCppWrapper.h>
+// using namespace xn;
+
+// KinectSDK
+#include <Windows.h>
+#include <NuiApi.h>
 
 #include <GLTools.h> // GLTools
 
 #include <GL/glut.h> // glut
 
 #include <opencv/cv.h> // OpenCV
+
+typedef DWORD XuUserID;
+struct XuColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
+struct XuRawColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
+const GLenum XU_RAW_COLOR_PIXEL_GL_FORMAT = GL_BGRA;
+typedef DWORD XuDepthPixel;
+typedef USHORT XuRawDepthPixel;
 
 // Note: I'm using macro instead of inline for some part
 // so that I can get enough speed in debug version.
@@ -66,19 +77,29 @@ inline void check_error(int expr, const char* message, const char* detail)
 	}
 }
 
-#define CALL_XN(f) check_xn_status(f, #f);
+#define CALL_WIN32 check_win32_status(f, #f);
 
-inline void check_xn_status(XnStatus rc, const char* detail)
+inline void check_win32_status(HRESULT hr, const char* detail)
 {
-	if (rc != XN_STATUS_OK) {
-		printf("Failed: %s (%s)\n", xnGetStatusString(rc), detail);
+	if (FAILED(hr)) {
+		printf("Failed: %08x (%s)\n", hr, detail); // TODO: use format message or some
+		errorExit();
+	}
+}
+
+#define CALL_NUI(f) check_nui_status(f, #f);
+
+inline void check_nui_status(HRESULT hr, const char* detail)
+{
+	if (FAILED(hr)) {
+		printf("Failed: %08x (%s)\n", hr, detail); // TODO: use format message or some
 		errorExit();
 	}
 }
 
 #define CALL_GLEW(f) check_glew_status(f, #f)
 
-inline void check_glew_status(XnStatus rc, const char* detail)
+inline void check_glew_status(int rc, const char* detail)
 {
 	if (rc != GLEW_OK) {
 		printf("Failed: %s (%s)\n", glewGetErrorString(rc), detail);

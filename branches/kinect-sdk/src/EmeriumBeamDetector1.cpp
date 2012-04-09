@@ -30,8 +30,8 @@
 #include "EmeriumBeamDetector1.h"
 #include "util.h"
 
-EmeriumBeamDetector1::EmeriumBeamDetector1(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
-: AbstractEmeriumBeamDetector(depthGen, userDetector, beamRenderer)
+EmeriumBeamDetector1::EmeriumBeamDetector1(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
+: AbstractEmeriumBeamDetector(depthProvider, userDetector, beamRenderer)
 {
 }
 
@@ -46,7 +46,7 @@ float EmeriumBeamDetector1::getHeadDistanceThreshold()
 
 bool EmeriumBeamDetector1::isPosing(float dt)
 {
-	XnSkeletonJointPosition jr0, jr1, jl0,jl1;
+	XuSkeletonJointPosition jr0, jr1, jl0,jl1;
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_ELBOW, &jr0);
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &jr1);
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW, &jl0);

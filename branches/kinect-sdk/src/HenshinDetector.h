@@ -74,12 +74,8 @@ public:
 	// user listener methods
 	//
 
-	virtual void onNewUser(XnUserID userID);
-	virtual void onLostUser(XnUserID userID);
-	virtual void onCalibrationStart(XnUserID userID);
-	virtual void onCalibrationEnd(XnUserID userID, bool isSuccess);
-	virtual void onPoseStart(XnUserID userID, const XnChar* pose);
-	virtual void onPoseEnd(XnUserID userID, const XnChar* pose);
+	virtual void onNewUser(XuUserID userID);
+	virtual void onLostUser(XuUserID userID);
 
 private:
 	void transitToHuman();
@@ -88,6 +84,7 @@ private:
 	void transitToDehenshining();
 
 	bool isDehenshinPosing();
+	bool isHenshinPosing();
 
 };
 

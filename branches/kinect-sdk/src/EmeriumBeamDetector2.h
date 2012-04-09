@@ -40,7 +40,7 @@ private:
 	XV3 m_ph; // head position
 
 public:
-	EmeriumBeamDetector2(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer);
+	EmeriumBeamDetector2(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer);
 	virtual ~EmeriumBeamDetector2();
 
 private:

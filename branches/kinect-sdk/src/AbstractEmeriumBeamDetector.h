@@ -41,7 +41,7 @@ private:
 	AbstractSimpleBeamRenderer* m_beamRenderer;
 
 public:
-	AbstractEmeriumBeamDetector(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer);
+	AbstractEmeriumBeamDetector(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer);
 	virtual ~AbstractEmeriumBeamDetector();
 
 protected:

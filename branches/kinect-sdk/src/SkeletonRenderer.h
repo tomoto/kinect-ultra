@@ -32,24 +32,25 @@
 
 #include "common.h"
 #include "AbstractOpenGLRenderer.h"
+#include "DepthProvider.h"
 #include "UserDetector.h"
 #include "HenshinDetector.h"
 
 class SkeletonRenderer : public AbstractOpenGLRenderer
 {
 private:
-	DepthGenerator* m_depthGen;
+	DepthProvider* m_depthProvider;
 	UserDetector* m_userDetector;
 	HenshinDetector* m_henshinDetector;
 
 public:
-	SkeletonRenderer(RenderingContext* rctx, DepthGenerator* depthGen, UserDetector* userDetector, HenshinDetector* henshinDetector);
+	SkeletonRenderer(RenderingContext* rctx, DepthProvider* depthProvider, UserDetector* userDetector, HenshinDetector* henshinDetector);
 	virtual ~SkeletonRenderer();
 
 	void draw();
 
 private:
-	void drawBone(XnUserID userID, XnSkeletonJoint fromJoint, XnSkeletonJoint toJoint);
+	void drawBone(XuSkeletonJointIndex fromJoint, XuSkeletonJointIndex toJoint);
 };
 
 #endif
