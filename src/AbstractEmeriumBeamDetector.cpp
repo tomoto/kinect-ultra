@@ -30,7 +30,7 @@
 #include "AbstractEmeriumBeamDetector.h"
 #include "util.h"
 
-AbstractEmeriumBeamDetector::AbstractEmeriumBeamDetector(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
+AbstractEmeriumBeamDetector::AbstractEmeriumBeamDetector(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
 : AbstractPoseDetector(userDetector)
 {
 	m_beamRenderer = beamRenderer;

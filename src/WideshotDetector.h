@@ -45,7 +45,7 @@ private:
 	cv::RNG m_random;
 
 public:
-	WideshotDetector(DepthGenerator* depthGen, UserDetector* userDetector, WideshotRenderer* beamRenderer);
+	WideshotDetector(DepthProvider* depthProvider, UserDetector* userDetector, WideshotRenderer* beamRenderer);
 	virtual ~WideshotDetector();
 
 private:

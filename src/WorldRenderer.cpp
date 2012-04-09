@@ -31,32 +31,31 @@
 #include "config.h"
 #include <GLFrustum.h>
 #include "util.h"
+#include "vec.h"
 
 const float DEFAULT_DEPTH_ADJUSTMENT = 105; // empirical valuel. adjustable by 'q' and 'a' key.
 
-WorldRenderer::WorldRenderer(RenderingContext* rctx, DepthGenerator* depthGen, ImageGenerator* imageGen, HenshinDetector* henshinDetector)
+WorldRenderer::WorldRenderer(RenderingContext* rctx, DepthProvider* depthProvider, ImageProvider* imageProvider, HenshinDetector* henshinDetector)
 : AbstractOpenGLRenderer(rctx)
 {
-	m_depthGen = depthGen;
-	m_imageGen = imageGen;
+	m_depthProvider = depthProvider;
+	m_imageProvider = imageProvider;
 	m_henshinDetector = henshinDetector;
 
-	DepthMetaData dmd;
-	m_depthGen->GetMetaData(dmd);
-	m_width = dmd.XRes();
-	m_height = dmd.YRes();
+	m_width = X_RES;
+	m_height = Y_RES;
 
 	// allocate working buffers
-	XnUInt32 numPoints = getNumPoints();
+	int numPoints = getNumPoints();
 	m_vertexBuf = new M3DVector3f[numPoints];
 	m_colorBuf = new M3DVector4f[numPoints];
 
 	// pre-set values on working buffers
 	M3DVector3f* vp = m_vertexBuf;
 	M3DVector4f* cp = m_colorBuf;
-	for (XnUInt32 iy = 0; iy < m_height; iy++) {
+	for (int iy = 0; iy < m_height; iy++) {
 		float y = 1.0f - iy * 2.0f / m_height;
-		for (XnUInt32 ix = 0; ix < m_width; ix++) {
+		for (int ix = 0; ix < m_width; ix++) {
 			float x = 1.0f - ix * 2.0f / m_width;
 			(*vp)[0] = x;
 			(*vp)[1] = (*vp)[2] = 0;
@@ -81,20 +80,16 @@ WorldRenderer::~WorldRenderer()
 	delete[] m_colorBuf;
 }
 
-void WorldRenderer::getHenshinData(XnUserID* pUserID, const XnLabel** ppLabel, XV3* pHeadPoint, XV3* pNeckPoint, XnUInt32* pHenshinBottom, float* pFlyingOffset)
+void WorldRenderer::getHenshinData(XuUserID* pUserID, XV3* pHeadPoint, XV3* pNeckPoint, int* pHenshinBottom, float* pFlyingOffset)
 {
 	UserDetector* userDetector = m_henshinDetector->getUserDetector();
 
 	if (m_henshinDetector->getStage() != HenshinDetector::STAGE_HUMAN) {
-		XnUserID userID = *pUserID = userDetector->getTrackedUserID();
-		SceneMetaData smd;
-		userDetector->getUserGenerator()->GetUserPixels(userID, smd);
+		*pUserID = userDetector->getTrackedUserID();
 
-		*ppLabel = smd.Data();
-
-		XnSkeletonJointPosition headPos, neckPos;
-		userDetector->getUserGenerator()->GetSkeletonCap().GetSkeletonJointPosition(userID, XN_SKEL_HEAD, headPos);
-		userDetector->getUserGenerator()->GetSkeletonCap().GetSkeletonJointPosition(userID, XN_SKEL_NECK, neckPos);
+		XuSkeletonJointPosition headPos, neckPos;
+		userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &headPos);
+		userDetector->getSkeletonJointPosition(XN_SKEL_NECK, &neckPos);
 
 		// if (isConfident(headPos) && isConfident(neckPos)) {
 			// some adjustment
@@ -108,11 +103,12 @@ void WorldRenderer::getHenshinData(XnUserID* pUserID, const XnLabel** ppLabel, X
 			case HenshinDetector::STAGE_HENSHINING:
 				{
 					const int HENSHIN_STEPS = 15;
-					XnPoint3D pp;
-					m_depthGen->ConvertRealWorldToProjective(1, &headPos.position, &pp);
+					USHORT d;
+					LONG x, y;
+					m_depthProvider->transformSkeletonToDepthImage(headPos.position, &x, &y, &d);
 					float t = m_henshinDetector->getHenshiningProgress();
 					t = floor(t * t * HENSHIN_STEPS) / HENSHIN_STEPS;
-					*pHenshinBottom = (XnUInt32)(pp.Y + t * m_height / 2);
+					*pHenshinBottom = (int)(y + t * m_height / 2);
 				}
 				break;
 			case HenshinDetector::STAGE_HENSHINED:
@@ -179,13 +175,8 @@ void WorldRenderer::drawHenshiningGlow()
 
 	UserDetector* userDetector = m_henshinDetector->getUserDetector();
 
-	XnUserID userID = userDetector->getTrackedUserID();
-	if (!userID) {
-		return;
-	}
-
-	XnSkeletonJointPosition headPos;
-	userDetector->getUserGenerator()->GetSkeletonCap().GetSkeletonJointPosition(userID, XN_SKEL_HEAD, headPos);
+	XuSkeletonJointPosition headPos;
+	userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &headPos);
 	if (!isConfident(headPos)) {
 		return;
 	}
@@ -226,28 +217,23 @@ void WorldRenderer::drawBackground()
 	m_rctx->shaderMan->UseStockShader(GLT_SHADER_SHADED, m_rctx->orthoMatrix.GetMatrix());
 
 	// get depth buffer
-	DepthMetaData dmd;
-	m_depthGen->GetMetaData(dmd);
-	const XnDepthPixel* dp = dmd.Data();
+	const XuRawDepthPixel* dp = m_depthProvider->getData();
 
 	// get image buffer
-	ImageMetaData imd;
-	m_imageGen->GetMetaData(imd);
-	const XnRGB24Pixel* ip = imd.RGB24Data();
+	const XuRawColorPixel* ip = m_imageProvider->getData();
 
 	// get henshin-related information
-	XnUserID userID = 0;
-	const XnLabel* lp = NULL;
+	XuUserID userID = 0;
 	XV3 headPoint, neckPoint;
-	XnUInt32 henshinBottom = 0;
+	int henshinBottom = 0;
 	float flyingOffset = 0;
-	getHenshinData(&userID, &lp, &headPoint, &neckPoint, &henshinBottom, &flyingOffset);
+	getHenshinData(&userID, &headPoint, &neckPoint, &henshinBottom, &flyingOffset);
 
 	// get working buffers
 	M3DVector3f* vp = m_vertexBuf;
 	M3DVector4f* cp = m_colorBuf;
 
-	XnUInt32 numPoints = getNumPoints();
+	int numPoints = getNumPoints();
 
 	bool tooLowAsHead = false; // for head-detection optimization
 
@@ -261,10 +247,12 @@ void WorldRenderer::drawBackground()
 	glPointSize(getPointSize());
 	// glBegin(GL_POINTS);
 
-	XnUInt32 ix = 0, iy = 0;
+	int ix = 0, iy = 0;
 	float y = 0;
 	float nearZ = PERSPECTIVE_Z_MIN + m_depthAdjustment;
-	for (XnUInt32 i = 0; i < numPoints; i++, dp++, ip++, vp++, cp++, lp++, ix++) {
+	for (int i = 0; i < numPoints; i++, ip++, dp++, vp++, cp++, ix++) {
+		XuDepthPixel d = NuiDepthPixelToDepth(*dp);
+		XuUserID u = NuiDepthPixelToPlayerIndex(*dp);
 
 		if (ix == m_width) {
 			ix = 0;
@@ -272,15 +260,14 @@ void WorldRenderer::drawBackground()
 			y = 1.0f - iy * 2.0f / m_height;
 		}
 
-		if (userID && *lp == userID && iy < henshinBottom) {
+		if (userID && u == userID && iy < henshinBottom) {
 			// paint in henshin color
 			float g = b2fNormalized(convertRGBtoGray(ip->nRed, ip->nGreen, ip->nBlue));
 			if (tooLowAsHead) {
 				setRed(cp, g); // head-detection optimization
 			} else {
-				XV3 pp(float(ix), float(iy), *dp);
 				XV3 rp;
-				m_depthGen->ConvertProjectiveToRealWorld(1, &pp, &rp);
+				m_depthProvider->transformDepthImageToSkeleton(ix, iy, *dp, &rp);
 				if (headPoint.Y - rp.Y < HEAD_AREA_BOTTOM) {
 					if (headPoint.distance2(rp) < HEAD_AREA_DIST2 || neckPoint.distance2(rp) < NECK_AREA_DIST2) {
 						setGray(cp , g);
@@ -302,8 +289,19 @@ void WorldRenderer::drawBackground()
 			// (*vp)[0] (x) is already set
 			(*vp)[1] = y;
 		}
+
+		/*
+		if (m_henshinDetector->getStage() != HenshinDetector::STAGE_HUMAN && u != 0) {
+			float g = b2fNormalized(convertRGBtoGray(ip->nRed, ip->nGreen, ip->nBlue));
+			setRed(cp, g);
+			(*vp)[1] = y;
+		} else {
+			setRGB(cp, *ip);
+			(*vp)[1] = y;
+		}
+		*/
 		
-		(*vp)[2] = (*dp) ? getNormalizedDepth(*dp, nearZ, PERSPECTIVE_Z_MAX) : Z_INFINITE;
+		(*vp)[2] = d ? getNormalizedDepth(d, nearZ, PERSPECTIVE_Z_MAX) : Z_INFINITE;
 
 		// glVertexAttrib3fv(GLT_ATTRIBUTE_VERTEX, (float*)vp);
 		// glVertexAttrib4fv(GLT_ATTRIBUTE_COLOR, (float*)cp);

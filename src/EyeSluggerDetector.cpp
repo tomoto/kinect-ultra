@@ -69,7 +69,7 @@ void EyeSluggerDetector::setEnergy(float e, bool delay)
 bool EyeSluggerDetector::isLeftArmStraightToFront()
 {
 	UserDetector* ud = m_henshinDetector->getUserDetector();
-	XnSkeletonJointPosition jls, jle, jlh;
+	XuSkeletonJointPosition jls, jle, jlh;
 	ud->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER, &jls);
 	ud->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW, &jle);
 	ud->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &jlh);
@@ -147,7 +147,7 @@ void EyeSluggerDetector::unposingNormal(float dt)
 bool EyeSluggerDetector::isArmTopOfHead()
 {
 	// TODO remove copy & paste
-	XnSkeletonJointPosition hands[2], head;
+	XuSkeletonJointPosition hands[2], head;
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &hands[0]);
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &hands[1]);
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &head);
@@ -163,7 +163,7 @@ bool EyeSluggerDetector::isArmTopOfHead()
 
 bool EyeSluggerDetector::isHandBackOfHead()
 {
-	XnSkeletonJointPosition hands[2], head;
+	XuSkeletonJointPosition hands[2], head;
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &hands[0]);
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &hands[1]);
 	m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &head);

@@ -30,7 +30,7 @@
 #include "WideshotDetector.h"
 #include "util.h"
 
-WideshotDetector::WideshotDetector(DepthGenerator* depthGen, UserDetector* userDetector, WideshotRenderer* beamRenderer)
+WideshotDetector::WideshotDetector(DepthProvider* depthProvider, UserDetector* userDetector, WideshotRenderer* beamRenderer)
 : AbstractPoseDetector(userDetector)
 {
 	m_beamRenderer = beamRenderer;
@@ -53,8 +53,6 @@ float WideshotDetector::getArmAngleThresnold()
 
 bool WideshotDetector::isPosing(float dt)
 {
-	UserGenerator* userGen = m_userDetector->getUserGenerator();
-
 	XV3 pr0 = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_ELBOW);
 	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
 	XV3 prs = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER);

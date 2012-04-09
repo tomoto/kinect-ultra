@@ -42,7 +42,7 @@ void AbstractTextureRenderer::init(const cv::Rect& imageRect)
 {
 	m_textureWidth  = cvCeil(imageRect.width / 512.0) * 512;
 	m_textureHeight = cvCeil(imageRect.height / 512.0) * 512;
-	m_textureData = new XnRGB24Pixel[m_textureWidth * m_textureHeight];
+	m_textureData = new XuColorPixel[m_textureWidth * m_textureHeight];
 	glGenTextures(1, &m_textureID);
 
 	m_imageRect = imageRect;
@@ -83,11 +83,11 @@ void AbstractTextureRenderer::setupTexture()
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 
 	// clear the texture
-	xnOSMemSet(m_textureData, 0, m_textureWidth * m_textureHeight * sizeof(XnRGB24Pixel));
+	memset(m_textureData, 0, m_textureWidth * m_textureHeight * sizeof(XuColorPixel));
 
 	setupCopy();
 
-	XnRGB24Pixel* dst = m_textureData + m_imageRect.x + m_imageRect.y * m_textureWidth;
+	XuColorPixel* dst = m_textureData + m_imageRect.x + m_imageRect.y * m_textureWidth;
 	int srcOffset = 0;
 
 	for (int i = 0; i < m_imageRect.height; i++) {
@@ -96,9 +96,11 @@ void AbstractTextureRenderer::setupTexture()
 		srcOffset += m_imageRect.width;
 	}
 
+	finalizeCopy();
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_textureWidth, m_textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, m_textureData);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_textureWidth, m_textureHeight, 0, XU_RAW_COLOR_PIXEL_GL_FORMAT, GL_UNSIGNED_BYTE, m_textureData);
 }
 
 void AbstractTextureRenderer::executeDraw()
