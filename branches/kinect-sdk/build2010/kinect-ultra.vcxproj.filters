@@ -127,9 +127,6 @@
     <ClInclude Include="..\src\config.h">
       <Filter>h</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\DepthRenderer.h">
-      <Filter>h</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\EmeriumBeamDetector1.h">
       <Filter>h</Filter>
     </ClInclude>

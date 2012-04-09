@@ -149,7 +149,6 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClInclude Include="..\src\Configurable.h" />
     <ClInclude Include="..\src\Configuration.h" />
     <ClInclude Include="..\src\DepthProvider.h" />
-    <ClInclude Include="..\src\DepthRenderer.h" />
     <ClInclude Include="..\src\EmeriumBeamDetector1.h" />
     <ClInclude Include="..\src\EmeriumBeamDetector2.h" />
     <ClInclude Include="..\src\EmeriumBeamRenderer1.h" />
