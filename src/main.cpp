@@ -191,11 +191,8 @@ static void initNUI()
 
 static void shutdownNUI()
 {
-	if (s_imageProvider != NULL) {
-		delete s_imageProvider;
-	}
-
 	if (s_pSensor) {
+		s_pSensor->NuiShutdown();
 		s_pSensor->Release();
 	}
 }
