@@ -43,7 +43,7 @@ bool UserProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 {
 	if (SUCCEEDED(WaitForSingleObjectEx(m_hNextFrameEvent, timeout, TRUE))) {
 		CALL_NUI(m_pSensor->NuiSkeletonGetNextFrame(timeout, &m_frame));
-		m_pSensor->NuiTransformSmooth(&m_frame, NULL);
+		// m_pSensor->NuiTransformSmooth(&m_frame, NULL); // smoothing does not work well
 		m_isLocked = true;
 		return true;
 	} else {
@@ -102,18 +102,36 @@ static void transformCoordinatesFromDepthToColor(const Vector4& depthCameraCoord
 	*pRGBCameraCoords = NuiTransformDepthImageToSkeleton(ix, iy, z, NUI_IMAGE_RESOLUTION_640x480);
 }
 
-const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointPosition)
+static void getAveragedJointInfo(const NUI_SKELETON_DATA* skeleton, const XuSkeletonJointIndex jointIndices[], int count, XuSkeletonJointInfo* pJointInfo)
+{
+	pJointInfo->fConfidence = 0;
+	pJointInfo->position.assign(0, 0, 0);
+
+	for (int i = 0; i < count; i++) {
+		XuSkeletonJointIndex jointIndex = jointIndices[i];
+		pJointInfo->fConfidence += convertSkeletonTrackingStateToConfidence(skeleton->eSkeletonPositionTrackingState[jointIndex]) / count;
+		Vector4 p;
+		transformCoordinatesFromDepthToColor(skeleton->SkeletonPositions[jointIndex], &p);
+		pJointInfo->position.X = p.x * 1000 / count;
+		pJointInfo->position.Y = p.y * 1000 / count;
+		pJointInfo->position.Z = p.z * 1000 / count;
+	}
+}
+
+const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo)
 {
 	const NUI_SKELETON_DATA* skeleton = getSkeletonData(userID);
 
 	if (skeleton) {
-		pJointPosition->fConfidence = convertSkeletonTrackingStateToConfidence(skeleton->eSkeletonPositionTrackingState[jointIndex]);
-		Vector4 p;
-		transformCoordinatesFromDepthToColor(skeleton->SkeletonPositions[jointIndex], &p);
-		pJointPosition->position.X = p.x * 1000;
-		pJointPosition->position.Y = p.y * 1000;
-		pJointPosition->position.Z = p.z * 1000;
+		if (jointIndex == XU_SKEL_CENTER_SHOULDER) {
+			// special handling
+			static const XuSkeletonJointIndex BOTH_SHOULDERS[] = { XU_SKEL_LEFT_SHOULDER, XU_SKEL_RIGHT_SHOULDER };
+			getAveragedJointInfo(skeleton, BOTH_SHOULDERS, 2, pJointInfo);
+		} else {
+			getAveragedJointInfo(skeleton, &jointIndex, 1, pJointInfo);
+		}
 	} else {
-		pJointPosition->fConfidence = 0;
+		pJointInfo->fConfidence = 0;
+		pJointInfo->position.assign(0, 0, 0);
 	}
 }
