@@ -116,7 +116,7 @@ void EyeSluggerDetectorEx::holdSlugger()
 
 void EyeSluggerDetectorEx::restoreSlugger()
 {
-	m_renderer->setHoldMode(EyeSluggerRendererEx::HOLD_ON_HEAD);
+	m_renderer->setHoldMode(EyeSluggerRendererEx::HOLD_NORMAL);
 	setEnergy(0);
 }
 

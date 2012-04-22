@@ -37,7 +37,7 @@ class EyeSluggerRendererEx : public EyeSluggerRenderer
 {
 public:
 	enum HoldMode {
-		HOLD_ON_HEAD,
+		HOLD_NORMAL,
 		HOLD_IN_HAND,
 		HOLD_IN_AIR
 	};
@@ -50,6 +50,8 @@ public:
 	~EyeSluggerRendererEx();
 
 	void setHoldMode(HoldMode holdMode);
+
+	virtual void shoot(const XV3& v, float rotation, int traceDencity);
 
 protected:
 	virtual bool updateObjectFrame();

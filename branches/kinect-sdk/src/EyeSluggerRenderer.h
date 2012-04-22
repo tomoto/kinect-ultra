@@ -68,14 +68,14 @@ public:
 
 	virtual void draw();
 
+	virtual void shoot(const XV3& v, float rotation, int traceDencity);
+
 	XV3 getOrigin(); // TODO weird dependency direction; should this be give from outside?
 	XV3 getForwardVector(); // TODO weird dependency direction; should this be give from outside?
 
 	void setEnergy(float energy);
 
 	bool isShot();
-
-	void shoot(const XV3& v, float rotation, int traceDencity);
 
 protected:
 	virtual bool updateObjectFrame();

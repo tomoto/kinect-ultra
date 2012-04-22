@@ -142,10 +142,6 @@ bool EyeSluggerDetector::processPoses(float dt)
 
 void EyeSluggerDetector::onDetectPre(float dt)
 {
-	if (m_henshinDetector->getStage() != HenshinDetector::STAGE_HENSHINED) {
-		return;
-	}
-
 	if (m_renderer->isShot()) {
 		return; // already shot, nothing to do
 	}
