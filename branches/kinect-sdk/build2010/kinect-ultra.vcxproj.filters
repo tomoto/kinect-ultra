@@ -77,9 +77,6 @@
     <ClCompile Include="..\src\AbstractSimpleBeamRenderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\EyeSluggerDetector.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\EyeSluggerRenderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -96,6 +93,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\AbstractEmeriumBeamDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EyeSluggerDetectorEx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EyeSluggerDetector.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,9 +137,6 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EmeriumBeamRenderer2.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\EyeSluggerDetector.h">
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EyeSluggerRenderer.h">
@@ -212,6 +212,12 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="..\src\IUserListener.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EyeSluggerDetectorEx.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EyeSluggerDetector.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>

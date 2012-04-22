@@ -49,7 +49,7 @@
 #include "EmeriumBeamDetector2.h"
 #include "EmeriumBeamRenderer1.h"
 #include "EmeriumBeamRenderer2.h"
-#include "EyeSluggerDetector.h"
+#include "EyeSluggerDetectorEx.h"
 #include "EyeSluggerRenderer.h"
 #include "VoxelObjectMapper.h"
 //#include "TestTorusRenderer.h"
@@ -88,7 +88,7 @@ static WideshotDetector* s_wideshotDetector;
 EmeriumBeamDetector1* s_emeriumBeamDetector1;
 EmeriumBeamDetector2* s_emeriumBeamDetector2;
 static VoxelObjectMapper* s_voxelObjectMapper;
-static EyeSluggerDetector* s_eyeSluggerDetector;
+static EyeSluggerDetectorEx* s_eyeSluggerDetector;
 
 static FrameRateCounter s_frameRateCounter;
 
@@ -277,7 +277,7 @@ static void initRenderers()
 	LOG( s_worldRenderer = new WorldRenderer(s_renderingContext, s_depthProvider, s_imageProvider, s_henshinDetector) );
 	LOG( s_skeletonRenderer = new SkeletonRenderer(s_renderingContext, s_depthProvider, s_henshinDetector) );
 	LOG( s_eyeSluggerRenderer = new EyeSluggerRenderer(s_renderingContext, s_henshinDetector) );
-	LOG( s_eyeSluggerDetector = new EyeSluggerDetector(s_henshinDetector, s_eyeSluggerRenderer) );
+	LOG( s_eyeSluggerDetector = new EyeSluggerDetectorEx(s_henshinDetector, s_eyeSluggerRenderer) );
 	LOG( s_wideshotRenderer = new WideshotRenderer(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
 	LOG( s_wideshotDetector = new WideshotDetector(s_depthProvider, s_userDetector, s_wideshotRenderer) );
 	LOG( s_emeriumBeamRenderer1 = new EmeriumBeamRenderer1(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
