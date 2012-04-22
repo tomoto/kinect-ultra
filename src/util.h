@@ -102,7 +102,9 @@ inline float convertRGBtoGray(float r, float g, float b)
 
 float getPointSize();
 
-void renderStrokeText(const char* text, const XV3& position, const XV3& scale, float thickness, float color[4]);
+// TODO: I don't want this to depend on RenderingContext
+class RenderingContext;
+void renderStrokeText(RenderingContext* rctx, const char* text, const XV3& position, const XV3& scale, float thickness, float color[4]);
 
 void getAspectRatioAdjustment(float targetAspectRatio, float areaAspectRatio, float* pScaleX, float *pScaleY);
 

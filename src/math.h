@@ -50,4 +50,9 @@ inline float square(float f)
 	return f * f;
 }
 
+inline float cramp(float f, float min, float max)
+{
+	return std::min(max, std::max(min, f));
+}
+
 #endif

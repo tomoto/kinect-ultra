@@ -30,6 +30,7 @@
 #include "util.h"
 #include "config.h"
 #include <opencv/highgui.h>
+#include "RenderingContext.h"
 
 std::string getResourceFile(const char* category, const char* name)
 {
@@ -111,15 +112,21 @@ void readBatchDef(const char* file, const XV3& origin, float scale, std::vector<
 	fclose(fp);
 }
 
-void renderStrokeText(const char* text, const XV3& position, const XV3& scale, float thickness, float color[4])
+void renderStrokeText(RenderingContext* rctx, const char* text, const XV3& position, const XV3& scale, float thickness, float color[4])
 {
-	glUseProgram(0);
+	rctx->shaderMan->UseStockShader(GLT_SHADER_IDENTITY, color);
+	if (glUseShaderProgramEXT) {
+		// glUseProgram does not work sometimes. I don't know why.
+		glUseShaderProgramEXT(GL_VERTEX_SHADER, 0);
+	} else {
+		glUseProgram(0);
+	}
 	glPushMatrix();
 	glLoadIdentity();
 	glTranslatef(position.X, position.Y, position.Z);
 	glScalef(scale.X, scale.Y, scale.Z);
 	glLineWidth(getPointSize() * thickness);
-	glColor4fv(color);
+	glPointSize(getPointSize() * thickness);
 	for (const char* p = text; *p; p++) {
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
 	}

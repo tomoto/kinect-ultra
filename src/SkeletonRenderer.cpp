@@ -47,6 +47,10 @@ void SkeletonRenderer::draw()
 		return;
 	}
 
+	if (m_henshinDetector->getStage() == HenshinDetector::STAGE_HUMAN) {
+		return; // now human
+	}
+
 	if (m_henshinDetector->getStage() == HenshinDetector::STAGE_DEHENSHINING) {
 		return; // now flying out
 	}
@@ -55,8 +59,7 @@ void SkeletonRenderer::draw()
 	glLineWidth(getPointSize()*2);
 	glPointSize(getPointSize()*4);
 
-	float alpha = m_henshinDetector->getStage() == HenshinDetector::STAGE_HUMAN ? 0.2f : 0.7f;
-	float color[] = { 0.7f, 0.7f, 0.7f, alpha };
+	float color[] = { 0.7f, 0.7f, 0.7f, 0.7f};
 	m_rctx->shaderMan->UseStockShader(GLT_SHADER_FLAT, m_rctx->transform.GetModelViewProjectionMatrix(), color);
 
 	// drawBone(userID, XU_SKEL_NECK, XU_SKEL_HEAD);

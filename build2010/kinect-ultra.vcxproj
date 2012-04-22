@@ -131,6 +131,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClCompile Include="..\src\SkeletonRenderer.cpp" />
     <ClCompile Include="..\src\SparkRenderer.cpp" />
     <ClCompile Include="..\src\TimeTicker.cpp" />
+    <ClCompile Include="..\src\UltraEyeRenderer.cpp" />
     <ClCompile Include="..\src\UserDetector.cpp" />
     <ClCompile Include="..\src\UserProvider.cpp" />
     <ClCompile Include="..\src\util.cpp" />
@@ -174,6 +175,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClInclude Include="..\src\SparkRenderer.h" />
     <ClInclude Include="..\src\TestTorusRenderer.h" />
     <ClInclude Include="..\src\TimeTicker.h" />
+    <ClInclude Include="..\src\UltraEyeRenderer.h" />
     <ClInclude Include="..\src\UserDetector.h" />
     <ClInclude Include="..\src\IUserListener.h" />
     <ClInclude Include="..\src\UserProvider.h" />
