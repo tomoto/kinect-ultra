@@ -112,9 +112,9 @@ static void getAveragedJointInfo(const NUI_SKELETON_DATA* skeleton, const XuSkel
 		pJointInfo->fConfidence += convertSkeletonTrackingStateToConfidence(skeleton->eSkeletonPositionTrackingState[jointIndex]) / count;
 		Vector4 p;
 		transformCoordinatesFromDepthToColor(skeleton->SkeletonPositions[jointIndex], &p);
-		pJointInfo->position.X = p.x * 1000 / count;
-		pJointInfo->position.Y = p.y * 1000 / count;
-		pJointInfo->position.Z = p.z * 1000 / count;
+		pJointInfo->position.X += p.x * 1000 / count;
+		pJointInfo->position.Y += p.y * 1000 / count;
+		pJointInfo->position.Z += p.z * 1000 / count;
 	}
 }
 
