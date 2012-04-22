@@ -279,11 +279,11 @@ static void initRenderers()
 	LOG( s_eyeSluggerRenderer = new EyeSluggerRendererEx(s_renderingContext, s_henshinDetector) );
 	LOG( s_eyeSluggerDetector = new EyeSluggerDetectorEx(s_henshinDetector, s_eyeSluggerRenderer) );
 	LOG( s_wideshotRenderer = new WideshotRenderer(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
-	LOG( s_wideshotDetector = new WideshotDetector(s_depthProvider, s_userDetector, s_wideshotRenderer) );
+	LOG( s_wideshotDetector = new WideshotDetector(s_depthProvider, s_henshinDetector, s_wideshotRenderer) );
 	LOG( s_emeriumBeamRenderer1 = new EmeriumBeamRenderer1(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
 	LOG( s_emeriumBeamRenderer2 = new EmeriumBeamRenderer2(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
-	LOG( s_emeriumBeamDetector1 = new EmeriumBeamDetector1(s_depthProvider, s_userDetector, s_emeriumBeamRenderer1) );
-	LOG( s_emeriumBeamDetector2 = new EmeriumBeamDetector2(s_depthProvider, s_userDetector, s_emeriumBeamRenderer2) );
+	LOG( s_emeriumBeamDetector1 = new EmeriumBeamDetector1(s_depthProvider, s_henshinDetector, s_emeriumBeamRenderer1) );
+	LOG( s_emeriumBeamDetector2 = new EmeriumBeamDetector2(s_depthProvider, s_henshinDetector, s_emeriumBeamRenderer2) );
 
 	 //s_testTorusRenderer = new TestTorusRenderer(&s_renderingContext);
 

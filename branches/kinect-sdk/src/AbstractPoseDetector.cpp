@@ -43,14 +43,14 @@ AbstractPoseDetector::~AbstractPoseDetector()
 
 void AbstractPoseDetector::detect()
 {
-	float dt = m_ticker.tick();
-
-	onDetectPre(dt);
-
 	XuUserID userID = m_userDetector->getTrackedUserID();
 	if (!userID) {
 		return;
 	}
+
+	float dt = m_ticker.tick();
+
+	onDetectPre(dt);
 
 	if (isPosing(dt)) {
 		if (m_posingTime < m_requiredPosingStability) {

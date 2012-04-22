@@ -104,6 +104,9 @@
     <ClCompile Include="..\src\EyeSluggerRendererEx.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\AbstractPowerPoseDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\AbstractElementRenderer.h">
@@ -224,6 +227,9 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EyeSluggerRendererEx.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractPowerPoseDetector.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>

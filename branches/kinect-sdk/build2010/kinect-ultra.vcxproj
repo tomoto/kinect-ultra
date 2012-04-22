@@ -109,6 +109,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClCompile Include="..\src\AbstractKinectDataProvider.cpp" />
     <ClCompile Include="..\src\AbstractOpenGLRenderer.cpp" />
     <ClCompile Include="..\src\AbstractPoseDetector.cpp" />
+    <ClCompile Include="..\src\AbstractPowerPoseDetector.cpp" />
     <ClCompile Include="..\src\AbstractSimpleBeamRenderer.cpp" />
     <ClCompile Include="..\src\AbstractTextureRenderer.cpp" />
     <ClCompile Include="..\src\common.cpp" />
@@ -143,6 +144,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClInclude Include="..\src\AbstractImageStreamProvider.h" />
     <ClInclude Include="..\src\AbstractOpenGLRenderer.h" />
     <ClInclude Include="..\src\AbstractPoseDetector.h" />
+    <ClInclude Include="..\src\AbstractPowerPoseDetector.h" />
     <ClInclude Include="..\src\AbstractSimpleBeamRenderer.h" />
     <ClInclude Include="..\src\AbstractTextureRenderer.h" />
     <ClInclude Include="..\src\common.h" />
