@@ -41,7 +41,8 @@ EmeriumBeamDetector2::~EmeriumBeamDetector2()
 
 float EmeriumBeamDetector2::getNeckDistanceThreshold()
 {
-	return 200.0f + 100.0f * getConfiguration()->getTriggerHappyLevel();
+	const float CHEST_NECK_DISTANCE = 200 + 50; // a little loose for Kinect SDK than OpenNI
+	return CHEST_NECK_DISTANCE + 100.0f * getConfiguration()->getTriggerHappyLevel();
 }
 
 float EmeriumBeamDetector2::getArmAngleThreshold()
@@ -58,7 +59,7 @@ bool EmeriumBeamDetector2::isPosing(float dt)
 	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_HAND);
 	XV3 vl = pl1 - pl0; // left arm
 	XV3 vsh = prsh - plsh; // shoulder line
-	XV3 pn = m_userDetector->getSkeletonJointPosition(XU_SKEL_NECK);
+	XV3 pn = m_userDetector->getSkeletonJointPosition(XU_SKEL_CENTER_SHOULDER);
 
 	const float NECK_Y_ADJUSTMENT = 50; // adjust the neck position a little down
 	pn.Y -= NECK_Y_ADJUSTMENT;
