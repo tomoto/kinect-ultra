@@ -36,7 +36,7 @@
 
 const float CONFIDENCE_THRESHOLD = 0.5f;
 #ifndef USE_MACRO
-inline bool isConfident(XuSkeletonJointPosition jointPos) {
+inline bool isConfident(XuSkeletonJointInfo jointPos) {
 	return jointPos.fConfidence >= CONFIDENCE_THRESHOLD;
 }
 

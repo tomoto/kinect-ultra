@@ -64,22 +64,23 @@ void UserDetector::detect()
 
 XV3 UserDetector::getSkeletonJointPosition(XuSkeletonJointIndex jointIndex)
 {
-	XuSkeletonJointPosition j;
-	getSkeletonJointPosition(jointIndex, &j);
+	XuSkeletonJointInfo j;
+	getSkeletonJointInfo(jointIndex, &j);
 
 	if (isConfident(j)) {
-		m_skeletonPositions[jointIndex] = j;
+		m_jointInfos[jointIndex] = j;
 	}
-	return m_skeletonPositions[jointIndex].position;
+	return m_jointInfos[jointIndex].position;
 }
 
-void UserDetector::getSkeletonJointPosition(XuSkeletonJointIndex jointIndex, XuSkeletonJointPosition* pJointPosition)
+void UserDetector::getSkeletonJointInfo(XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo)
 {
 	XuUserID userID = getTrackedUserID();
 	if (userID) {
-		m_userProvider->getSkeletonJointPosition(userID, jointIndex, pJointPosition);
+		m_userProvider->getSkeletonJointInfo(userID, jointIndex, pJointInfo);
 	} else {
-		pJointPosition->fConfidence = 0;
+		pJointInfo->fConfidence = 0;
+		pJointInfo->position.assign(0, 0, 0);
 	}
 }
 
@@ -93,9 +94,9 @@ XV3 UserDetector::getForwardVector()
 {
 	XuUserID userID = getTrackedUserID();
 	if (userID) {
-		XV3 v0(getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER));
-		XV3 v1(getSkeletonJointPosition(XN_SKEL_TORSO));
-		XV3 v2(getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER));
+		XV3 v0(getSkeletonJointPosition(XU_SKEL_RIGHT_SHOULDER));
+		XV3 v1(getSkeletonJointPosition(XU_SKEL_TORSO));
+		XV3 v2(getSkeletonJointPosition(XU_SKEL_LEFT_SHOULDER));
 		return ((v1 - v0).cross(v2 - v1)).normalize();
 	} else {
 		return XV3();
@@ -106,8 +107,8 @@ XV3 UserDetector::getUpVector()
 {
 	XuUserID userID = getTrackedUserID();
 	if (userID) {
-		XV3 v0(getSkeletonJointPosition(XN_SKEL_TORSO));
-		XV3 v1(getSkeletonJointPosition(XN_SKEL_NECK));
+		XV3 v0(getSkeletonJointPosition(XU_SKEL_TORSO));
+		XV3 v1(getSkeletonJointPosition(XU_SKEL_NECK));
 		return (v1 - v0).normalize();
 	} else {
 		return XV3();

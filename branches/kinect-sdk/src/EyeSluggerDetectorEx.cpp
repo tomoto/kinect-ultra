@@ -86,10 +86,10 @@ void EyeSluggerDetectorEx::processUnposing(float dt)
 bool EyeSluggerDetectorEx::isLeftArmStraightToFront()
 {
 	UserDetector* ud = m_henshinDetector->getUserDetector();
-	XuSkeletonJointPosition jls, jle, jlh;
-	ud->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER, &jls);
-	ud->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW, &jle);
-	ud->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &jlh);
+	XuSkeletonJointInfo jls, jle, jlh;
+	ud->getSkeletonJointInfo(XU_SKEL_LEFT_SHOULDER, &jls);
+	ud->getSkeletonJointInfo(XU_SKEL_LEFT_ELBOW, &jle);
+	ud->getSkeletonJointInfo(XU_SKEL_LEFT_HAND, &jlh);
 
 	if (!isConfident(jls) || !isConfident(jle) || !isConfident(jlh)) {
 		return false;
@@ -158,8 +158,8 @@ void EyeSluggerDetectorEx::processUnposingInHand(float dt)
 
 bool EyeSluggerDetectorEx::processPosesInHand(float dt)
 {
-	XV3 pr = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
-	XV3 pl = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND);
+	XV3 pr = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_HAND);
+	XV3 pl = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_HAND);
 	const float HAND_DISTANCE_THRESHOLD = 150;
 	bool areHandsClose = pr.distance2(pl) < square(HAND_DISTANCE_THRESHOLD);
 
@@ -189,8 +189,8 @@ void EyeSluggerDetectorEx::processUnposingInAir(float dt)
 bool EyeSluggerDetectorEx::processPosesInAir(float dt)
 {
 	XV3 p = m_renderer->getOrigin();
-	XV3 pr = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
-	XV3 pl = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND);
+	XV3 pr = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_HAND);
+	XV3 pl = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_HAND);
 	const float HAND_DISTANCE_THRESHOLD = 200;
 	bool isEitherHandClose = std::min(p.distance2(pr), p.distance2(pl)) < square(HAND_DISTANCE_THRESHOLD);
 

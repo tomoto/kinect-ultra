@@ -87,9 +87,9 @@ void WorldRenderer::getHenshinData(XuUserID* pUserID, XV3* pHeadPoint, XV3* pNec
 	if (m_henshinDetector->getStage() != HenshinDetector::STAGE_HUMAN) {
 		*pUserID = userDetector->getTrackedUserID();
 
-		XuSkeletonJointPosition headPos, neckPos;
-		userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &headPos);
-		userDetector->getSkeletonJointPosition(XN_SKEL_NECK, &neckPos);
+		XuSkeletonJointInfo headPos, neckPos;
+		userDetector->getSkeletonJointInfo(XU_SKEL_HEAD, &headPos);
+		userDetector->getSkeletonJointInfo(XU_SKEL_NECK, &neckPos);
 
 		// if (isConfident(headPos) && isConfident(neckPos)) {
 			// some adjustment
@@ -150,7 +150,7 @@ inline void setRed(M3DVector4f* cp, float g)
 #endif
 
 #ifndef USE_MACRO
-inline void setRGB(M3DVector4f* cp, const XnRGB24Pixel& p)
+inline void setRGB(M3DVector4f* cp, const XuColorPixel& p)
 {
 	(*cp)[0] = b2fNormalized(p.nRed);
 	(*cp)[1] = b2fNormalized(p.nGreen);
@@ -175,8 +175,8 @@ void WorldRenderer::drawHenshiningGlow()
 
 	UserDetector* userDetector = m_henshinDetector->getUserDetector();
 
-	XuSkeletonJointPosition headPos;
-	userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &headPos);
+	XuSkeletonJointInfo headPos;
+	userDetector->getSkeletonJointInfo(XU_SKEL_HEAD, &headPos);
 	if (!isConfident(headPos)) {
 		return;
 	}

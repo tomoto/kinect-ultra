@@ -59,34 +59,34 @@ void SkeletonRenderer::draw()
 	float color[] = { 0.7f, 0.7f, 0.7f, alpha };
 	m_rctx->shaderMan->UseStockShader(GLT_SHADER_FLAT, m_rctx->transform.GetModelViewProjectionMatrix(), color);
 
-	// drawBone(userID, XN_SKEL_NECK, XN_SKEL_HEAD);
+	// drawBone(userID, XU_SKEL_NECK, XU_SKEL_HEAD);
 
-	drawBone(XN_SKEL_NECK, XN_SKEL_LEFT_SHOULDER);
-	drawBone(XN_SKEL_LEFT_SHOULDER, XN_SKEL_LEFT_ELBOW);
-	drawBone(XN_SKEL_LEFT_ELBOW, XN_SKEL_LEFT_HAND);
+	drawBone(XU_SKEL_NECK, XU_SKEL_LEFT_SHOULDER);
+	drawBone(XU_SKEL_LEFT_SHOULDER, XU_SKEL_LEFT_ELBOW);
+	drawBone(XU_SKEL_LEFT_ELBOW, XU_SKEL_LEFT_HAND);
 
-	drawBone(XN_SKEL_NECK, XN_SKEL_RIGHT_SHOULDER);
-	drawBone(XN_SKEL_RIGHT_SHOULDER, XN_SKEL_RIGHT_ELBOW);
-	drawBone(XN_SKEL_RIGHT_ELBOW, XN_SKEL_RIGHT_HAND);
+	drawBone(XU_SKEL_NECK, XU_SKEL_RIGHT_SHOULDER);
+	drawBone(XU_SKEL_RIGHT_SHOULDER, XU_SKEL_RIGHT_ELBOW);
+	drawBone(XU_SKEL_RIGHT_ELBOW, XU_SKEL_RIGHT_HAND);
 
-	drawBone(XN_SKEL_NECK, XN_SKEL_TORSO);
+	drawBone(XU_SKEL_NECK, XU_SKEL_TORSO);
 
-	drawBone(XN_SKEL_TORSO, XN_SKEL_LEFT_HIP);
-	drawBone(XN_SKEL_LEFT_HIP, XN_SKEL_LEFT_KNEE);
-	drawBone(XN_SKEL_LEFT_KNEE, XN_SKEL_LEFT_FOOT);
+	drawBone(XU_SKEL_TORSO, XU_SKEL_LEFT_HIP);
+	drawBone(XU_SKEL_LEFT_HIP, XU_SKEL_LEFT_KNEE);
+	drawBone(XU_SKEL_LEFT_KNEE, XU_SKEL_LEFT_FOOT);
 
-	drawBone(XN_SKEL_TORSO, XN_SKEL_RIGHT_HIP);
-	drawBone(XN_SKEL_RIGHT_HIP, XN_SKEL_RIGHT_KNEE);
-	drawBone(XN_SKEL_RIGHT_KNEE, XN_SKEL_RIGHT_FOOT);
+	drawBone(XU_SKEL_TORSO, XU_SKEL_RIGHT_HIP);
+	drawBone(XU_SKEL_RIGHT_HIP, XU_SKEL_RIGHT_KNEE);
+	drawBone(XU_SKEL_RIGHT_KNEE, XU_SKEL_RIGHT_FOOT);
 
 	glEnable(GL_DEPTH_TEST);
 }
 
 void SkeletonRenderer::drawBone(XuSkeletonJointIndex fromJoint, XuSkeletonJointIndex toJoint)
 {
-	XuSkeletonJointPosition fromPos, toPos;
-	m_henshinDetector->getUserDetector()->getSkeletonJointPosition(fromJoint, &fromPos);
-	m_henshinDetector->getUserDetector()->getSkeletonJointPosition(toJoint, &toPos);
+	XuSkeletonJointInfo fromPos, toPos;
+	m_henshinDetector->getUserDetector()->getSkeletonJointInfo(fromJoint, &fromPos);
+	m_henshinDetector->getUserDetector()->getSkeletonJointInfo(toJoint, &toPos);
 
 	if (isConfident(fromPos) && isConfident(toPos)) {
 		glBegin(GL_LINES);

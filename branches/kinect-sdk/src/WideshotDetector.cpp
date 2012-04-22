@@ -53,12 +53,12 @@ float WideshotDetector::getArmAngleThresnold()
 
 bool WideshotDetector::isPosing(float dt)
 {
-	XV3 pr0 = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_ELBOW);
-	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
-	XV3 prs = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER);
-	XV3 pl0 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW);
-	XV3 pl1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND);
-	XV3 pls = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER);
+	XV3 pr0 = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_ELBOW);
+	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_HAND);
+	XV3 prs = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_SHOULDER);
+	XV3 pl0 = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_ELBOW);
+	XV3 pl1 = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_HAND);
+	XV3 pls = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_SHOULDER);
 	XV3 vr01(pr1 - pr0), vrs0(pr0 - prs);
 	XV3 vl01(pl1 - pl0), vls0(pl0 - pls);
 
