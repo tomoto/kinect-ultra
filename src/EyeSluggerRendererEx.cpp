@@ -31,7 +31,7 @@
 
 EyeSluggerRendererEx::EyeSluggerRendererEx(RenderingContext* rctx, HenshinDetector* henshinDetector) : EyeSluggerRenderer(rctx, henshinDetector)
 {
-	m_holdMode = HOLD_ON_HEAD;
+	m_holdMode = HOLD_NORMAL;
 }
 
 EyeSluggerRendererEx::~EyeSluggerRendererEx()
@@ -43,9 +43,15 @@ void EyeSluggerRendererEx::setHoldMode(HoldMode holdMode)
 	m_holdMode = holdMode;
 }
 
+void EyeSluggerRendererEx::shoot(const XV3& v, float rotation, int traceDencity)
+{
+	m_holdMode = HOLD_NORMAL;
+	EyeSluggerRenderer::shoot(v, rotation, traceDencity);
+}
+
 bool EyeSluggerRendererEx::updateObjectFrame()
 {
-	if (m_holdMode == HOLD_ON_HEAD) {
+	if (m_holdMode == HOLD_NORMAL) {
 		return EyeSluggerRenderer::updateObjectFrame();
 	} else if (m_holdMode == HOLD_IN_HAND) {
 
