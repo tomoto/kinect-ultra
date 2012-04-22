@@ -40,11 +40,10 @@ class SkeletonRenderer : public AbstractOpenGLRenderer
 {
 private:
 	DepthProvider* m_depthProvider;
-	UserDetector* m_userDetector;
 	HenshinDetector* m_henshinDetector;
 
 public:
-	SkeletonRenderer(RenderingContext* rctx, DepthProvider* depthProvider, UserDetector* userDetector, HenshinDetector* henshinDetector);
+	SkeletonRenderer(RenderingContext* rctx, DepthProvider* depthProvider, HenshinDetector* henshinDetector);
 	virtual ~SkeletonRenderer();
 
 	void draw();

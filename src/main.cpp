@@ -275,7 +275,7 @@ static void initRenderers()
 	LOG( s_flatImageRenderer = new ImageRenderer(s_renderingContext, s_imageProvider) );
 	LOG( s_flatImageRenderer->lock(false) );
 	LOG( s_worldRenderer = new WorldRenderer(s_renderingContext, s_depthProvider, s_imageProvider, s_henshinDetector) );
-	LOG( s_skeletonRenderer = new SkeletonRenderer(s_renderingContext, s_depthProvider, s_userDetector, s_henshinDetector) );
+	LOG( s_skeletonRenderer = new SkeletonRenderer(s_renderingContext, s_depthProvider, s_henshinDetector) );
 	LOG( s_eyeSluggerRenderer = new EyeSluggerRenderer(s_renderingContext, s_henshinDetector) );
 	LOG( s_eyeSluggerDetector = new EyeSluggerDetector(s_henshinDetector, s_eyeSluggerRenderer) );
 	LOG( s_wideshotRenderer = new WideshotRenderer(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
