@@ -30,8 +30,8 @@
 #include "WideshotDetector.h"
 #include "util.h"
 
-WideshotDetector::WideshotDetector(DepthProvider* depthProvider, UserDetector* userDetector, WideshotRenderer* beamRenderer)
-: AbstractPoseDetector(userDetector)
+WideshotDetector::WideshotDetector(DepthProvider* depthProvider, HenshinDetector* henshinDetector, WideshotRenderer* beamRenderer)
+: AbstractPowerPoseDetector(henshinDetector)
 {
 	m_beamRenderer = beamRenderer;
 	setRequiredPosingStability(0.15f);

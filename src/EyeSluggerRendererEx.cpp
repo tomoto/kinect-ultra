@@ -1,6 +1,6 @@
 //@COPYRIGHT@//
 //
-// Copyright (c) 2011, Tomoto S. Washio
+// Copyright (c) 2012, Tomoto S. Washio
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without

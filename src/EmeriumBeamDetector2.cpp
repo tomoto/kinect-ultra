@@ -30,8 +30,8 @@
 #include "EmeriumBeamDetector2.h"
 #include "util.h"
 
-EmeriumBeamDetector2::EmeriumBeamDetector2(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
-: AbstractEmeriumBeamDetector(depthProvider, userDetector, beamRenderer)
+EmeriumBeamDetector2::EmeriumBeamDetector2(DepthProvider* depthProvider, HenshinDetector* henshinDetector, AbstractSimpleBeamRenderer* beamRenderer)
+: AbstractEmeriumBeamDetector(depthProvider, henshinDetector, beamRenderer)
 {
 }
 

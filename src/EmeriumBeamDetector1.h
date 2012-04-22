@@ -41,7 +41,7 @@ private:
 	XV3 m_prl; // middle of hands
 
 public:
-	EmeriumBeamDetector1(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer);
+	EmeriumBeamDetector1(DepthProvider* depthProvider, HenshinDetector* henshinDetector, AbstractSimpleBeamRenderer* beamRenderer);
 	virtual ~EmeriumBeamDetector1();
 
 private:

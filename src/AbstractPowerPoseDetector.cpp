@@ -27,32 +27,22 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _EYE_SLUGGER_RENDERER_EX_H_
-#define _EYE_SLUGGER_RENDERER_EX_H_
+#include "AbstractPowerPoseDetector.h"
 
-#include "common.h"
-#include "EyeSluggerRenderer.h"
-
-class EyeSluggerRendererEx : public EyeSluggerRenderer
+AbstractPowerPoseDetector::AbstractPowerPoseDetector(HenshinDetector* henshinDetector) : AbstractPoseDetector(henshinDetector->getUserDetector())
 {
-public:
-	enum HoldMode {
-		HOLD_ON_HEAD,
-		HOLD_IN_HAND,
-		HOLD_IN_AIR
-	};
+	m_henshinDetector = henshinDetector;
+}
 
-private:
-	HoldMode m_holdMode;
+AbstractPowerPoseDetector::~AbstractPowerPoseDetector()
+{
+}
 
-public:
-	EyeSluggerRendererEx(RenderingContext* rctx, HenshinDetector* henshinDetector);
-	~EyeSluggerRendererEx();
+void AbstractPowerPoseDetector::detect()
+{
+	if (m_henshinDetector->getStage() != HenshinDetector::STAGE_HENSHINED) {
+		return;
+	}
 
-	void setHoldMode(HoldMode holdMode);
-
-protected:
-	virtual bool updateObjectFrame();
-};
-
-#endif
+	AbstractPoseDetector::detect();
+}

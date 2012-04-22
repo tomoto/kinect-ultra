@@ -30,8 +30,8 @@
 #include "AbstractEmeriumBeamDetector.h"
 #include "util.h"
 
-AbstractEmeriumBeamDetector::AbstractEmeriumBeamDetector(DepthProvider* depthProvider, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
-: AbstractPoseDetector(userDetector)
+AbstractEmeriumBeamDetector::AbstractEmeriumBeamDetector(DepthProvider* depthProvider, HenshinDetector* henshinDetector, AbstractSimpleBeamRenderer* beamRenderer)
+: AbstractPowerPoseDetector(henshinDetector)
 {
 	m_beamRenderer = beamRenderer;
 	setRequiredPosingStability(0.25f);
