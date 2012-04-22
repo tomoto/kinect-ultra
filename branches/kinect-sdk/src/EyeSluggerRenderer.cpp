@@ -37,7 +37,6 @@ EyeSluggerRenderer::EyeSluggerRenderer(RenderingContext* rctx, HenshinDetector* 
 {
 	m_henshinDetector = henshinDetector;
 	m_shotLifeTime = 0;
-	m_holdMode = HOLD_ON_HEAD;
 
 	setupObjectModel();
 
@@ -70,11 +69,6 @@ XV3 EyeSluggerRenderer::getForwardVector()
 void EyeSluggerRenderer::setEnergy(float energy)
 {
 	m_brightness = interpolate(MIN_BRIGHTNESS, MAX_BRIGHTNESS, energy);
-}
-
-void EyeSluggerRenderer::setHoldMode(HoldMode holdMode)
-{
-	m_holdMode = holdMode;
 }
 
 bool EyeSluggerRenderer::isShot()
@@ -121,46 +115,27 @@ void EyeSluggerRenderer::drawHeld(float dt)
 	}
 
 	// TODO probably the position/orientation should be given from outside
-
-	UserDetector* ud = m_henshinDetector->getUserDetector();
-	XV3 p, fv, uv;
-	bool updateObjectFrame;
-	switch (m_holdMode) {
-		case HOLD_ON_HEAD:
-			{
-				m_origin = ud->getSkeletonJointPosition(XN_SKEL_HEAD);
-				fv = m_henshinDetector->getUserDetector()->getForwardVector();
-				uv = m_henshinDetector->getUserDetector()->getUpVector();
-				updateObjectFrame = true;
-			}
-			break;
-		case HOLD_IN_HAND:
-			{
-				const float OFFSET = 200;
-				m_origin = ud->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
-				fv = -(m_origin - ud->getSkeletonJointPosition(XN_SKEL_NECK));
-				uv = fv.cross(ud->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER) - ud->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER));
-				uv.normalizeM();
-				m_origin -= uv * OFFSET;
-				updateObjectFrame = true;
-			}
-			break;
-		default:
-			updateObjectFrame = false;
-			break;
-	}
-
-	if (updateObjectFrame) {
-		m_objectFrame.SetOrigin(m_origin.X, m_origin.Y, m_origin.Z);
-		m_objectFrame.SetForwardVector(fv.X, fv.Y, fv.Z);
-		m_objectFrame.SetUpVector(uv.X, uv.Y, uv.Z);
-		m_objectFrame.Normalize();
-	}
+	updateObjectFrame();
 
 	m_rctx->modelViewMatrix.PushMatrix();
 	m_rctx->modelViewMatrix.MultMatrix(m_objectFrame);
 	drawSlugger(m_brightness, 1);
 	m_rctx->modelViewMatrix.PopMatrix();
+}
+
+bool EyeSluggerRenderer::updateObjectFrame()
+{
+	UserDetector* ud = m_henshinDetector->getUserDetector();
+	m_origin = ud->getSkeletonJointPosition(XN_SKEL_HEAD);
+	XV3 fv = ud->getForwardVector();
+	XV3 uv = ud->getUpVector();
+
+	m_objectFrame.SetOrigin(m_origin.X, m_origin.Y, m_origin.Z);
+	m_objectFrame.SetForwardVector(fv.X, fv.Y, fv.Z);
+	m_objectFrame.SetUpVector(uv.X, uv.Y, uv.Z);
+	m_objectFrame.Normalize();
+
+	return true;
 }
 
 void EyeSluggerRenderer::drawShot(float dt)

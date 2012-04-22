@@ -79,7 +79,7 @@ static WideshotRenderer* s_wideshotRenderer;
 EmeriumBeamRenderer1* s_emeriumBeamRenderer1;
 EmeriumBeamRenderer2* s_emeriumBeamRenderer2;
 static SparkRenderer* s_sparkRenderer;
-static EyeSluggerRenderer* s_eyeSluggerRenderer;
+static EyeSluggerRendererEx* s_eyeSluggerRenderer;
 //TestTorusRenderer* s_testTorusRenderer;
 
 static UserDetector* s_userDetector;
@@ -276,7 +276,7 @@ static void initRenderers()
 	LOG( s_flatImageRenderer->lock(false) );
 	LOG( s_worldRenderer = new WorldRenderer(s_renderingContext, s_depthProvider, s_imageProvider, s_henshinDetector) );
 	LOG( s_skeletonRenderer = new SkeletonRenderer(s_renderingContext, s_depthProvider, s_henshinDetector) );
-	LOG( s_eyeSluggerRenderer = new EyeSluggerRenderer(s_renderingContext, s_henshinDetector) );
+	LOG( s_eyeSluggerRenderer = new EyeSluggerRendererEx(s_renderingContext, s_henshinDetector) );
 	LOG( s_eyeSluggerDetector = new EyeSluggerDetectorEx(s_henshinDetector, s_eyeSluggerRenderer) );
 	LOG( s_wideshotRenderer = new WideshotRenderer(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
 	LOG( s_wideshotDetector = new WideshotDetector(s_depthProvider, s_userDetector, s_wideshotRenderer) );

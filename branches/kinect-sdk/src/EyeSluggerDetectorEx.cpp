@@ -1,6 +1,6 @@
 //@COPYRIGHT@//
 //
-// Copyright (c) 2011, Tomoto S. Washio
+// Copyright (c) 2012, Tomoto S. Washio
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -30,9 +30,10 @@
 #include "EyeSluggerDetectorEx.h"
 #include "util.h"
 
-EyeSluggerDetectorEx::EyeSluggerDetectorEx(HenshinDetector* henshinDetector, EyeSluggerRenderer* renderer)
+EyeSluggerDetectorEx::EyeSluggerDetectorEx(HenshinDetector* henshinDetector, EyeSluggerRendererEx* renderer)
 	: EyeSluggerDetector(henshinDetector, renderer)
 {
+	m_renderer = renderer;
 	m_stage = STAGE_NORMAL;
 }
 
@@ -108,20 +109,20 @@ bool EyeSluggerDetectorEx::isLeftArmStraightToFront()
 
 void EyeSluggerDetectorEx::holdSlugger()
 {
-	m_renderer->setHoldMode(EyeSluggerRenderer::HOLD_IN_HAND);
+	m_renderer->setHoldMode(EyeSluggerRendererEx::HOLD_IN_HAND);
 	m_renderer->setEnergy(0);
 	// setEnergy(0); // unnecessary, just wait for natural cool down
 }
 
 void EyeSluggerDetectorEx::restoreSlugger()
 {
-	m_renderer->setHoldMode(EyeSluggerRenderer::HOLD_ON_HEAD);
+	m_renderer->setHoldMode(EyeSluggerRendererEx::HOLD_ON_HEAD);
 	setEnergy(0);
 }
 
 void EyeSluggerDetectorEx::fixSlugger()
 {
-	m_renderer->setHoldMode(EyeSluggerRenderer::HOLD_IN_AIR);
+	m_renderer->setHoldMode(EyeSluggerRendererEx::HOLD_IN_AIR);
 }
 
 void EyeSluggerDetectorEx::processPosingInHand(float dt)

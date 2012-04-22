@@ -1,6 +1,6 @@
 //@COPYRIGHT@//
 //
-// Copyright (c) 2012, Tomoto S. Washio
+// Copyright (c) 2011, Tomoto S. Washio
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -27,51 +27,32 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _EYE_SLUGGER_DETECTOR_EX_H_
-#define _EYE_SLUGGER_DETECTOR_EX_H_
+#ifndef _EYE_SLUGGER_RENDERER_EX_H_
+#define _EYE_SLUGGER_RENDERER_EX_H_
 
 #include "common.h"
-#include "EyeSluggerDetector.h"
-#include "EyeSluggerRendererEx.h"
+#include "EyeSluggerRenderer.h"
 
-class EyeSluggerDetectorEx : public EyeSluggerDetector
+class EyeSluggerRendererEx : public EyeSluggerRenderer
 {
 public:
-	enum UltraKnockStage {
-		STAGE_NORMAL,
-		STAGE_HOLDING_IN_HAND,
-		STAGE_HOLDING_IN_HAND_POST,
-		STAGE_HOLDING_IN_AIR
+	enum HoldMode {
+		HOLD_ON_HEAD,
+		HOLD_IN_HAND,
+		HOLD_IN_AIR
 	};
 
 private:
-	EyeSluggerRendererEx* m_renderer;
-	UltraKnockStage m_stage;
+	HoldMode m_holdMode;
 
 public:
-	EyeSluggerDetectorEx(HenshinDetector* henshinDetector, EyeSluggerRendererEx* renderer);
-	virtual ~EyeSluggerDetectorEx();
+	EyeSluggerRendererEx(RenderingContext* rctx, HenshinDetector* henshinDetector);
+	~EyeSluggerRendererEx();
+
+	void setHoldMode(HoldMode holdMode);
 
 protected:
-	virtual void onDetectPre(float dt);
-	virtual void shootSlugger(float velocity, float rotation, int traceDencity);
-
-	virtual void processUnposing(float dt);
-
-private:
-	bool isLeftArmStraightToFront();
-
-	void holdSlugger();
-	void fixSlugger();
-	void restoreSlugger();
-
-	void processPosingInHand(float dt);
-	void processUnposingInHand(float dt);
-	bool processPosesInHand(float dt);
-
-	void processPosingInAir(float dt);
-	void processUnposingInAir(float dt);
-	bool processPosesInAir(float dt);
+	virtual bool updateObjectFrame();
 };
 
 #endif
