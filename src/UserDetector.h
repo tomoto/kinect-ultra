@@ -43,7 +43,7 @@ private:
 
 	XuUserID m_trackedUserID;
 
-	XuSkeletonJointInfo m_jointInfos[NUI_SKELETON_POSITION_COUNT];
+	XuSkeletonJointInfo m_jointInfos[XU_SKEL_JOINT_COUNT];
 
 public:
 	UserDetector(UserProvider* userProvider);
