@@ -102,7 +102,7 @@ static void transformCoordinatesFromDepthToColor(const Vector4& depthCameraCoord
 	*pRGBCameraCoords = NuiTransformDepthImageToSkeleton(ix, iy, z, NUI_IMAGE_RESOLUTION_640x480);
 }
 
-const void UserProvider::getSkeletonJointPosition(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointPosition* pJointPosition)
+const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointPosition)
 {
 	const NUI_SKELETON_DATA* skeleton = getSkeletonData(userID);
 

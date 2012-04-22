@@ -46,7 +46,7 @@ public:
 	const XuUserID findFirstTrackedUserID();
 	bool isUserTracked(XuUserID userID);
 	
-	const void getSkeletonJointPosition(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointPosition* pJointPosition);
+	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointPosition);
 
 protected:
 	virtual bool waitForNextFrameAndLockImpl(DWORD timeout);

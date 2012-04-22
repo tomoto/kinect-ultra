@@ -52,9 +52,9 @@ bool EyeSluggerRendererEx::updateObjectFrame()
 		const float OFFSET = 200;
 
 		UserDetector* ud = m_henshinDetector->getUserDetector();
-		m_origin = ud->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
-		XV3 fv = -(m_origin - ud->getSkeletonJointPosition(XN_SKEL_NECK));
-		XV3 uv = fv.cross(ud->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER) - ud->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER));
+		m_origin = ud->getSkeletonJointPosition(XU_SKEL_RIGHT_HAND);
+		XV3 fv = -(m_origin - ud->getSkeletonJointPosition(XU_SKEL_NECK));
+		XV3 uv = fv.cross(ud->getSkeletonJointPosition(XU_SKEL_LEFT_SHOULDER) - ud->getSkeletonJointPosition(XU_SKEL_RIGHT_SHOULDER));
 		uv.normalizeM();
 		m_origin -= uv * OFFSET;
 

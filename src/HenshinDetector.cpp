@@ -72,9 +72,9 @@ void HenshinDetector::transitToDehenshining()
 
 bool HenshinDetector::isHenshinPosing()
 {
-	XuSkeletonJointPosition jh, jrh;
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &jh);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &jrh);
+	XuSkeletonJointInfo jh, jrh;
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_HEAD, &jh);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &jrh);
 
 	if (!isConfident(jh) || !isConfident(jrh)) {
 		return false;
@@ -88,13 +88,13 @@ bool HenshinDetector::isHenshinPosing()
 
 bool HenshinDetector::isDehenshinPosing()
 {
-	XuSkeletonJointPosition jrs, jre, jrh, jls, jle, jlh;
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER, &jrs);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_ELBOW, &jre);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &jrh);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER, &jls);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW, &jle);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &jlh);
+	XuSkeletonJointInfo jrs, jre, jrh, jls, jle, jlh;
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_SHOULDER, &jrs);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_ELBOW, &jre);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &jrh);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_SHOULDER, &jls);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_ELBOW, &jle);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_HAND, &jlh);
 
 	if (!isConfident(jrs) || !isConfident(jre) || !isConfident(jrh) ||
 			!isConfident(jls) || !isConfident(jle) || !isConfident(jlh)) {

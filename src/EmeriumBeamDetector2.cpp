@@ -51,20 +51,20 @@ float EmeriumBeamDetector2::getArmAngleThreshold()
 
 bool EmeriumBeamDetector2::isPosing(float dt)
 {
-	XV3 pl0 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW);
-	XV3 pl1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND);
-	XV3 plsh = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER);
-	XV3 prsh = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER);
-	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
+	XV3 pl0 = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_ELBOW);
+	XV3 pl1 = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_HAND);
+	XV3 plsh = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_SHOULDER);
+	XV3 prsh = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_SHOULDER);
+	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_HAND);
 	XV3 vl = pl1 - pl0; // left arm
 	XV3 vsh = prsh - plsh; // shoulder line
-	XV3 pn = m_userDetector->getSkeletonJointPosition(XN_SKEL_NECK);
+	XV3 pn = m_userDetector->getSkeletonJointPosition(XU_SKEL_NECK);
 
 	const float NECK_Y_ADJUSTMENT = 50; // adjust the neck position a little down
 	pn.Y -= NECK_Y_ADJUSTMENT;
 
 	m_vnh = pl1 - pn; // neck to hand
-	m_ph = m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD);
+	m_ph = m_userDetector->getSkeletonJointPosition(XU_SKEL_HEAD);
 	
 	bool isHandCloseToNeck = m_vnh.magnitude2() < square(getNeckDistanceThreshold());
 	bool isHandHorizontal = vsh.dotNormalized(vl) > getArmAngleThreshold();

@@ -126,7 +126,7 @@ void EyeSluggerRenderer::drawHeld(float dt)
 bool EyeSluggerRenderer::updateObjectFrame()
 {
 	UserDetector* ud = m_henshinDetector->getUserDetector();
-	m_origin = ud->getSkeletonJointPosition(XN_SKEL_HEAD);
+	m_origin = ud->getSkeletonJointPosition(XU_SKEL_HEAD);
 	XV3 fv = ud->getForwardVector();
 	XV3 uv = ud->getUpVector();
 
@@ -156,7 +156,7 @@ void EyeSluggerRenderer::drawShot(float dt)
 			p = m_origin + m_shotVector * m_shotProgress;
 		} else {
 			m_brightness = MIN_BRIGHTNESS;
-			m_origin = ud->getSkeletonJointPosition(XN_SKEL_HEAD);
+			m_origin = ud->getSkeletonJointPosition(XU_SKEL_HEAD);
 			p = m_origin + m_henshinDetector->getUserDetector()->getForwardVector() * -m_shotLifeTime * m_shotVector.magnitude();
 		}
 		m_objectFrame.SetOrigin(p.X, p.Y, p.Z);

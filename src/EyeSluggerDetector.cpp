@@ -93,10 +93,10 @@ void EyeSluggerDetector::processUnposing(float dt)
 
 bool EyeSluggerDetector::isArmTopOfHead()
 {
-	XuSkeletonJointPosition hands[2], head;
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &hands[0]);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &hands[1]);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &head);
+	XuSkeletonJointInfo hands[2], head;
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &hands[0]);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_HAND, &hands[1]);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_HEAD, &head);
 
 	bool handsPosed[2];
 	const float ES_HEAD_TOP_OFFSET = 100;
@@ -109,10 +109,10 @@ bool EyeSluggerDetector::isArmTopOfHead()
 
 bool EyeSluggerDetector::isHandBackOfHead()
 {
-	XuSkeletonJointPosition hands[2], head;
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &hands[0]);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &hands[1]);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD, &head);
+	XuSkeletonJointInfo hands[2], head;
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &hands[0]);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_HAND, &hands[1]);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_HEAD, &head);
 
 	XV3 fv = m_userDetector->getForwardVector();
 	const float ES_GRAB_THRESHOLD = 200;

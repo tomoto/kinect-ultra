@@ -43,7 +43,7 @@ private:
 
 	XuUserID m_trackedUserID;
 
-	XuSkeletonJointPosition m_skeletonPositions[NUI_SKELETON_POSITION_COUNT];
+	XuSkeletonJointInfo m_jointInfos[NUI_SKELETON_POSITION_COUNT];
 
 public:
 	UserDetector(UserProvider* userProvider);
@@ -64,7 +64,7 @@ public:
 	void addListener(IUserListener* listener);
 
 	XV3 getSkeletonJointPosition(XuSkeletonJointIndex jointID);
-	void getSkeletonJointPosition(XuSkeletonJointIndex eJoint, XuSkeletonJointPosition* pJointPosition);
+	void getSkeletonJointInfo(XuSkeletonJointIndex eJoint, XuSkeletonJointInfo* pJointInfo);
 
 	XV3 getForwardVector(); // returns the vector to the direction from the back to the front
 	XV3 getUpVector(); // returns the vector to the body to the head
