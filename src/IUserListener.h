@@ -27,8 +27,8 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _USER_LISTENER_H_
-#define _USER_LISTENER_H_
+#ifndef _I_USER_LISTENER_H_
+#define _I_USER_LISTENER_H_
 
 #include "common.h"
 

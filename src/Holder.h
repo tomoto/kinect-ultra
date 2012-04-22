@@ -27,30 +27,30 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _USER_PROVIDER_H_
-#define _USER_PROVIDER_H_
+#ifndef _HOLDER_H_
+#define _HOLDER_H_
 
-#include "common.h"
-#include "AbstractSensorDataProvider.h"
-#include "joint.h"
-
-class UserProvider : public AbstractSensorDataProvider {
+template<class T>
+class Holder
+{
 private:
-	NUI_SKELETON_FRAME m_frame;
+	T* m_ptr;
+
+private:
+	Holder(const Holder&); // copy forbidden
 
 public:
-	UserProvider(INuiSensor* pSensor);
-	~UserProvider();
+	Holder() : m_ptr(NULL) {}
+	Holder(T* ptr) : m_ptr(ptr) {}
+	~Holder() { if (m_ptr) delete m_ptr; }
 
-	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
-	const XuUserID findFirstTrackedUserID();
-	bool isUserTracked(XuUserID userID);
-	
-	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointPosition);
+	Holder& operator=(T* ptr) { m_ptr = ptr; return *this; }
 
-protected:
-	virtual bool waitForNextFrameAndLockImpl(DWORD timeout);
-	virtual void unlockImpl();
+	T* operator->() { return m_ptr; }
+	const T* operator->() const { return m_ptr; }
+
+	operator T*() { return m_ptr; }
+	operator const T*() const { return m_ptr; }
 };
 
 #endif

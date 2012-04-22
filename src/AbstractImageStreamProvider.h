@@ -31,9 +31,9 @@
 #define _ABSTRACT_IMAGE_STREAM_PROVIDER_H_
 
 #include "common.h"
-#include "AbstractKinectDataProvider.h"
+#include "AbstractSensorDataProvider.h"
 
-class AbstractImageStreamProvider : public AbstractKinectDataProvider
+class AbstractImageStreamProvider : public AbstractSensorDataProvider
 {
 protected:
 	HANDLE m_hStream;
@@ -41,7 +41,7 @@ protected:
 	NUI_LOCKED_RECT m_lockedRect;
 
 public:
-	AbstractImageStreamProvider(INuiSensor* pSensor) : AbstractKinectDataProvider(pSensor), m_hStream(NULL)
+	AbstractImageStreamProvider(INuiSensor* pSensor) : AbstractSensorDataProvider(pSensor), m_hStream(NULL)
 	{
 	}
 

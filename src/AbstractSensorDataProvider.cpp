@@ -27,30 +27,34 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _USER_PROVIDER_H_
-#define _USER_PROVIDER_H_
-
-#include "common.h"
 #include "AbstractSensorDataProvider.h"
-#include "joint.h"
 
-class UserProvider : public AbstractSensorDataProvider {
-private:
-	NUI_SKELETON_FRAME m_frame;
+AbstractSensorDataProvider::AbstractSensorDataProvider(INuiSensor* pSensor) : m_pSensor(pSensor), m_isLocked(false)
+{
+	m_hNextFrameEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+}
 
-public:
-	UserProvider(INuiSensor* pSensor);
-	~UserProvider();
+AbstractSensorDataProvider::~AbstractSensorDataProvider()
+{
+	if (m_hNextFrameEvent) {
+		CloseHandle(m_hNextFrameEvent);
+	}
+}
 
-	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
-	const XuUserID findFirstTrackedUserID();
-	bool isUserTracked(XuUserID userID);
-	
-	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointPosition);
+bool AbstractSensorDataProvider::waitForNextFrameAndLock()
+{
+	if (m_isLocked) {
+		return true;
+	} else {
+		return waitForNextFrameAndLockImpl(TIMEOUT);
+	}
+}
 
-protected:
-	virtual bool waitForNextFrameAndLockImpl(DWORD timeout);
-	virtual void unlockImpl();
-};
-
-#endif
+void AbstractSensorDataProvider::unlock()
+{
+	if (!m_isLocked) {
+		return;
+	} else {
+		unlockImpl();
+	}
+}

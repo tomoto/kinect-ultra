@@ -28,13 +28,14 @@
 //@COPYRIGHT@//
 
 #include "common.h"
-//#include "config.h"
 #include "util.h"
+#include "Holder.h"
 
 #include "Configuration.h"
 
 #include "RenderingContext.h"
 
+#include "SensorManager.h"
 #include "ImageProvider.h"
 #include "DepthProvider.h"
 #include "UserProvider.h"
@@ -59,12 +60,8 @@
 
 #define APP_VERSION "k1.0"
 
-static DepthProvider* s_depthProvider;
-static ImageProvider* s_imageProvider;
-static UserProvider* s_userProvider;
-
-// NUI objects
-static INuiSensor* s_pSensor;
+// Sensor objects
+static Holder<SensorManager> s_sensorMan;
 
 // GL objects
 static GLShaderManager s_shaderMan;
@@ -132,9 +129,7 @@ static BOOL waitForEvent(HANDLE hEvent, DWORD timeout)
 
 static void onGlutDisplay()
 {
-	if (!s_imageProvider->waitForNextFrameAndLock()) return;
-	if (!s_depthProvider->waitForNextFrameAndLock()) return;
-	if (!s_userProvider->waitForNextFrameAndLock()) return;
+	if (!s_sensorMan->waitAllForNextFrameAndLock()) return;
 
 	s_frameRateCounter.update();
 
@@ -167,9 +162,7 @@ static void onGlutDisplay()
 	// s_testTorusRenderer->draw();
 	glutSwapBuffers();
 
-	s_userProvider->unlock();
-	s_depthProvider->unlock();
-	s_imageProvider->unlock();
+	s_sensorMan->unlock();
 }
 
 static void onGlutIdle()
@@ -177,24 +170,11 @@ static void onGlutIdle()
 	glutPostRedisplay();
 }
 
-static void initNUI()
+static void initSensor()
 {
-	CALL_NUI(NuiCreateSensorByIndex(0, &s_pSensor));
-	DWORD flags = NUI_INITIALIZE_FLAG_USES_COLOR | NUI_INITIALIZE_FLAG_USES_DEPTH_AND_PLAYER_INDEX | NUI_INITIALIZE_FLAG_USES_SKELETON;
-	CALL_NUI(s_pSensor->NuiInitialize(flags));
-	s_imageProvider = new ImageProvider(s_pSensor);
-	s_depthProvider = new DepthProvider(s_pSensor);
-	s_userProvider = new UserProvider(s_pSensor);
-	s_userDetector = new UserDetector(s_userProvider);
+	s_sensorMan = new SensorManager();
+	s_userDetector = new UserDetector(s_sensorMan->getUserProvider());
 	s_henshinDetector = new HenshinDetector(s_userDetector);
-}
-
-static void shutdownNUI()
-{
-	if (s_pSensor) {
-		s_pSensor->NuiShutdown();
-		s_pSensor->Release();
-	}
 }
 
 static void sorryThisProgramCannotRunBecause(const char* reason)
@@ -269,21 +249,24 @@ static void initRenderers()
 
 	LOG( initProjection() );
 
-	LOG( s_voxelObjectMapper = new VoxelObjectMapper(s_depthProvider) );
+	DepthProvider* depthProvider = s_sensorMan->getDepthProvider();
+	ImageProvider* imageProvider = s_sensorMan->getImageProvider();
+
+	LOG( s_voxelObjectMapper = new VoxelObjectMapper(depthProvider) );
 	LOG( s_sparkRenderer = new SparkRenderer(s_renderingContext) );
 
-	LOG( s_flatImageRenderer = new ImageRenderer(s_renderingContext, s_imageProvider) );
+	LOG( s_flatImageRenderer = new ImageRenderer(s_renderingContext, imageProvider) );
 	LOG( s_flatImageRenderer->lock(false) );
-	LOG( s_worldRenderer = new WorldRenderer(s_renderingContext, s_depthProvider, s_imageProvider, s_henshinDetector) );
-	LOG( s_skeletonRenderer = new SkeletonRenderer(s_renderingContext, s_depthProvider, s_henshinDetector) );
+	LOG( s_worldRenderer = new WorldRenderer(s_renderingContext, depthProvider, imageProvider, s_henshinDetector) );
+	LOG( s_skeletonRenderer = new SkeletonRenderer(s_renderingContext, depthProvider, s_henshinDetector) );
 	LOG( s_eyeSluggerRenderer = new EyeSluggerRendererEx(s_renderingContext, s_henshinDetector) );
 	LOG( s_eyeSluggerDetector = new EyeSluggerDetectorEx(s_henshinDetector, s_eyeSluggerRenderer) );
 	LOG( s_wideshotRenderer = new WideshotRenderer(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
-	LOG( s_wideshotDetector = new WideshotDetector(s_depthProvider, s_henshinDetector, s_wideshotRenderer) );
+	LOG( s_wideshotDetector = new WideshotDetector(depthProvider, s_henshinDetector, s_wideshotRenderer) );
 	LOG( s_emeriumBeamRenderer1 = new EmeriumBeamRenderer1(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
 	LOG( s_emeriumBeamRenderer2 = new EmeriumBeamRenderer2(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
-	LOG( s_emeriumBeamDetector1 = new EmeriumBeamDetector1(s_depthProvider, s_henshinDetector, s_emeriumBeamRenderer1) );
-	LOG( s_emeriumBeamDetector2 = new EmeriumBeamDetector2(s_depthProvider, s_henshinDetector, s_emeriumBeamRenderer2) );
+	LOG( s_emeriumBeamDetector1 = new EmeriumBeamDetector1(depthProvider, s_henshinDetector, s_emeriumBeamRenderer1) );
+	LOG( s_emeriumBeamDetector2 = new EmeriumBeamDetector2(depthProvider, s_henshinDetector, s_emeriumBeamRenderer2) );
 
 	 //s_testTorusRenderer = new TestTorusRenderer(&s_renderingContext);
 
@@ -326,12 +309,11 @@ void main(int argc, char* argv[])
 {
 	// enable memory leak report for Win32 debug
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	atexit(shutdownNUI);
 
 	displayWelcomeMessage();
 
 	initGL(&argc, argv);
-	initNUI();
+	initSensor();
 	initRenderers();
 	glutShowWindow();
 	// toggleFullScreenMode(); // remove comment to run in the full-screen mode by default

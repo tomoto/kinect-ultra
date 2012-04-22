@@ -27,30 +27,31 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _USER_PROVIDER_H_
-#define _USER_PROVIDER_H_
+#ifndef _ABSTRACT_SENSOR_DATA_PROVIDER_H_
+#define _ABSTRACT_SENSOR_DATA_PROVIDER_H_
 
 #include "common.h"
-#include "AbstractSensorDataProvider.h"
-#include "joint.h"
 
-class UserProvider : public AbstractSensorDataProvider {
+class AbstractSensorDataProvider
+{
 private:
-	NUI_SKELETON_FRAME m_frame;
-
-public:
-	UserProvider(INuiSensor* pSensor);
-	~UserProvider();
-
-	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
-	const XuUserID findFirstTrackedUserID();
-	bool isUserTracked(XuUserID userID);
-	
-	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointPosition);
+	static const DWORD TIMEOUT = 1000;
 
 protected:
-	virtual bool waitForNextFrameAndLockImpl(DWORD timeout);
-	virtual void unlockImpl();
+	INuiSensor* m_pSensor;
+	HANDLE m_hNextFrameEvent;
+	bool m_isLocked;
+
+public:
+	AbstractSensorDataProvider(INuiSensor* pSensor);
+	virtual ~AbstractSensorDataProvider() = 0;
+
+	bool waitForNextFrameAndLock();
+	void unlock();
+
+protected:
+	virtual bool waitForNextFrameAndLockImpl(DWORD timeout) = 0;
+	virtual void unlockImpl() = 0;
 };
 
 #endif
