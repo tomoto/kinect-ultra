@@ -38,20 +38,8 @@
 // TODO: renderer part and motion controller part should be separated
 class EyeSluggerRenderer : public AbstractOpenGLRenderer
 {
-public:
-	enum HoldMode {
-		HOLD_ON_HEAD,
-		HOLD_IN_HAND,
-		HOLD_IN_AIR
-	};
-
 private:
-	HenshinDetector* m_henshinDetector;
 	std::vector<GLBatch> m_batches;
-	GLFrame m_objectFrame;
-	XV3 m_origin;
-
-	HoldMode m_holdMode;
 
 	TimeTicker m_ticker;
 	float m_shotLifeTime;
@@ -61,6 +49,11 @@ private:
 	int m_shotTraceDencity;
 
 	float m_brightness;
+
+protected:
+	HenshinDetector* m_henshinDetector;
+	GLFrame m_objectFrame;
+	XV3 m_origin;
 
 private:
 	void setupObjectModel();
@@ -79,12 +72,13 @@ public:
 	XV3 getForwardVector(); // TODO weird dependency direction; should this be give from outside?
 
 	void setEnergy(float energy);
-	void setHoldMode(HoldMode holdMode);
 
 	bool isShot();
 
 	void shoot(const XV3& v, float rotation, int traceDencity);
 
+protected:
+	virtual bool updateObjectFrame();
 };
 
 #endif

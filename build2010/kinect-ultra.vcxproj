@@ -121,6 +121,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClCompile Include="..\src\EyeSluggerDetector.cpp" />
     <ClCompile Include="..\src\EyeSluggerDetectorEx.cpp" />
     <ClCompile Include="..\src\EyeSluggerRenderer.cpp" />
+    <ClCompile Include="..\src\EyeSluggerRendererEx.cpp" />
     <ClCompile Include="..\src\HenshinDetector.cpp" />
     <ClCompile Include="..\src\ImageProvider.cpp" />
     <ClCompile Include="..\src\ImageRenderer.cpp" />
@@ -156,6 +157,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClInclude Include="..\src\EyeSluggerDetector.h" />
     <ClInclude Include="..\src\EyeSluggerDetectorEx.h" />
     <ClInclude Include="..\src\EyeSluggerRenderer.h" />
+    <ClInclude Include="..\src\EyeSluggerRendererEx.h" />
     <ClInclude Include="..\src\HenshinDetector.h" />
     <ClInclude Include="..\src\ImageProvider.h" />
     <ClInclude Include="..\src\ImageRenderer.h" />

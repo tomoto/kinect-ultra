@@ -1,6 +1,6 @@
 //@COPYRIGHT@//
 //
-// Copyright (c) 2012, Tomoto S. Washio
+// Copyright (c) 2011, Tomoto S. Washio
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -27,51 +27,44 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _EYE_SLUGGER_DETECTOR_EX_H_
-#define _EYE_SLUGGER_DETECTOR_EX_H_
-
-#include "common.h"
-#include "EyeSluggerDetector.h"
 #include "EyeSluggerRendererEx.h"
 
-class EyeSluggerDetectorEx : public EyeSluggerDetector
+EyeSluggerRendererEx::EyeSluggerRendererEx(RenderingContext* rctx, HenshinDetector* henshinDetector) : EyeSluggerRenderer(rctx, henshinDetector)
 {
-public:
-	enum UltraKnockStage {
-		STAGE_NORMAL,
-		STAGE_HOLDING_IN_HAND,
-		STAGE_HOLDING_IN_HAND_POST,
-		STAGE_HOLDING_IN_AIR
-	};
+	m_holdMode = HOLD_ON_HEAD;
+}
 
-private:
-	EyeSluggerRendererEx* m_renderer;
-	UltraKnockStage m_stage;
+EyeSluggerRendererEx::~EyeSluggerRendererEx()
+{
+}
 
-public:
-	EyeSluggerDetectorEx(HenshinDetector* henshinDetector, EyeSluggerRendererEx* renderer);
-	virtual ~EyeSluggerDetectorEx();
+void EyeSluggerRendererEx::setHoldMode(HoldMode holdMode)
+{
+	m_holdMode = holdMode;
+}
 
-protected:
-	virtual void onDetectPre(float dt);
-	virtual void shootSlugger(float velocity, float rotation, int traceDencity);
+bool EyeSluggerRendererEx::updateObjectFrame()
+{
+	if (m_holdMode == HOLD_ON_HEAD) {
+		return EyeSluggerRenderer::updateObjectFrame();
+	} else if (m_holdMode == HOLD_IN_HAND) {
 
-	virtual void processUnposing(float dt);
+		const float OFFSET = 200;
 
-private:
-	bool isLeftArmStraightToFront();
+		UserDetector* ud = m_henshinDetector->getUserDetector();
+		m_origin = ud->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
+		XV3 fv = -(m_origin - ud->getSkeletonJointPosition(XN_SKEL_NECK));
+		XV3 uv = fv.cross(ud->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER) - ud->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER));
+		uv.normalizeM();
+		m_origin -= uv * OFFSET;
 
-	void holdSlugger();
-	void fixSlugger();
-	void restoreSlugger();
+		m_objectFrame.SetOrigin(m_origin.X, m_origin.Y, m_origin.Z);
+		m_objectFrame.SetForwardVector(fv.X, fv.Y, fv.Z);
+		m_objectFrame.SetUpVector(uv.X, uv.Y, uv.Z);
+		m_objectFrame.Normalize();
 
-	void processPosingInHand(float dt);
-	void processUnposingInHand(float dt);
-	bool processPosesInHand(float dt);
-
-	void processPosingInAir(float dt);
-	void processUnposingInAir(float dt);
-	bool processPosesInAir(float dt);
-};
-
-#endif
+		return true;
+	} else {
+		return false;
+	}
+}
