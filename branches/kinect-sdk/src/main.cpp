@@ -52,6 +52,7 @@
 #include "EmeriumBeamRenderer2.h"
 #include "EyeSluggerDetectorEx.h"
 #include "EyeSluggerRenderer.h"
+#include "UltraEyeRenderer.h"
 #include "VoxelObjectMapper.h"
 //#include "TestTorusRenderer.h"
 #include "FrameRateCounter.h"
@@ -77,6 +78,7 @@ EmeriumBeamRenderer1* s_emeriumBeamRenderer1;
 EmeriumBeamRenderer2* s_emeriumBeamRenderer2;
 static SparkRenderer* s_sparkRenderer;
 static EyeSluggerRendererEx* s_eyeSluggerRenderer;
+static UltraEyeRenderer* s_ultraEyeRenderer;
 //TestTorusRenderer* s_testTorusRenderer;
 
 static UserDetector* s_userDetector;
@@ -153,6 +155,7 @@ static void onGlutDisplay()
 
 	s_worldRenderer->draw();
 	s_skeletonRenderer->draw();
+	s_ultraEyeRenderer->draw();
 	s_eyeSluggerRenderer->draw();
 	s_wideshotRenderer->draw();
 	s_emeriumBeamRenderer1->draw();
@@ -267,6 +270,7 @@ static void initRenderers()
 	LOG( s_emeriumBeamRenderer2 = new EmeriumBeamRenderer2(s_renderingContext, s_voxelObjectMapper, s_sparkRenderer) );
 	LOG( s_emeriumBeamDetector1 = new EmeriumBeamDetector1(depthProvider, s_henshinDetector, s_emeriumBeamRenderer1) );
 	LOG( s_emeriumBeamDetector2 = new EmeriumBeamDetector2(depthProvider, s_henshinDetector, s_emeriumBeamRenderer2) );
+	LOG( s_ultraEyeRenderer = new UltraEyeRenderer(s_renderingContext, s_henshinDetector) );
 
 	 //s_testTorusRenderer = new TestTorusRenderer(&s_renderingContext);
 
