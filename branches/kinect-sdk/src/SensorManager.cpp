@@ -27,31 +27,37 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _ABSTRACT_KINECT_DATA_PROVIDER_H_
-#define _ABSTRACT_KINECT_DATA_PROVIDER_H_
+#include "SensorManager.h"
 
-#include "common.h"
-
-class AbstractKinectDataProvider
+SensorManager::SensorManager() : m_pSensor(NULL)
 {
-private:
-	static const DWORD TIMEOUT = 1000;
+	CALL_NUI(NuiCreateSensorByIndex(0, &m_pSensor));
+	DWORD flags = NUI_INITIALIZE_FLAG_USES_COLOR | NUI_INITIALIZE_FLAG_USES_DEPTH_AND_PLAYER_INDEX | NUI_INITIALIZE_FLAG_USES_SKELETON;
+	CALL_NUI(m_pSensor->NuiInitialize(flags));
+	m_imageProvider = new ImageProvider(m_pSensor);
+	m_depthProvider = new DepthProvider(m_pSensor);
+	m_userProvider = new UserProvider(m_pSensor);
+}
 
-protected:
-	INuiSensor* m_pSensor;
-	HANDLE m_hNextFrameEvent;
-	bool m_isLocked;
+SensorManager::~SensorManager()
+{
+	if (m_pSensor) {
+		m_pSensor->NuiShutdown();
+		m_pSensor->Release();
+		m_pSensor = NULL;
+	}
+}
 
-public:
-	AbstractKinectDataProvider(INuiSensor* pSensor);
-	virtual ~AbstractKinectDataProvider() = 0;
+bool SensorManager::waitAllForNextFrameAndLock()
+{
+	return m_imageProvider->waitForNextFrameAndLock() &&
+		m_depthProvider->waitForNextFrameAndLock() &&
+		m_userProvider->waitForNextFrameAndLock();
+}
 
-	bool waitForNextFrameAndLock();
-	void unlock();
-
-protected:
-	virtual bool waitForNextFrameAndLockImpl(DWORD timeout) = 0;
-	virtual void unlockImpl() = 0;
-};
-
-#endif
+void SensorManager::unlock()
+{
+	m_userProvider->unlock();
+	m_depthProvider->unlock();
+	m_imageProvider->unlock();
+}

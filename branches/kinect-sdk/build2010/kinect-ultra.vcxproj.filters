@@ -32,9 +32,6 @@
     <ClCompile Include="..\src\TimeTicker.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AbstractKinectDataProvider.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ImageProvider.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -105,6 +102,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\AbstractPowerPoseDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractSensorDataProvider.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SensorManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -211,9 +214,6 @@
     <ClInclude Include="..\src\UserProvider.h">
       <Filter>h</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\AbstractKinectDataProvider.h">
-      <Filter>h</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\joint.h">
       <Filter>h</Filter>
     </ClInclude>
@@ -230,6 +230,15 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="..\src\AbstractPowerPoseDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractSensorDataProvider.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SensorManager.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Holder.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>

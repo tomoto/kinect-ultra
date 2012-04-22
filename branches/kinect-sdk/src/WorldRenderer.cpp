@@ -251,8 +251,8 @@ void WorldRenderer::drawBackground()
 	float y = 0;
 	float nearZ = PERSPECTIVE_Z_MIN + m_depthAdjustment;
 	for (int i = 0; i < numPoints; i++, ip++, dp++, vp++, cp++, ix++) {
-		XuDepthPixel d = NuiDepthPixelToDepth(*dp);
-		XuUserID u = NuiDepthPixelToPlayerIndex(*dp);
+		XuDepthPixel d = GetDepthFromRawPixel(*dp);
+		XuUserID u = GetUserIDFromRawPixel(*dp);
 
 		if (ix == m_width) {
 			ix = 0;

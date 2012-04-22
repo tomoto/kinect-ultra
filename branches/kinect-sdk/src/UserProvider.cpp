@@ -30,7 +30,7 @@
 #include "UserProvider.h"
 #include "config.h"
 
-UserProvider::UserProvider(INuiSensor* pSensor) : AbstractKinectDataProvider(pSensor)
+UserProvider::UserProvider(INuiSensor* pSensor) : AbstractSensorDataProvider(pSensor)
 {
 	CALL_NUI(m_pSensor->NuiSkeletonTrackingEnable(m_hNextFrameEvent, NUI_SKELETON_TRACKING_FLAG_SUPPRESS_NO_FRAME_DATA));
 }

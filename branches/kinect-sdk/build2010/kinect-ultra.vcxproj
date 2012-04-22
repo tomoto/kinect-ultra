@@ -106,7 +106,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AbstractEmeriumBeamDetector.cpp" />
-    <ClCompile Include="..\src\AbstractKinectDataProvider.cpp" />
+    <ClCompile Include="..\src\AbstractSensorDataProvider.cpp" />
     <ClCompile Include="..\src\AbstractOpenGLRenderer.cpp" />
     <ClCompile Include="..\src\AbstractPoseDetector.cpp" />
     <ClCompile Include="..\src\AbstractPowerPoseDetector.cpp" />
@@ -127,6 +127,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClCompile Include="..\src\ImageProvider.cpp" />
     <ClCompile Include="..\src\ImageRenderer.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\SensorManager.cpp" />
     <ClCompile Include="..\src\SkeletonRenderer.cpp" />
     <ClCompile Include="..\src\SparkRenderer.cpp" />
     <ClCompile Include="..\src\TimeTicker.cpp" />
@@ -151,6 +152,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClInclude Include="..\src\config.h" />
     <ClInclude Include="..\src\Configurable.h" />
     <ClInclude Include="..\src\Configuration.h" />
+    <ClInclude Include="..\src\Holder.h" />
     <ClInclude Include="..\src\DepthProvider.h" />
     <ClInclude Include="..\src\EmeriumBeamDetector1.h" />
     <ClInclude Include="..\src\EmeriumBeamDetector2.h" />
@@ -163,10 +165,11 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClInclude Include="..\src\HenshinDetector.h" />
     <ClInclude Include="..\src\ImageProvider.h" />
     <ClInclude Include="..\src\ImageRenderer.h" />
-    <ClInclude Include="..\src\AbstractKinectDataProvider.h" />
+    <ClInclude Include="..\src\AbstractSensorDataProvider.h" />
     <ClInclude Include="..\src\joint.h" />
     <ClInclude Include="..\src\math.h" />
     <ClInclude Include="..\src\RenderingContext.h" />
+    <ClInclude Include="..\src\SensorManager.h" />
     <ClInclude Include="..\src\SkeletonRenderer.h" />
     <ClInclude Include="..\src\SparkRenderer.h" />
     <ClInclude Include="..\src\TestTorusRenderer.h" />

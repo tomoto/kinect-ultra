@@ -27,34 +27,33 @@
 //
 //@COPYRIGHT@//
 
-#include "AbstractKinectDataProvider.h"
+#ifndef _SENSOR_MANAGER_H_
+#define _SENSOR_MANAGER_H_
 
-AbstractKinectDataProvider::AbstractKinectDataProvider(INuiSensor* pSensor) : m_pSensor(pSensor), m_isLocked(false)
-{
-	m_hNextFrameEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-}
+#include "common.h"
+#include "Holder.h"
+#include "ImageProvider.h"
+#include "DepthProvider.h"
+#include "UserProvider.h"
 
-AbstractKinectDataProvider::~AbstractKinectDataProvider()
+class SensorManager
 {
-	if (m_hNextFrameEvent) {
-		CloseHandle(m_hNextFrameEvent);
-	}
-}
+private:
+	INuiSensor* m_pSensor;
+	Holder<ImageProvider> m_imageProvider;
+	Holder<DepthProvider> m_depthProvider;
+	Holder<UserProvider> m_userProvider;
 
-bool AbstractKinectDataProvider::waitForNextFrameAndLock()
-{
-	if (m_isLocked) {
-		return true;
-	} else {
-		return waitForNextFrameAndLockImpl(TIMEOUT);
-	}
-}
+public:
+	SensorManager();
+	virtual ~SensorManager();
 
-void AbstractKinectDataProvider::unlock()
-{
-	if (!m_isLocked) {
-		return;
-	} else {
-		unlockImpl();
-	}
-}
+	ImageProvider* getImageProvider() { return m_imageProvider; }
+	DepthProvider* getDepthProvider() { return m_depthProvider; }
+	UserProvider* getUserProvider() { return m_userProvider; }
+
+	bool waitAllForNextFrameAndLock();
+	void unlock();
+};
+
+#endif

@@ -34,7 +34,8 @@
 #include "AbstractImageStreamProvider.h"
 #include "vec.h"
 
-class DepthProvider : public AbstractImageStreamProvider {
+class DepthProvider : public AbstractImageStreamProvider
+{
 private:
 	XuRawDepthPixel* m_data;
 

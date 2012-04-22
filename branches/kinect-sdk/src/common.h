@@ -53,6 +53,7 @@
 
 #include <opencv/cv.h> // OpenCV
 
+typedef USHORT XuRawUserIDPPixel;
 typedef DWORD XuUserID;
 struct XuColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
 struct XuRawColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
@@ -63,6 +64,14 @@ typedef USHORT XuRawDepthPixel;
 // Note: I'm using macro instead of inline for some part
 // so that I can get enough speed in debug version.
 #define USE_MACRO
+
+#ifndef USE_MACRO
+inline GetDepthFromRawPixel(XuRawDepthPixel d) { return NuiDepthPixelToDepth(d); }
+inline GetUserIDFromRawPixel(XuRawUserIDPPixel u) { return NuiDepthPixelToPlayerIndex(u); }
+#else
+#define GetDepthFromRawPixel(d) NuiDepthPixelToDepth(d)
+#define GetUserIDFromRawPixel(u) NuiDepthPixelToPlayerIndex(u)
+#endif
 
 void registerErrorExitFunc(void(*f)());
 void errorExit();
