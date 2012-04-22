@@ -59,9 +59,6 @@
     <ClCompile Include="..\src\AbstractPoseDetector.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\UserListener.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Configuration.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -211,10 +208,10 @@
     <ClInclude Include="..\src\AbstractKinectDataProvider.h">
       <Filter>h</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\UserListener.h">
+    <ClInclude Include="..\src\joint.h">
       <Filter>h</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\joint.h">
+    <ClInclude Include="..\src\IUserListener.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>

@@ -30,11 +30,10 @@
 #include "SkeletonRenderer.h"
 #include "util.h"
 
-SkeletonRenderer::SkeletonRenderer(RenderingContext* rctx, DepthProvider* depthProvider, UserDetector* userDetector, HenshinDetector* henshinDetector)
+SkeletonRenderer::SkeletonRenderer(RenderingContext* rctx, DepthProvider* depthProvider, HenshinDetector* henshinDetector)
 : AbstractOpenGLRenderer(rctx)
 {
 	m_depthProvider = depthProvider;
-	m_userDetector = userDetector;
 	m_henshinDetector = henshinDetector;
 }
 
@@ -86,8 +85,8 @@ void SkeletonRenderer::draw()
 void SkeletonRenderer::drawBone(XuSkeletonJointIndex fromJoint, XuSkeletonJointIndex toJoint)
 {
 	XuSkeletonJointPosition fromPos, toPos;
-	m_userDetector->getSkeletonJointPosition(fromJoint, &fromPos);
-	m_userDetector->getSkeletonJointPosition(toJoint, &toPos);
+	m_henshinDetector->getUserDetector()->getSkeletonJointPosition(fromJoint, &fromPos);
+	m_henshinDetector->getUserDetector()->getSkeletonJointPosition(toJoint, &toPos);
 
 	if (isConfident(fromPos) && isConfident(toPos)) {
 		glBegin(GL_LINES);

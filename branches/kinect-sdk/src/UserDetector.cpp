@@ -83,7 +83,7 @@ void UserDetector::getSkeletonJointPosition(XuSkeletonJointIndex jointIndex, XuS
 	}
 }
 
-void UserDetector::addListener(UserListener* listener)
+void UserDetector::addListener(IUserListener* listener)
 {
 	assert(m_listener == NULL);
 	m_listener = listener;

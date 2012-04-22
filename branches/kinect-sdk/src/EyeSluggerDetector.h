@@ -34,7 +34,6 @@
 #include "AbstractPoseDetector.h"
 #include "EyeSluggerRenderer.h"
 
-// TODO: separate to .cpp
 class EyeSluggerDetector : public AbstractPoseDetector
 {
 public:

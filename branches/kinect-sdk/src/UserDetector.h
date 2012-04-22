@@ -32,14 +32,14 @@
 
 #include "common.h"
 #include "vec.h"
-#include "UserListener.h"
+#include "IUserListener.h"
 #include "UserProvider.h"
 
 class UserDetector
 {
 private:
 	UserProvider* m_userProvider;
-	UserListener* m_listener;
+	IUserListener* m_listener;
 
 	XuUserID m_trackedUserID;
 
@@ -61,7 +61,7 @@ public:
 		return getTrackedUserID() == userID;
 	}
 
-	void addListener(UserListener* listener);
+	void addListener(IUserListener* listener);
 
 	XV3 getSkeletonJointPosition(XuSkeletonJointIndex jointID);
 	void getSkeletonJointPosition(XuSkeletonJointIndex eJoint, XuSkeletonJointPosition* pJointPosition);

@@ -1,6 +1,6 @@
 //@COPYRIGHT@//
 //
-// Copyright (c) 2012, Tomoto S. Washio
+// Copyright (c) 2011, Tomoto S. Washio
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -27,31 +27,17 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _JOINT_H_
-#define _JOINT_H_
+#ifndef _USER_LISTENER_H_
+#define _USER_LISTENER_H_
 
 #include "common.h"
-#include "vec.h"
 
-struct XuSkeletonJointPosition { float fConfidence; XV3 position; };
-
-typedef NUI_SKELETON_POSITION_INDEX XuSkeletonJointIndex;
-
-// TODO: tentative replacement
-#define XN_SKEL_LEFT_SHOULDER NUI_SKELETON_POSITION_SHOULDER_LEFT
-#define XN_SKEL_LEFT_ELBOW NUI_SKELETON_POSITION_ELBOW_LEFT
-#define XN_SKEL_LEFT_HAND NUI_SKELETON_POSITION_HAND_LEFT
-#define XN_SKEL_LEFT_HIP NUI_SKELETON_POSITION_HIP_LEFT
-#define XN_SKEL_LEFT_KNEE NUI_SKELETON_POSITION_KNEE_LEFT
-#define XN_SKEL_LEFT_FOOT NUI_SKELETON_POSITION_ANKLE_LEFT
-#define XN_SKEL_RIGHT_SHOULDER NUI_SKELETON_POSITION_SHOULDER_RIGHT
-#define XN_SKEL_RIGHT_ELBOW NUI_SKELETON_POSITION_ELBOW_RIGHT
-#define XN_SKEL_RIGHT_HAND NUI_SKELETON_POSITION_HAND_RIGHT
-#define XN_SKEL_RIGHT_HIP NUI_SKELETON_POSITION_HIP_RIGHT
-#define XN_SKEL_RIGHT_KNEE NUI_SKELETON_POSITION_KNEE_RIGHT
-#define XN_SKEL_RIGHT_FOOT NUI_SKELETON_POSITION_ANKLE_RIGHT
-#define XN_SKEL_HEAD NUI_SKELETON_POSITION_HEAD
-#define XN_SKEL_NECK NUI_SKELETON_POSITION_SHOULDER_CENTER
-#define XN_SKEL_TORSO NUI_SKELETON_POSITION_SPINE
+class IUserListener
+{
+public:
+	virtual ~IUserListener() {}
+	virtual void onNewUser(XuUserID userID) = 0;
+	virtual void onLostUser(XuUserID userID) = 0;
+};
 
 #endif

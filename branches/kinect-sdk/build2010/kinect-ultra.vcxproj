@@ -128,7 +128,6 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClCompile Include="..\src\SparkRenderer.cpp" />
     <ClCompile Include="..\src\TimeTicker.cpp" />
     <ClCompile Include="..\src\UserDetector.cpp" />
-    <ClCompile Include="..\src\UserListener.cpp" />
     <ClCompile Include="..\src\UserProvider.cpp" />
     <ClCompile Include="..\src\util.cpp" />
     <ClCompile Include="..\src\VoxelObjectMapper.cpp" />
@@ -167,7 +166,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
     <ClInclude Include="..\src\TestTorusRenderer.h" />
     <ClInclude Include="..\src\TimeTicker.h" />
     <ClInclude Include="..\src\UserDetector.h" />
-    <ClInclude Include="..\src\UserListener.h" />
+    <ClInclude Include="..\src\IUserListener.h" />
     <ClInclude Include="..\src\UserProvider.h" />
     <ClInclude Include="..\src\util.h" />
     <ClInclude Include="..\src\vec.h" />

@@ -32,12 +32,12 @@
 
 #include "common.h"
 #include "AbstractPoseDetector.h"
-#include "UserListener.h"
+#include "IUserListener.h"
 #include "UserDetector.h"
 #include "Configurable.h"
 #include "TimeTicker.h"
 
-class HenshinDetector : public AbstractPoseDetector, UserListener, Configurable
+class HenshinDetector : public AbstractPoseDetector, IUserListener, Configurable
 {
 public:
 	enum Stage {
