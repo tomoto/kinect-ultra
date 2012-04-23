@@ -93,14 +93,14 @@ void SkeletonRenderer::drawBone(XuSkeletonJointIndex fromJoint, XuSkeletonJointI
 
 	if (isConfident(fromPos) && isConfident(toPos)) {
 		glBegin(GL_LINES);
-		glVertex3f(fromPos.position.X, fromPos.position.Y, fromPos.position.Z);
-		glVertex3f(toPos.position.X, toPos.position.Y, toPos.position.Z);
+		glVertex3fv(XV3toM3D(fromPos.position));
+		glVertex3fv(XV3toM3D(toPos.position));
 		glEnd();
 	}
 
 	if (isConfident(toPos)) {
 		glBegin(GL_POINTS);
-		glVertex3f(toPos.position.X, toPos.position.Y, toPos.position.Z);
+		glVertex3fv(XV3toM3D(toPos.position));
 		glEnd();
 	}
 }
