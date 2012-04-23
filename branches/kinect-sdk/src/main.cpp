@@ -118,9 +118,9 @@ static void onGlutKeyboard(unsigned char key, int x, int y)
 		case 't':
 			Configuration::getInstance()->changeTriggerHappyMode();
 			break;
-//		case 'm':
-//			s_renderingContext.mirror();
-//			break;
+		case 'm':
+			s_renderingContext->mirror();
+			break;
 	}
 }
 
@@ -300,7 +300,7 @@ static void displayWelcomeMessage()
 		puts("[q][a] -- Adjust the depth of 3D virtual objects.");
 		puts("[s]    -- Retake the background image overlayed when you fly.");
 		puts("[f]    -- Output framerate to the console.");
-		//puts("[m]    -- Mirror the screen.");
+		puts("[m]    -- Mirror the screen.");
 		puts("[t]    -- Change Trigger Happy Mode. (Normal/Happy/Happier)");
 		puts("          This makes it easier to trigger the powers.");
 		puts("");
