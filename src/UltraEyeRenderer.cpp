@@ -44,22 +44,28 @@ void UltraEyeRenderer::drawSearchingInstruction()
 
 void UltraEyeRenderer::drawHenshinInstruction()
 {
-	XuSkeletonJointInfo jrh, jh;
+	XuSkeletonJointInfo jrh, jh, jre;
 	m_henshinDetector->getUserDetector()->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &jrh);
 	m_henshinDetector->getUserDetector()->getSkeletonJointInfo(XU_SKEL_HEAD, &jh);
+	m_henshinDetector->getUserDetector()->getSkeletonJointInfo(XU_SKEL_RIGHT_ELBOW, &jre);
 
-	if (!isConfident(jrh) || !isConfident(jh)) return;
+	if (!isConfident(jrh) || !isConfident(jh) || !isConfident(jre)) return;
+
+	const float CIRCLE_RADIUS = 100;
 
 	XV3 fv(m_henshinDetector->getUserDetector()->getForwardVector());
 	XV3 uv(m_henshinDetector->getUserDetector()->getUpVector());
-	XV3 p1(jrh.position.interpolate(jh.position, 0.1f) + fv * 100);
-	XV3 p2(jrh.position.interpolate(jh.position, 0.9f) + fv * 100 - uv * 50);
-	float len = (p2 - p1).magnitude();
-	XV3 p3(p1.interpolate(p2, 0.8f));
-	XV3 v1(jrh.position - m_henshinDetector->getUserDetector()->getSkeletonJointPosition(XU_SKEL_RIGHT_ELBOW));
-	XV3 v2 = (p2 - p1).cross(v1).normalize() * len * 0.1f;
-	XV3 p4(p3 + v2);
-	XV3 p5(p3 - v2);
+	XV3 armDirection((jrh.position - jre.position).normalize());
+	XV3 adjustedRightHand(jrh.position + armDirection * 30); // slightly move to the fingertip side
+	XV3 adjustedHead(jh.position + fv * 100 - uv * 30); // slightly move forward and below
+	XV3 arrowTip(adjustedRightHand.interpolate(adjustedHead, 0.9f));
+	XV3 arrowBottom(adjustedRightHand);
+	float len = (arrowTip - arrowBottom).magnitude();
+	XV3 triangleBottom(arrowBottom.interpolate(arrowTip, 0.8f));
+	XV3 triangleOpening = (arrowTip - arrowBottom).cross(armDirection).normalize() * len * 0.1f;
+	XV3 arrowPlaneNorm = (arrowTip - arrowBottom).cross(triangleOpening).normalize();
+	XV3 triangleEnd1(triangleBottom + triangleOpening);
+	XV3 triangleEnd2(triangleBottom - triangleOpening);
 
 	float maxAlpha = cramp((len - 50.0f) / 150.0f, 0, 1);
 	float blinkSpeed = 1000.0f / std::max(len - 100.0f, 100.f);
@@ -75,14 +81,28 @@ void UltraEyeRenderer::drawHenshinInstruction()
 	glPointSize(getPointSize() * THICKNESS);
 
 	glBegin(GL_LINES);
-	glVertex3f(p1.X, p1.Y, p1.Z);
-	glVertex3f(p3.X, p3.Y, p3.Z);
+	if (len > CIRCLE_RADIUS) {
+		glVertex3fv(XV3toM3D(arrowBottom + (arrowTip - arrowBottom).normalize() * CIRCLE_RADIUS));
+		glVertex3fv(XV3toM3D(arrowTip));
+	}
+	glVertex3fv(XV3toM3D(arrowTip));
+	glVertex3fv(XV3toM3D(triangleEnd1));
+	glVertex3fv(XV3toM3D(arrowTip));
+	glVertex3fv(XV3toM3D(triangleEnd2));
 	glEnd();
 
-	glBegin(GL_TRIANGLES);
-	glVertex3f(p2.X, p2.Y, p2.Z);
-	glVertex3f(p4.X, p4.Y, p4.Z);
-	glVertex3f(p5.X, p5.Y, p5.Z);
+	glBegin(GL_LINE_LOOP);
+	XV3 r0((arrowTip - arrowBottom).normalize() * CIRCLE_RADIUS);
+	GLFrame f;
+	f.SetForwardVector(0, 0, 1); // invert Z
+	const int SEGMENTS = 24;
+	const float STEP_ANGLE = float(M_PI * 2 / SEGMENTS);
+	for (int i = 0; i < SEGMENTS; i++) {
+		f.RotateLocal(STEP_ANGLE, arrowPlaneNorm.X, arrowPlaneNorm.Y, arrowPlaneNorm.Z);
+		M3DVector3f r;
+		f.TransformPoint(XV3toM3D(r0), r);
+		glVertex3fv(XV3toM3D(arrowBottom + r));
+	}
 	glEnd();
 
 	if (m_isNewUser) {
