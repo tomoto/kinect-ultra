@@ -30,6 +30,8 @@
 #include "UserProvider.h"
 #include "config.h"
 
+#ifdef XU_KINECTSDK
+
 UserProvider::UserProvider(INuiSensor* pSensor) : AbstractSensorDataProvider(pSensor)
 {
 	CALL_NUI(m_pSensor->NuiSkeletonTrackingEnable(m_hNextFrameEvent, NUI_SKELETON_TRACKING_FLAG_SUPPRESS_NO_FRAME_DATA));
@@ -135,3 +137,57 @@ const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIn
 		pJointInfo->position.assign(0, 0, 0);
 	}
 }
+
+#else // XU_OPENNI
+
+UserProvider::UserProvider(Context* pContext) : AbstractSensorDataProvider(pContext)
+{
+	CALL_XN( pContext->FindExistingNode(XN_NODE_TYPE_USER, m_userGen) );
+
+	CHECK_ERROR( m_userGen.IsCapabilitySupported(XN_CAPABILITY_SKELETON), "This configuration does not support skeleton tracking." );
+	CALL_XN( m_userGen.GetSkeletonCap().SetSkeletonProfile(XN_SKEL_PROFILE_ALL) );
+}
+
+UserProvider::~UserProvider()
+{
+}
+
+const XuUserID UserProvider::findFirstTrackedUserID()
+{
+	const XnUInt16 MAX_USERS = 16;
+	XuUserID userIDs[MAX_USERS];
+	XnUInt16 numOfUsers = MAX_USERS;
+	m_userGen.GetUsers(userIDs, numOfUsers);
+
+	if (numOfUsers == 0) {
+		return 0;
+	}
+
+	for (int i = 0; i < numOfUsers; i++) {
+		XuUserID u = userIDs[i];
+		if (isUserTracked(u)) {
+			return u;
+		}
+	}
+
+	XnUserID u = userIDs[0];
+	m_userGen.GetSkeletonCap().StartTracking(u);
+	return 0;
+}
+
+bool UserProvider::isUserTracked(XuUserID userID)
+{
+	return !!m_userGen.GetSkeletonCap().IsTracking(userID);
+}
+
+const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo)
+{
+	XnSkeletonJointPosition j;
+	CALL_XN( m_userGen.GetSkeletonCap().GetSkeletonJointPosition(userID, jointIndex, j) );
+	pJointInfo->fConfidence = j.fConfidence;
+	pJointInfo->position.X = j.position.X;
+	pJointInfo->position.Y = j.position.Y;
+	pJointInfo->position.Z = j.position.Z;
+}
+
+#endif

@@ -33,6 +33,8 @@
 #include "common.h"
 #include "AbstractSensorDataProvider.h"
 
+#ifdef XU_KINECTSDK
+
 class AbstractImageStreamProvider : public AbstractSensorDataProvider
 {
 protected:
@@ -48,5 +50,20 @@ public:
 	virtual ~AbstractImageStreamProvider() {
 	}
 };
+
+#else // XU_OPENNI
+
+class AbstractImageStreamProvider : public AbstractSensorDataProvider
+{
+public:
+	AbstractImageStreamProvider(Context* pContext) : AbstractSensorDataProvider(pContext)
+	{
+	}
+
+	virtual ~AbstractImageStreamProvider() {
+	}
+};
+
+#endif
 
 #endif

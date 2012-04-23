@@ -29,6 +29,8 @@
 
 #include "AbstractSensorDataProvider.h"
 
+#ifdef XU_KINECTSDK
+
 AbstractSensorDataProvider::AbstractSensorDataProvider(INuiSensor* pSensor) : m_pSensor(pSensor), m_isLocked(false)
 {
 	m_hNextFrameEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
@@ -58,3 +60,15 @@ void AbstractSensorDataProvider::unlock()
 		unlockImpl();
 	}
 }
+
+#else // XU_OPENNI
+
+AbstractSensorDataProvider::AbstractSensorDataProvider(Context* pContext) : m_pContext(pContext)
+{
+}
+
+AbstractSensorDataProvider::~AbstractSensorDataProvider()
+{
+}
+
+#endif

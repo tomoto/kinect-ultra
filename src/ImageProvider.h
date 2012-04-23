@@ -33,8 +33,9 @@
 #include "common.h"
 #include "AbstractImageStreamProvider.h"
 
-class ImageProvider : public AbstractImageStreamProvider {
+#ifdef XU_KINECTSDK
 
+class ImageProvider : public AbstractImageStreamProvider {
 public:
 	ImageProvider(INuiSensor* pSensor);
 	~ImageProvider();
@@ -46,4 +47,18 @@ protected:
 	virtual void unlockImpl();
 };
 
+#else // XU_OPENNI
+
+class ImageProvider : public AbstractImageStreamProvider {
+private:
+	ImageGenerator m_imageGen;
+public:
+	ImageProvider(Context* context);
+	~ImageProvider();
+
+	ImageGenerator* getGenerator() { return &m_imageGen; }
+	const XuRawColorPixel* getData() const { return (const XuRawColorPixel*) m_imageGen.GetRGB24ImageMap(); }
+};
+
+#endif
 #endif

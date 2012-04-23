@@ -30,6 +30,8 @@
 #include "DepthProvider.h"
 #include "config.h"
 
+#ifdef XU_KINECTSDK
+
 DepthProvider::DepthProvider(INuiSensor* pSensor) : AbstractImageStreamProvider(pSensor)
 {
 	CALL_NUI(m_pSensor->NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH_AND_PLAYER_INDEX, NUI_IMAGE_RESOLUTION_320x240, 0, 2, m_hNextFrameEvent, &m_hStream));
@@ -82,7 +84,7 @@ void DepthProvider::unlockImpl()
 	m_isLocked = false;
 }
 
-void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, USHORT* pZ)
+void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
 {
 	Vector4 v;
 	v.x = p.X / 1000.0f;
@@ -91,7 +93,7 @@ void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* 
 	NuiTransformSkeletonToDepthImage(v, pX, pY, pZ, NUI_IMAGE_RESOLUTION_640x480);
 }
 
-void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, USHORT z, XV3* pPoint)
+void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
 {
 	Vector4 v = NuiTransformDepthImageToSkeleton(x, y, z, NUI_IMAGE_RESOLUTION_640x480);
 	pPoint->X = v.x * 1000;
@@ -99,3 +101,52 @@ void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, USHORT z, XV3*
 	pPoint->Z = v.z * 1000;
 
 }
+
+#else // XU_OPENNI
+
+DepthProvider::DepthProvider(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen) : AbstractImageStreamProvider(pContext)
+{
+	CALL_XN( pContext->FindExistingNode(XN_NODE_TYPE_DEPTH, m_depthGen) );
+	CALL_XN( m_depthGen.GetAlternativeViewPointCap().SetViewPoint(*pImageGen) );
+
+	m_pUserGen = pUserGen;
+
+	DepthMetaData md;
+	m_depthGen.GetMetaData(md);
+	CHECK_ERROR(md.XRes() == 640 && md.YRes() == 480, "This camera's resolution is not supported.");
+}
+
+DepthProvider::~DepthProvider()
+{
+}
+
+const XuRawUserIDPixel* DepthProvider::getUserIDData() const
+{
+	SceneMetaData md;
+	m_pUserGen->GetUserPixels(0, md);
+	return md.Data();
+}
+
+void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
+{
+	// TODO performance concern
+
+	XnPoint3D rp = { p.X, p.Y, p.Z }, pp;
+	m_depthGen.ConvertRealWorldToProjective(1, &rp, &pp);
+	*pX = (LONG) pp.X;
+	*pY = (LONG) pp.Y;
+	*pZ = (XuRawDepthPixel) pp.Z;
+}
+
+void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
+{
+	// TODO performance concern
+	
+	XnPoint3D pp = { XnFloat(x), XnFloat(y), XnFloat(z) }, rp;
+	m_depthGen.ConvertProjectiveToRealWorld(1, &pp, &rp);
+	pPoint->X = rp.X;
+	pPoint->Y = rp.Y;
+	pPoint->Z = rp.Z;
+}
+
+#endif

@@ -39,7 +39,11 @@
 class SensorManager
 {
 private:
+#ifdef XU_KINECTSDK
 	INuiSensor* m_pSensor;
+#else // XU_OPENNI
+	Context m_context;
+#endif
 	Holder<ImageProvider> m_imageProvider;
 	Holder<DepthProvider> m_depthProvider;
 	Holder<UserProvider> m_userProvider;

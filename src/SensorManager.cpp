@@ -28,6 +28,9 @@
 //@COPYRIGHT@//
 
 #include "SensorManager.h"
+#include "util.h"
+
+#ifdef XU_KINECTSDK
 
 SensorManager::SensorManager() : m_pSensor(NULL)
 {
@@ -61,3 +64,33 @@ void SensorManager::unlock()
 	m_depthProvider->unlock();
 	m_imageProvider->unlock();
 }
+
+#else // XU_OPENNI
+
+SensorManager::SensorManager()
+{
+	ScriptNode scriptNode;
+	CALL_XN( m_context.InitFromXmlFile(getResourceFile("config", "OpenNIConfig.xml").c_str(), scriptNode) );
+	CALL_XN( m_context.SetGlobalMirror(TRUE) );
+	m_imageProvider = new ImageProvider(&m_context);
+	m_userProvider = new UserProvider(&m_context);
+	m_depthProvider = new DepthProvider(&m_context, m_imageProvider->getGenerator(), m_userProvider->getGenerator());
+
+	m_context.StartGeneratingAll(); // too early? let's see if it works.
+}
+
+SensorManager::~SensorManager()
+{
+}
+
+bool SensorManager::waitAllForNextFrameAndLock()
+{
+	return m_context.WaitAndUpdateAll() == XN_STATUS_OK;
+}
+
+void SensorManager::unlock()
+{
+	// nothing to do
+}
+
+#endif
