@@ -84,9 +84,9 @@ void UltraEyeRenderer::drawHenshinInstruction()
 	XV3 uv(m_henshinDetector->getUserDetector()->getUpVector());
 	XV3 armDirection((jrh.position - jre.position).normalize());
 	XV3 adjustedRightHand(jrh.position + armDirection * 30); // slightly move to the fingertip side
-	XV3 adjustedHead(jh.position + fv * 100 - uv * 30); // slightly move forward and below
-	XV3 arrowTip(adjustedRightHand.interpolate(adjustedHead, 0.9f));
-	XV3 arrowBottom(adjustedRightHand);
+	XV3 adjustedHead(jh.position + fv * 100); // slightly move forward
+	XV3 arrowTip(adjustedRightHand.interpolate(adjustedHead, 0.95f));
+	XV3 arrowBottom(adjustedRightHand.interpolate(adjustedHead, 0.0f));
 	float len = (arrowTip - arrowBottom).magnitude();
 	XV3 triangleBottom(arrowBottom.interpolate(arrowTip, 0.8f));
 	XV3 triangleOpening = (arrowTip - arrowBottom).cross(armDirection).normalize() * len * 0.1f;
