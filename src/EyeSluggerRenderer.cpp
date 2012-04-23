@@ -130,10 +130,6 @@ bool EyeSluggerRenderer::updateObjectFrame()
 	XV3 fv = ud->getForwardVector();
 	XV3 uv = ud->getUpVector();
 
-	const float UP_ADJUSTMENT = -30, FORWARD_ADJUSTMENT = -20;
-	m_origin += uv * UP_ADJUSTMENT;
-	m_origin += fv * FORWARD_ADJUSTMENT;
-
 	m_objectFrame.SetOrigin(m_origin.X, m_origin.Y, m_origin.Z);
 	m_objectFrame.SetForwardVector(fv.X, fv.Y, fv.Z);
 	m_objectFrame.SetUpVector(uv.X, uv.Y, uv.Z);

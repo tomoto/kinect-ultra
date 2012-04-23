@@ -131,6 +131,15 @@ const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIn
 			getAveragedJointInfo(skeleton, BOTH_SHOULDERS, 2, pJointInfo);
 		} else {
 			getAveragedJointInfo(skeleton, &jointIndex, 1, pJointInfo);
+
+			if (jointIndex == XU_SKEL_HEAD) {
+				// adjust a little bit below
+				XuSkeletonJointInfo jn;
+				getSkeletonJointInfo(userID, XU_SKEL_NECK, &jn);
+				if (jn.fConfidence >= 0.5) {
+					pJointInfo->position += (jn.position - pJointInfo->position).normalize() * 30;
+				}
+			}
 		}
 	} else {
 		pJointInfo->fConfidence = 0;
