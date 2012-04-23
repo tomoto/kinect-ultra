@@ -37,11 +37,6 @@ class VoxelObjectMapper
 {
 private:
 	DepthProvider* m_depthProvider;
-
-	int m_maxNumPoints;
-	XV3* m_projectivePoints;
-	XV3* m_realWorldPoints;
-
 	bool* m_voxels;
 
 public:
