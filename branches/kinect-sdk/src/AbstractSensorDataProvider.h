@@ -32,6 +32,8 @@
 
 #include "common.h"
 
+#ifdef XU_KINECTSDK
+
 class AbstractSensorDataProvider
 {
 private:
@@ -53,5 +55,19 @@ protected:
 	virtual bool waitForNextFrameAndLockImpl(DWORD timeout) = 0;
 	virtual void unlockImpl() = 0;
 };
+
+#else // XU_OPENNI
+
+class AbstractSensorDataProvider
+{
+protected:
+	Context* m_pContext;
+
+public:
+	AbstractSensorDataProvider(Context* pContext);
+	virtual ~AbstractSensorDataProvider() = 0;
+};
+
+#endif
 
 #endif

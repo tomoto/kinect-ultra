@@ -219,6 +219,9 @@ void WorldRenderer::drawBackground()
 	// get depth buffer
 	const XuRawDepthPixel* dp = m_depthProvider->getData();
 
+	// get user ID buffer
+	const XuRawUserIDPixel* up = m_depthProvider->getUserIDData();
+
 	// get image buffer
 	const XuRawColorPixel* ip = m_imageProvider->getData();
 
@@ -250,9 +253,9 @@ void WorldRenderer::drawBackground()
 	int ix = 0, iy = 0;
 	float y = 0;
 	float nearZ = PERSPECTIVE_Z_MIN + m_depthAdjustment;
-	for (int i = 0; i < numPoints; i++, ip++, dp++, vp++, cp++, ix++) {
+	for (int i = 0; i < numPoints; i++, ip++, dp++, up++, vp++, cp++, ix++) {
 		XuDepthPixel d = GetDepthFromRawPixel(*dp);
-		XuUserID u = GetUserIDFromRawPixel(*dp);
+		XuUserID u = GetUserIDFromRawPixel(*up);
 
 		if (ix == m_width) {
 			ix = 0;

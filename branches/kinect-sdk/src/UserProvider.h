@@ -34,6 +34,8 @@
 #include "AbstractSensorDataProvider.h"
 #include "joint.h"
 
+#ifdef XU_KINECTSDK
+
 class UserProvider : public AbstractSensorDataProvider {
 private:
 	NUI_SKELETON_FRAME m_frame;
@@ -42,15 +44,36 @@ public:
 	UserProvider(INuiSensor* pSensor);
 	~UserProvider();
 
-	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
 	const XuUserID findFirstTrackedUserID();
 	bool isUserTracked(XuUserID userID);
 	
-	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointPosition);
+	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo);
 
 protected:
 	virtual bool waitForNextFrameAndLockImpl(DWORD timeout);
 	virtual void unlockImpl();
+
+	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
 };
+
+#else // XU_OPENNI
+
+class UserProvider : public AbstractSensorDataProvider {
+private:
+	UserGenerator m_userGen;
+
+public:
+	UserProvider(Context* pContext);
+	~UserProvider();
+
+	UserGenerator* getGenerator() { return &m_userGen; }
+
+	const XuUserID findFirstTrackedUserID();
+	bool isUserTracked(XuUserID userID);
+	
+	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo);
+};
+
+#endif
 
 #endif

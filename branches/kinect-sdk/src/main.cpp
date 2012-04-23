@@ -59,7 +59,14 @@
 
 #include <GLShaderManager.h>
 
-#define APP_VERSION "k1.0"
+#ifdef XU_KINECTSDK
+#define APP_VERSION_FOR "Kinect SDK"
+#else // XU_OPENNI
+#define APP_VERSION_FOR "OpenNI"
+#endif
+
+#define APP_VERSION_NUMBER "1.0a"
+#define APP_VERSION APP_VERSION_NUMBER " (" APP_VERSION_FOR ")"
 
 // Sensor objects
 static Holder<SensorManager> s_sensorMan;
