@@ -33,6 +33,8 @@
 #include "common.h"
 #include "vec.h"
 #include "config.h"
+#include <string>
+#include <vector>
 
 const float CONFIDENCE_THRESHOLD = 0.5f;
 #ifndef USE_MACRO

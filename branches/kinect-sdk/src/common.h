@@ -38,12 +38,14 @@
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+#include <assert.h>
 
 // OpenNI
 // #include <XnCppWrapper.h>
 // using namespace xn;
 
 // KinectSDK
+#define NOMINMAX
 #include <Windows.h>
 #include <NuiApi.h>
 
@@ -51,7 +53,7 @@
 
 #include <GL/glut.h> // glut
 
-#include <opencv/cv.h> // OpenCV
+// #include <opencv/cv.h> // OpenCV
 
 typedef USHORT XuRawUserIDPPixel;
 typedef DWORD XuUserID;
