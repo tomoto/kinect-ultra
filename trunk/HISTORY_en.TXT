@@ -1,6 +1,6 @@
 kinect-ultra Change History
 
-* **/**/2012 V1.0a
+* 4/23/2012 V1.0a
 
   * Added Kinect SDK version
   * Changed the henshin pose as Psi pose is not required anymore
