@@ -1,5 +1,10 @@
 kinect-ultra Change History
 
+* **/**/2012 V1.0a
+
+  * Added Kinect SDK version
+  * Changed the henshin pose as Psi pose is not required anymore
+
 * 9/18/2011 V0.1f
 
   * Supported toggle full-screen by [ENTER]
