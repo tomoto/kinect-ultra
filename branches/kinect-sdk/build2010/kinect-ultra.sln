@@ -11,8 +11,8 @@ Global
 		OpenNI_Release|Win32 = OpenNI_Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A7D11B3-FABC-4CED-A533-E40E593DFD0B}.MSSDK_Debug|Win32.ActiveCfg = MSSDK_Release|Win32
-		{1A7D11B3-FABC-4CED-A533-E40E593DFD0B}.MSSDK_Debug|Win32.Build.0 = MSSDK_Release|Win32
+		{1A7D11B3-FABC-4CED-A533-E40E593DFD0B}.MSSDK_Debug|Win32.ActiveCfg = MSSDK_Debug|Win32
+		{1A7D11B3-FABC-4CED-A533-E40E593DFD0B}.MSSDK_Debug|Win32.Build.0 = MSSDK_Debug|Win32
 		{1A7D11B3-FABC-4CED-A533-E40E593DFD0B}.MSSDK_Release|Win32.ActiveCfg = MSSDK_Release|Win32
 		{1A7D11B3-FABC-4CED-A533-E40E593DFD0B}.MSSDK_Release|Win32.Build.0 = MSSDK_Release|Win32
 		{1A7D11B3-FABC-4CED-A533-E40E593DFD0B}.OpenNI_Debug|Win32.ActiveCfg = OpenNI_Debug|Win32
