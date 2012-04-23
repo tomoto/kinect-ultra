@@ -1,4 +1,6 @@
 
-/build2010/Release
-/build2010/Debug
+/build2010/MSSDK_Debug
+/build2010/MSSDK_Release
+/build2010/OpenNI_Debug
+/build2010/OpenNI_Release
 /build2010/ipch
