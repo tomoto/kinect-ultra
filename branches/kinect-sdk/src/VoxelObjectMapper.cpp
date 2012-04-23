@@ -67,44 +67,33 @@ inline int getVoxelIndex(int x, int y, int z)
 VoxelObjectMapper::VoxelObjectMapper(DepthProvider* depthProvider)
 {
 	m_depthProvider = depthProvider;
-	m_maxNumPoints = X_RES * Y_RES / PIXEL_STEP / PIXEL_STEP;
-
-	m_projectivePoints = new XV3[m_maxNumPoints];
-	m_realWorldPoints = new XV3[m_maxNumPoints];
-
 	m_voxels = new bool[NUM_VOXELS];
 }
 
 VoxelObjectMapper::~VoxelObjectMapper()
 {
 	delete[] m_voxels;
-	delete[] m_realWorldPoints;
-	delete[] m_projectivePoints;
 }
 
 void VoxelObjectMapper::update()
 {
-	int numPoints = 0;
+	memset(m_voxels, FALSE, NUM_VOXELS * sizeof(*m_voxels));
+
+	XV3 realWorldPoint;
 
 	for (int y = 0; y < Y_RES; y += PIXEL_STEP) {
 		const XuRawDepthPixel* dp = m_depthProvider->getData() + y * X_RES;
 		for (int x = 0; x < X_RES; x += PIXEL_STEP, dp += PIXEL_STEP) {
 			if (*dp) {
-				m_depthProvider->transformDepthImageToSkeleton(x, y, *dp, m_realWorldPoints+numPoints);
-				numPoints++;
-			}
-		}
-	}
-
-	memset(m_voxels, FALSE, NUM_VOXELS * sizeof(*m_voxels));
-	const XV3* rp = m_realWorldPoints;
-	for (int i = 0; i < numPoints; i++, rp++) {
-		int vx, vy, vz;
-		convertRealWorldToVoxelCoords(*rp, &vx, &vy, &vz);
-		if (isInVoxelRange(vx, vy, vz)) {
-			int i = getVoxelIndex(vx, vy, vz);
-			if (!m_voxels[i]) {
-				m_voxels[i] = true;
+				m_depthProvider->transformDepthImageToSkeleton(x, y, *dp, &realWorldPoint);
+				int vx, vy, vz;
+				convertRealWorldToVoxelCoords(realWorldPoint, &vx, &vy, &vz);
+				if (isInVoxelRange(vx, vy, vz)) {
+					int i = getVoxelIndex(vx, vy, vz);
+					if (!m_voxels[i]) {
+						m_voxels[i] = true;
+					}
+				}
 			}
 		}
 	}
