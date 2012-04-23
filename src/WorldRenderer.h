@@ -35,6 +35,8 @@
 #include "AbstractOpenGLRenderer.h"
 #include "HenshinDetector.h"
 #include "TimeTicker.h"
+#include "ImageProvider.h"
+#include "DepthProvider.h"
 
 class WorldRenderer : public AbstractOpenGLRenderer, protected Configurable
 {
@@ -55,14 +57,14 @@ private:
 	};
 
 protected:
-	DepthGenerator* m_depthGen;
-	ImageGenerator* m_imageGen;
+	DepthProvider* m_depthProvider;
+	ImageProvider* m_imageProvider;
 	HenshinDetector* m_henshinDetector;
 
 	Batch m_batch; 
 
-	XnUInt32 m_width;
-	XnUInt32 m_height;
+	int m_width;
+	int m_height;
 	M3DVector3f* m_vertexBuf;
 	M3DVector4f* m_colorBuf;
 
@@ -71,16 +73,16 @@ protected:
 	float m_depthAdjustment;
 
 public:
-	WorldRenderer(RenderingContext* rctx, DepthGenerator* depthGen, ImageGenerator* imageGen, HenshinDetector* henshinDetector);
+	WorldRenderer(RenderingContext* rctx, DepthProvider* depthProvider, ImageProvider* imageProvider, HenshinDetector* henshinDetector);
 	virtual ~WorldRenderer();
 	
 	void draw();
 
 	void addDepthAdjustment(float value) { m_depthAdjustment += value; }
 private:
-	XnUInt32 getNumPoints() { return m_width * m_height; }
+	DWORD getNumPoints() { return m_width * m_height; }
 
-	void getHenshinData(XnUserID* pUserID, const XnLabel** ppLabel, XV3* pHeadPoint, XV3* pNeckPoint, XnUInt32* pHenshinBottom, float* pFlyingOffset);
+	void getHenshinData(XuUserID* pUserID, XV3* pHeadPoint, XV3* pNeckPoint, int* pHenshinBottom, float* pFlyingOffset);
 
 	void drawBackground();
 	void drawHenshiningGlow();

@@ -37,6 +37,7 @@
 #include <GLMatrixStack.h>
 #include <GLGeometryTransform.h>
 #include <GLFrustum.h>
+#include <opencv2/core/core.hpp>
 
 /**
  * Base class to render 2D image using texture
@@ -46,7 +47,8 @@ class AbstractTextureRenderer : public AbstractOpenGLRenderer, protected Configu
 protected:
 	int m_textureWidth;
 	int m_textureHeight;
-	XnRGB24Pixel* m_textureData;
+
+	XuColorPixel* m_textureData;
 	cv::Rect m_imageRect;
 	GLuint m_textureID;
 
@@ -60,6 +62,7 @@ public:
 	virtual void draw();
 
 	void lock(bool value);
+	bool isLocked() { return m_isLocked; }
 
 protected:
 	void init(const cv::Rect& imageRect);
@@ -71,7 +74,8 @@ protected:
 
 	// need to override
 	virtual void setupCopy() = 0;
-	virtual void copyRow(XnRGB24Pixel* dst, int srcOffset) = 0;
+	virtual void copyRow(XuColorPixel* dst, int srcOffset) = 0;
+	virtual void finalizeCopy() = 0;
 };
 
 #endif
