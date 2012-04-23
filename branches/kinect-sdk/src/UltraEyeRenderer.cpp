@@ -63,7 +63,7 @@ void UltraEyeRenderer::drawSearchingInstruction()
 	float alpha = square(std::sin(m_phase));
 
 	glDisable(GL_DEPTH_TEST);
-	XV3 p(-0.95f, -0.95f, 0.0f), s(0.0009f, 0.002f, 1.0f);
+	XV3 p(-0.95f, 0.80f, 0.0f), s(0.0009f, 0.0015f, 1.0f);
 	M3DVector4f color = { 0.0f, 0.7f, 0.0f, alpha };
 	renderStrokeText(m_rctx, "Stand in front of the camera", p, s, 2.0f, color);
 	glEnable(GL_DEPTH_TEST);
@@ -133,7 +133,7 @@ void UltraEyeRenderer::drawHenshinInstruction()
 	glEnd();
 
 	if (m_isNewUser) {
-		XV3 p(-0.95f, -0.95f, 0.0f), s(0.001f, 0.002f, 1.0f);
+		XV3 p(-0.95f, 0.80f, 0.0f), s(0.001f, 0.0015f, 1.0f);
 		renderStrokeText(m_rctx, "Put your Ultra Eye On! Now!", p, s, 3.0f, arrowColor);
 	}
 
