@@ -34,6 +34,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <algorithm>
 
 inline float interpolate(float x1, float x2, float alpha = 0.5f)
 {

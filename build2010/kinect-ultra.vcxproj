@@ -46,11 +46,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CustomBuildStep>
-      <Command>copy ..\contrib\opencv\bin\cv210d.dll "$(OutDir)"
-copy ..\contrib\opencv\bin\cxcore210d.dll "$(OutDir)"
-copy ..\contrib\opencv\bin\highgui210d.dll "$(OutDir)"
+      <Command>copy ..\contrib\opencv\bin\opencv_core231d.dll "$(OutDir)"
+copy ..\contrib\opencv\bin\opencv_highgui231d.dll "$(OutDir)"
 </Command>
-      <Outputs>$(OutDir)cv210d.dll;$(OutDir)cxcore210d.dll;$(OutDir)highgui210d.dll;%(Outputs)</Outputs>
+      <Outputs>$(OutDir)opencv_core231d.dll;$(OutDir)opencv_highgui231d.dll;%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -65,7 +64,7 @@ copy ..\contrib\opencv\bin\highgui210d.dll "$(OutDir)"
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>gltoolsd.lib;freeglut_static_d.lib;highgui210d.lib;cxcore210d.lib;cv210d.lib;Kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gltoolsd.lib;freeglut_static_d.lib;opencv_highgui231d.lib;opencv_core231d.lib;Kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib;$(KINECTSDK10_DIR)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -75,11 +74,10 @@ copy ..\contrib\opencv\bin\highgui210d.dll "$(OutDir)"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CustomBuildStep>
-      <Command>copy ..\contrib\opencv\bin\cv210.dll "$(OutDir)"
-copy ..\contrib\opencv\bin\cxcore210.dll "$(OutDir)"
-copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
+      <Command>copy ..\contrib\opencv\bin\opencv_core231.dll "$(OutDir)"
+copy ..\contrib\opencv\bin\opencv_highgui231.dll "$(OutDir)"
 </Command>
-      <Outputs>$(OutDir)cv210.dll;$(OutDir)cxcore210.dll;$(OutDir)highgui210.dll;%(Outputs)</Outputs>
+      <Outputs>$(OutDir)opencv_core231.dll;$(OutDir)opencv_highgui231.dll;%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -94,7 +92,7 @@ copy ..\contrib\opencv\bin\highgui210.dll "$(OutDir)"
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>gltools.lib;freeglut_static.lib;highgui210.lib;cxcore210.lib;cv210.lib;Kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gltools.lib;freeglut_static.lib;opencv_highgui231.lib;opencv_core231.lib;Kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib;$(KINECTSDK10_DIR)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>

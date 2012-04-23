@@ -37,6 +37,7 @@
 #include <GLMatrixStack.h>
 #include <GLGeometryTransform.h>
 #include <GLFrustum.h>
+#include <opencv2/core/core.hpp>
 
 /**
  * Base class to render 2D image using texture
