@@ -30,8 +30,8 @@
 #include "EmeriumBeamDetector2.h"
 #include "util.h"
 
-EmeriumBeamDetector2::EmeriumBeamDetector2(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
-: AbstractEmeriumBeamDetector(depthGen, userDetector, beamRenderer)
+EmeriumBeamDetector2::EmeriumBeamDetector2(DepthProvider* depthProvider, HenshinDetector* henshinDetector, AbstractSimpleBeamRenderer* beamRenderer)
+: AbstractEmeriumBeamDetector(depthProvider, henshinDetector, beamRenderer)
 {
 }
 
@@ -41,7 +41,8 @@ EmeriumBeamDetector2::~EmeriumBeamDetector2()
 
 float EmeriumBeamDetector2::getNeckDistanceThreshold()
 {
-	return 200.0f + 100.0f * getConfiguration()->getTriggerHappyLevel();
+	const float CHEST_NECK_DISTANCE = 200 + 50; // a little loose for Kinect SDK than OpenNI
+	return CHEST_NECK_DISTANCE + 100.0f * getConfiguration()->getTriggerHappyLevel();
 }
 
 float EmeriumBeamDetector2::getArmAngleThreshold()
@@ -51,22 +52,20 @@ float EmeriumBeamDetector2::getArmAngleThreshold()
 
 bool EmeriumBeamDetector2::isPosing(float dt)
 {
-	UserGenerator* userGen = m_userDetector->getUserGenerator();
-
-	XV3 pl0 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW);
-	XV3 pl1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND);
-	XV3 plsh = m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER);
-	XV3 prsh = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER);
-	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND);
+	XV3 pl0 = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_ELBOW);
+	XV3 pl1 = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_HAND);
+	XV3 plsh = m_userDetector->getSkeletonJointPosition(XU_SKEL_LEFT_SHOULDER);
+	XV3 prsh = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_SHOULDER);
+	XV3 pr1 = m_userDetector->getSkeletonJointPosition(XU_SKEL_RIGHT_HAND);
 	XV3 vl = pl1 - pl0; // left arm
 	XV3 vsh = prsh - plsh; // shoulder line
-	XV3 pn = m_userDetector->getSkeletonJointPosition(XN_SKEL_NECK);
+	XV3 pn = m_userDetector->getSkeletonJointPosition(XU_SKEL_CENTER_SHOULDER);
 
 	const float NECK_Y_ADJUSTMENT = 50; // adjust the neck position a little down
 	pn.Y -= NECK_Y_ADJUSTMENT;
 
 	m_vnh = pl1 - pn; // neck to hand
-	m_ph = m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD);
+	m_ph = m_userDetector->getSkeletonJointPosition(XU_SKEL_HEAD);
 	
 	bool isHandCloseToNeck = m_vnh.magnitude2() < square(getNeckDistanceThreshold());
 	bool isHandHorizontal = vsh.dotNormalized(vl) > getArmAngleThreshold();

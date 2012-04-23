@@ -30,8 +30,8 @@
 #include "EmeriumBeamDetector1.h"
 #include "util.h"
 
-EmeriumBeamDetector1::EmeriumBeamDetector1(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer)
-: AbstractEmeriumBeamDetector(depthGen, userDetector, beamRenderer)
+EmeriumBeamDetector1::EmeriumBeamDetector1(DepthProvider* depthProvider, HenshinDetector* henshinDetector, AbstractSimpleBeamRenderer* beamRenderer)
+: AbstractEmeriumBeamDetector(depthProvider, henshinDetector, beamRenderer)
 {
 }
 
@@ -46,11 +46,11 @@ float EmeriumBeamDetector1::getHeadDistanceThreshold()
 
 bool EmeriumBeamDetector1::isPosing(float dt)
 {
-	XnSkeletonJointPosition jr0, jr1, jl0,jl1;
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_ELBOW, &jr0);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &jr1);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW, &jl0);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &jl1);
+	XuSkeletonJointInfo jr0, jr1, jl0,jl1;
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_ELBOW, &jr0);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &jr1);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_ELBOW, &jl0);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_HAND, &jl1);
 
 	if (!isConfident(jr0) || !isConfident(jr1) || !isConfident(jl0) || !isConfident(jl1)) {
 		return false;
@@ -62,7 +62,7 @@ bool EmeriumBeamDetector1::isPosing(float dt)
 	m_vl = pl1 - pl0; // left arm
 	m_prl = pr1.interpolate(pl1); // middle of hands
 
-	XV3 ph = m_userDetector->getSkeletonJointPosition(XN_SKEL_HEAD);
+	XV3 ph = m_userDetector->getSkeletonJointPosition(XU_SKEL_HEAD);
 	XV3 vhr(pr1 - ph), vhl(pl1 - ph), vhrl(m_prl - ph);
 
 	vhr.Y *= 2;

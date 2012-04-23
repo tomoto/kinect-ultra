@@ -34,56 +34,33 @@
 #include "AbstractPoseDetector.h"
 #include "EyeSluggerRenderer.h"
 
-// TODO: separate to .cpp
 class EyeSluggerDetector : public AbstractPoseDetector
 {
-public:
-	enum Stage {
-		STAGE_NORMAL,
-		STAGE_HOLDING_IN_HAND,
-		STAGE_HOLDING_IN_HAND_POST,
-		STAGE_HOLDING_IN_AIR
-	};
-
-private:
+protected:
 	HenshinDetector* m_henshinDetector;
 	EyeSluggerRenderer* m_renderer;
 	TimeTicker m_ticker;
 
-	Stage m_stage;
 	float m_energy;
 	
 public:
 	EyeSluggerDetector(HenshinDetector* henshinDetector, EyeSluggerRenderer* renderer);
 	virtual ~EyeSluggerDetector();
 
-private:
+protected:
+	virtual void onDetectPre(float dt);
+	virtual void shootSlugger(float velocity, float rotation, int traceDencity);
+
+	virtual void processPosing(float dt);
+	virtual void processUnposing(float dt);
+	virtual bool processPoses(float dt);
+
 	void enegize(float dt, float speed);
 	void deenegize(float dt, float speed);
 	void setEnergy(float e, bool delay = false);
 
-	bool isLeftArmStraightToFront();
-	bool isArmTopOfHead();
-	void shootSlugger(float velocity, float rotation, int traceDencity);
-	void holdSlugger();
-	void restoreSlugger();
-
-	void posingNormal(float dt);
-	void unposingNormal(float dt);
 	bool isHandBackOfHead();
-	bool processPosingNomal(float dt);
-
-
-	void fixSlugger();
-	void posingInHand(float dt);
-	void unposingInHand(float dt);
-	bool processPosingInHand(float dt);
-
-	void posingInAir(float dt);
-	void unposingInAir(float dt);
-	bool processPosingInAir(float dt);
-
-	virtual void onDetectPre(float dt);
+	bool isArmTopOfHead();
 };
 
 #endif

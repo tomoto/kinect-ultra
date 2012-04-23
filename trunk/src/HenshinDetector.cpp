@@ -46,7 +46,6 @@ void HenshinDetector::transitToHuman()
 	printf("Henshin Stage = HUMAN\n");
 	m_stage = STAGE_HUMAN;
 	m_ticker.unlock();
-	m_userDetector->stopTracking();
 }
 
 void HenshinDetector::transitToHenshining()
@@ -71,15 +70,31 @@ void HenshinDetector::transitToDehenshining()
 	m_ticker.lock();
 }
 
+bool HenshinDetector::isHenshinPosing()
+{
+	XuSkeletonJointInfo jh, jrh;
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_HEAD, &jh);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &jrh);
+
+	if (!isConfident(jh) || !isConfident(jrh)) {
+		return false;
+	}
+
+	XV3 ph(jh.position), prh(jrh.position);
+
+	const float PUT_GLASSES_THRESHOLD = 200.0f;
+	return (ph.distance2(prh) < square(PUT_GLASSES_THRESHOLD));
+}
+
 bool HenshinDetector::isDehenshinPosing()
 {
-	XnSkeletonJointPosition jrs, jre, jrh, jls, jle, jlh;
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_SHOULDER, &jrs);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_ELBOW, &jre);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_RIGHT_HAND, &jrh);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_SHOULDER, &jls);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_ELBOW, &jle);
-	m_userDetector->getSkeletonJointPosition(XN_SKEL_LEFT_HAND, &jlh);
+	XuSkeletonJointInfo jrs, jre, jrh, jls, jle, jlh;
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_SHOULDER, &jrs);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_ELBOW, &jre);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_RIGHT_HAND, &jrh);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_SHOULDER, &jls);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_ELBOW, &jle);
+	m_userDetector->getSkeletonJointInfo(XU_SKEL_LEFT_HAND, &jlh);
 
 	if (!isConfident(jrs) || !isConfident(jre) || !isConfident(jrh) ||
 			!isConfident(jls) || !isConfident(jle) || !isConfident(jlh)) {
@@ -138,51 +153,32 @@ float HenshinDetector::getDehenshiningProgress()
 // posing detector methods
 //
 
-
 bool HenshinDetector::isPosing(float dt)
 {
-	return isDehenshinPosing();
+	if (m_stage == STAGE_HUMAN) {
+		return isHenshinPosing();
+	} else if (m_stage == STAGE_HENSHINED) {
+		return isDehenshinPosing();
+	} else {
+		return false;
+	}
 }
 
 void HenshinDetector::onPoseDetected(float dt)
 {
-	if (m_stage == STAGE_HENSHINED) {
+	if (m_stage == STAGE_HUMAN) {
+		transitToHenshining();
+	} else if (m_stage == STAGE_HENSHINED) {
 		transitToDehenshining();
 	}
 }
 
-//
-// listener methods
-//
-
-void HenshinDetector::onNewUser(XnUserID userID)
+void HenshinDetector::onNewUser(XuUserID userID)
 {
+	// nothing to do
 }
 
-void HenshinDetector::onLostUser(XnUserID userID)
+void HenshinDetector::onLostUser(XuUserID userID)
 {
-	if (m_userDetector->isTrackedUserID(userID)) {
-		transitToHuman();
-	}
-}
-
-void HenshinDetector::onCalibrationStart(XnUserID userID)
-{
-}
-
-void HenshinDetector::onCalibrationEnd(XnUserID userID, bool isSuccess)
-{
-	if (isSuccess) {
-		transitToHenshining();
-	} else {
-		transitToHuman();
-	}
-}
-
-void HenshinDetector::onPoseStart(XnUserID userID, const XnChar* pose)
-{
-}
-
-void HenshinDetector::onPoseEnd(XnUserID userID, const XnChar* pose)
-{
+	transitToHuman();
 }

@@ -38,20 +38,57 @@
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+#include <assert.h>
 
-// OpenNI
+#define NOMINMAX
+#include <Windows.h>
+
+#ifdef XU_KINECTSDK
+#include <NuiApi.h>
+#else // XU_OPENNI
 #include <XnCppWrapper.h>
 using namespace xn;
+#endif
 
 #include <GLTools.h> // GLTools
 
 #include <GL/glut.h> // glut
 
-#include <opencv/cv.h> // OpenCV
+// types
+#ifdef XU_KINECTSDK
+typedef USHORT XuRawUserIDPixel;
+typedef DWORD XuUserID;
+struct XuColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
+struct XuRawColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
+const GLenum XU_RAW_COLOR_PIXEL_GL_FORMAT = GL_BGRA;
+typedef DWORD XuDepthPixel;
+typedef USHORT XuRawDepthPixel;
+#else // XU_OPENNI
+typedef XnLabel XuRawUserIDPixel;
+typedef XnUserID XuUserID;
+typedef XnRGB24Pixel XuColorPixel;
+typedef XnRGB24Pixel XuRawColorPixel;
+const GLenum XU_RAW_COLOR_PIXEL_GL_FORMAT = GL_RGB;
+typedef XnDepthPixel XuDepthPixel;
+typedef XnDepthPixel XuRawDepthPixel;
+#endif
 
 // Note: I'm using macro instead of inline for some part
 // so that I can get enough speed in debug version.
 #define USE_MACRO
+
+#ifdef XU_KINECTSDK
+#ifndef USE_MACRO
+inline GetDepthFromRawPixel(XuRawDepthPixel d) { return NuiDepthPixelToDepth(d); }
+inline GetUserIDFromRawPixel(XuRawUserIDPixel u) { return NuiDepthPixelToPlayerIndex(u); }
+#else
+#define GetDepthFromRawPixel(d) NuiDepthPixelToDepth(d)
+#define GetUserIDFromRawPixel(u) NuiDepthPixelToPlayerIndex(u)
+#endif
+#else // XU_OPENNI
+#define GetDepthFromRawPixel(d) (d)
+#define GetUserIDFromRawPixel(u) (u)
+#endif
 
 void registerErrorExitFunc(void(*f)());
 void errorExit();
@@ -66,8 +103,25 @@ inline void check_error(int expr, const char* message, const char* detail)
 	}
 }
 
-#define CALL_XN(f) check_xn_status(f, #f);
+#define CALL_WIN32 check_win32_status(f, #f);
 
+inline void check_win32_status(HRESULT hr, const char* detail)
+{
+	if (FAILED(hr)) {
+		printf("Failed: %08x (%s)\n", hr, detail); // TODO: use format message or some
+		errorExit();
+	}
+}
+
+#ifdef XU_KINECTSDK
+#define CALL_NUI(f) check_nui_status(f, #f);
+inline void check_nui_status(HRESULT hr, const char* detail)
+{
+	check_win32_status(hr, detail);
+}
+
+#else // XU_OPENNI
+#define CALL_XN(f) check_xn_status(f, #f);
 inline void check_xn_status(XnStatus rc, const char* detail)
 {
 	if (rc != XN_STATUS_OK) {
@@ -75,10 +129,11 @@ inline void check_xn_status(XnStatus rc, const char* detail)
 		errorExit();
 	}
 }
+#endif
 
 #define CALL_GLEW(f) check_glew_status(f, #f)
 
-inline void check_glew_status(XnStatus rc, const char* detail)
+inline void check_glew_status(int rc, const char* detail)
 {
 	if (rc != GLEW_OK) {
 		printf("Failed: %s (%s)\n", glewGetErrorString(rc), detail);

@@ -40,7 +40,7 @@ protected:
 	UserDetector* m_userDetector;
 
 private:
-	// TODO: should be time instead of frame rate
+	// TODO: should be time instead of frame count
 	float m_requiredPosingStability;
 	float m_posingTime;
 

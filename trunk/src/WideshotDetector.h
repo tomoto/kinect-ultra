@@ -32,10 +32,10 @@
 
 #include "common.h"
 #include "Configurable.h"
-#include "AbstractPoseDetector.h"
+#include "AbstractPowerPoseDetector.h"
 #include "WideshotRenderer.h"
 
-class WideshotDetector : public AbstractPoseDetector, protected Configurable
+class WideshotDetector : public AbstractPowerPoseDetector, protected Configurable
 {
 private:
 	WideshotRenderer* m_beamRenderer;
@@ -45,7 +45,7 @@ private:
 	cv::RNG m_random;
 
 public:
-	WideshotDetector(DepthGenerator* depthGen, UserDetector* userDetector, WideshotRenderer* beamRenderer);
+	WideshotDetector(DepthProvider* depthProvider, HenshinDetector* henshinDetector, WideshotRenderer* beamRenderer);
 	virtual ~WideshotDetector();
 
 private:

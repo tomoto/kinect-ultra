@@ -33,7 +33,7 @@
 const int X_RES = 640;
 const int Y_RES = 480;
 const float XY_ASPECT = float(X_RES)/float(Y_RES);
-const char* const WIN_TITLE = "Ultra Seven";
+const char* const WIN_TITLE = "kinect-ultra";
 
 const float PERSPECTIVE_Z_MIN = 100;
 const float PERSPECTIVE_Z_MAX = 10000;

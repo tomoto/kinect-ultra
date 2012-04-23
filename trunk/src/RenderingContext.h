@@ -45,8 +45,9 @@ public:
 	GLGeometryTransform transform;
 
 public:
-	RenderingContext()
+	RenderingContext(GLShaderManager* sm)
 	{
+		shaderMan = sm;
 		transform.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	}
 

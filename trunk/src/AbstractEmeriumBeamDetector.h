@@ -32,16 +32,16 @@
 
 #include "common.h"
 #include "Configurable.h"
-#include "AbstractPoseDetector.h"
+#include "AbstractPowerPoseDetector.h"
 #include "AbstractSimpleBeamRenderer.h"
 
-class AbstractEmeriumBeamDetector : public AbstractPoseDetector, protected Configurable
+class AbstractEmeriumBeamDetector : public AbstractPowerPoseDetector, protected Configurable
 {
 private:
 	AbstractSimpleBeamRenderer* m_beamRenderer;
 
 public:
-	AbstractEmeriumBeamDetector(DepthGenerator* depthGen, UserDetector* userDetector, AbstractSimpleBeamRenderer* beamRenderer);
+	AbstractEmeriumBeamDetector(DepthProvider* depthProvider, HenshinDetector* henshinDetector, AbstractSimpleBeamRenderer* beamRenderer);
 	virtual ~AbstractEmeriumBeamDetector();
 
 protected:
