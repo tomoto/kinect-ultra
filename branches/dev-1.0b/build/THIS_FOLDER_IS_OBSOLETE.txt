@@ -1,0 +1,1 @@
+Go to ../build2010 and use VC++ 2010 instead.
