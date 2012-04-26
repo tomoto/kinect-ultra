@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="h">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\common.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ImageRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractTextureRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractOpenGLRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TimeTicker.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ImageProvider.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DepthProvider.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WorldRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserProvider.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SkeletonRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HenshinDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractPoseDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Configuration.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VoxelObjectMapper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WideshotDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WideshotRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SparkRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractSimpleBeamRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EyeSluggerRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EmeriumBeamDetector1.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EmeriumBeamDetector2.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EmeriumBeamRenderer1.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EmeriumBeamRenderer2.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractEmeriumBeamDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EyeSluggerDetectorEx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EyeSluggerDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EyeSluggerRendererEx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractPowerPoseDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AbstractSensorDataProvider.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SensorManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UltraEyeRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\AbstractElementRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractEmeriumBeamDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractOpenGLRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractPoseDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractSimpleBeamRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractTextureRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\common.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\config.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EmeriumBeamDetector1.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EmeriumBeamDetector2.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EmeriumBeamRenderer1.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EmeriumBeamRenderer2.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EyeSluggerRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HenshinDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ImageRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\RenderingContext.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SkeletonRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SparkRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TestTorusRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TimeTicker.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\vec.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VoxelObjectMapper.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WideshotDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WideshotRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WorldRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Configurable.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Configuration.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ImageProvider.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractImageStreamProvider.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DepthProvider.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserProvider.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\joint.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\IUserListener.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EyeSluggerDetectorEx.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EyeSluggerDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EyeSluggerRendererEx.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractPowerPoseDetector.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AbstractSensorDataProvider.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SensorManager.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Holder.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UltraEyeRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
