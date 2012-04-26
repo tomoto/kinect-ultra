@@ -114,4 +114,6 @@ void adjustViewport();
 
 void toggleFullScreenMode();
 
+char* chomp(char* buf);
+
 #endif
