@@ -212,6 +212,7 @@ copy ..\contrib\opencv\bin\opencv_highgui231.dll "$(OutDir)"
     <ClCompile Include="..\src\ImageProvider.cpp" />
     <ClCompile Include="..\src\ImageRenderer.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\NuiError.cpp" />
     <ClCompile Include="..\src\SensorManager.cpp" />
     <ClCompile Include="..\src\SkeletonRenderer.cpp" />
     <ClCompile Include="..\src\SparkRenderer.cpp" />
@@ -254,6 +255,7 @@ copy ..\contrib\opencv\bin\opencv_highgui231.dll "$(OutDir)"
     <ClInclude Include="..\src\AbstractSensorDataProvider.h" />
     <ClInclude Include="..\src\joint.h" />
     <ClInclude Include="..\src\math.h" />
+    <ClInclude Include="..\src\NuiError.h" />
     <ClInclude Include="..\src\RenderingContext.h" />
     <ClInclude Include="..\src\SensorManager.h" />
     <ClInclude Include="..\src\SkeletonRenderer.h" />

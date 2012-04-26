@@ -93,53 +93,22 @@ inline GetUserIDFromRawPixel(XuRawUserIDPixel u) { return NuiDepthPixelToPlayerI
 void registerErrorExitFunc(void(*f)());
 void errorExit();
 
-#define CHECK_ERROR(expr, message) check_error(expr, message, #expr);
+#define CHECK_ERROR(expr, message) checkError(expr, message, #expr);
+void checkError(int expr, const char* message, const char* detail);
 
-inline void check_error(int expr, const char* message, const char* detail)
-{
-	if (!expr) {
-		printf("Failed: %s (%s)\n", message, detail);
-		errorExit();
-	}
-}
-
-#define CALL_WIN32 check_win32_status(f, #f);
-
-inline void check_win32_status(HRESULT hr, const char* detail)
-{
-	if (FAILED(hr)) {
-		printf("Failed: %08x (%s)\n", hr, detail); // TODO: use format message or some
-		errorExit();
-	}
-}
+#define CALL_WIN32 checkWin32Status(f, #f);
+void checkWin32Status(HRESULT hr, const char* detail);
 
 #ifdef XU_KINECTSDK
-#define CALL_NUI(f) check_nui_status(f, #f);
-inline void check_nui_status(HRESULT hr, const char* detail)
-{
-	check_win32_status(hr, detail);
-}
-
+#define CALL_SENSOR(f) checkNuiStatus(f, #f);
+void checkNuiStatus(HRESULT hr, const char* detail);
 #else // XU_OPENNI
-#define CALL_XN(f) check_xn_status(f, #f);
-inline void check_xn_status(XnStatus rc, const char* detail)
-{
-	if (rc != XN_STATUS_OK) {
-		printf("Failed: %s (%s)\n", xnGetStatusString(rc), detail);
-		errorExit();
-	}
-}
+#define CALL_SENSOR(f) checkXnStatus(f, #f);
+void checkXnStatus(XnStatus rc, const char* detail);
 #endif
 
-#define CALL_GLEW(f) check_glew_status(f, #f)
-
-inline void check_glew_status(int rc, const char* detail)
-{
-	if (rc != GLEW_OK) {
-		printf("Failed: %s (%s)\n", glewGetErrorString(rc), detail);
-		errorExit();
-	}
-}
+#define CALL_GLEW(f) checkGlewStatus(f, #f)
+void checkGlewStatus(int rc, const char* detail);
 
 // Uncomment this line to output verbose log information.
 // TODO: better log facility
