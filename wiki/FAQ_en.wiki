@@ -1,6 +1,8 @@
 #summary FAQ English version
 #labels Featured
 
+*Note: This FAQ is based on OpenNI version at this moment.*
+
 <wiki:toc max_depth="3"/>
 
 = Doesn't work =
