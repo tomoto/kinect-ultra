@@ -9,8 +9,8 @@
   * For Kinect SDK version
     * Works with Kinect SDK V1.0.
   * For OpenNI version
-    * As to the best knowledge today, the recommended version combination of OpenNI, NITE, and SensorKinect is shown in the [OpenNI_Downloads] page. This recommendation may become obsolete, so check the OpenNI site for the up-to-date information.
-    * This program does not work if you installed Microsoft's official KinectSDK. This issue generally happens for any Kinect Hacks created by OpenNI+NITE+SensorKinect. You can workaround this issue by the following steps. (Sorry this is a kind of tricky.) The behavior is not exactly the same as the original, but it "a sort of" works.
+    * See [OpenNI_Downloads] for the information to download OpenNI components.
+    * This program may not work if you installed Microsoft's official KinectSDK due to driver conflict. This issue generally happens for any Kinect Hacks created by OpenNI+NITE+SensorKinect. You can workaround this issue by the following steps.
       # Download the workaround module from the following URL and extract the archive somewhere: http://code.google.com/p/kinect-mssdk-openni-bridge/
       # Install the module as to README. Though README explains how to modify data/OpenNIConfig.xml, it is not necessary.
 
@@ -20,8 +20,8 @@
   * Kinect SDK版について
     * Kinect SDK V1.0と問題なく動作します。
   * OpenNI版について
-    * 現在知る限り、OpenNI、NITE、SensorKinectの推奨バージョンを[OpenNI_Downloads]ページに記述してあります。これらのバージョンは時代遅れになることもありますので、OpenNIのサイトで最新情報をチェックするようにしてください。
-    * Microsoft公式KinectSDKをインストールすると動かなくなるという問題があります。これは本プログラムに限らず、OpenNI+NITE+SensorKinectを使って作られたKinect Hack一般で発生する問題です。この問題は次の手順で回避することができます(ややこしい手順ですみません)。オリジナルと完全に同じ動きにはならないものの一応動く状態にはなります。
+    * OpenNIのダウンロード先は[OpenNI_Downloads]ページに記述してあります。
+    * Microsoft公式KinectSDKをインストールするとドライバ衝突により動かなくなるという問題があります。これは本プログラムに限らず、OpenNI+NITE+SensorKinectを使って作られたKinect Hack一般で発生する問題です。この問題は次の手順で回避することができます。
       # 次のURLから回避用モジュールをダウンロードし、どこかに展開する: http://code.google.com/p/kinect-mssdk-openni-bridge/
       # READMEにしたがってインストールする。READMEにはOpenNIConfig.xmlの書き換え方が書いてありますが、これは不要です。
 
