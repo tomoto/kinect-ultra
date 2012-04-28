@@ -1,6 +1,8 @@
 #summary FAQ日本語版
 #labels Featured
 
+*注意: 本FAQはOpenNI版に基づいています。*
+
 <wiki:toc max_depth="3"/>
 
 = 動かない =
