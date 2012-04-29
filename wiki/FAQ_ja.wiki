@@ -15,6 +15,11 @@
     * Kinect以外のセンサーで試してみたい方
     * 複数の骨格認識アルゴリズムで試して比較してみたい方
 
+== どんなハードウェアが必要？ ==
+
+  * 「Kinect、そこそこ速いCPU、そこそこ速い3D機能を持ったGPU」以上のことはあまり言えません。[WorkingConfigurations]ページに動作が確認できた構成を載せてあるので参考にしてください。
+  * (おそらく)OpenGL 2.x、プログラマブルシェーダ、およびGL_ARB_vertex_array_objectをサポートしたGPUでないと動作しません。もしGPUがこれらの機能を持っていない場合、プログラムは "This GPU does not support shaders" と言って終了します。
+
 == 前提ソフトウェアのダウンロード方法は？ ==
 
   * Kinect SDK → [KinectSDK_Download]を参照してください。
