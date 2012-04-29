@@ -22,7 +22,7 @@
 
 == 前提ソフトウェアのダウンロード方法は？ ==
 
-  * Kinect SDK → [KinectSDK_Download]を参照してください。
+  * Kinect SDK → [KinectSDK_Downloads]を参照してください。
   * OpenNIと関連ソフトウェア一式 → [OpenNI_Downloads]を参照してください。
 
 = 動かない！ =
