@@ -1,7 +1,4 @@
 #summary My memo
 
-= 0.1d TODO =
-
-  * Fix issue #4
-  * Fix issue #6 fixed by providing "trigger happy mode". Note on FAQ.
-  * Support mirror mode
+  * OpenNI_Downloads にブリッジのことを書く。(WorkingConfigurationsから移動)
+  * KinectSDK_Downloads を書く。
