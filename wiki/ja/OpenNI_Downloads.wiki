@@ -12,7 +12,7 @@
 == mssdk-openni-bridgeの使用 ==
 
   * mssdk-openni-bridgeは、SensorKinectの代わりにKinect SDKを使ってKinectセンサーにアクセスするOpenNI用プラグインモジュールです。これを用いて次のような問題を回避することができます。
-    * Kinect SDKをインストールすると、KinectセンサーはOpenNI上から見えなくなります。これはドライバ衝突のためSensorKinectドライバがKinectセンサーにアクセスできなくなるためです。このブリッジをインストールするとKinectセンサーがOpenNI上で再び見えるようになり、ドライバの切り替えなしにOpenNIアプリとKinect SDKアプリの両方からKinectセンサーを使うことが可能になります。
-    * SensorKinectドライバはKinect for Xbox360しかサポートしていません。このブリッジはKinect SDKの上に作られているため、Kinect for Windowsもサポートしています。すなわちこのブリッジをインストールするだけでKinect for WindowsがOpenNI上から使えるようになります。
+    * Kinect SDKをインストールすると、KinectセンサーはOpenNI上から見えなくなります。これはドライバ衝突のためSensorKinectドライバがKinectセンサーにアクセスできなくなるためです。そこでこのブリッジをインストールすると、KinectセンサーがOpenNI上で再び見えるようになり、ドライバの切り替えなしにOpenNIアプリとKinect SDKアプリの両方からKinectセンサーを使うことが可能になります。
+    * SensorKinectドライバはKinect for Xbox360しかサポートしていません。一方このブリッジはKinect SDKの上に作られているため、Kinect for Windowsもサポートしています。すなわちこのブリッジをインストールするだけでKinect for WindowsがOpenNI上から使えるようになるということです。
   * このブリッジを使うには、[http://code.google.com/p/kinect-mssdk-openni-bridge/ kinect-mssdk-openni-bridgeプロジェクトのサイト]からブリッジをダウンロードし、READMEに従ってインストールしてください。
 
