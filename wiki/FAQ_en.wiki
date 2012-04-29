@@ -15,7 +15,12 @@
     * want to try other sensors than Kinect
     * want to apply different skeleton tracking algorithms and compare
 
-== How to download the required software ==
+== What hardware do I need? ==
+
+  * I cannot tell you exactly rather than Kinect, fairly powerful CPU, and fairly powerful 3D-enabled GPU. See WorkingConfigurations for the known valid configurations.
+  * The GPU (supposedly) needs to support OpenGL 2.x, programmable shaders, and GL_ARB_vertex_array_object extension. If the GPU does not satisfy this requirement, the program ends saying "This GPU does not support shaders".
+
+== How do I download the required software? ==
 
   * Kinect SDK --> See [KinectSDK_Downloads]
   * OpenNI --> See [OpenNI_Downloads]
