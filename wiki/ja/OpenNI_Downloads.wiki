@@ -1,18 +1,18 @@
-#summary OpenNI�ꎮ�̃_�E�����[�h
+#summary OpenNI一式のダウンロード
 #labels Featured
 
-== �_�E�����[�h ==
+== ダウンロード ==
 
-  * OpenNI��NITE��32-bit�ł�[http://www.openni.org/Downloads/OpenNIModules.aspx PrimeSense�̃T�C�g]����_�E�����[�h�A�C���X�g�[�����Ă��������B* ���Ȃ���OS��64-bit�ł����Ă��K��32-bit�ł��g���Ă��������B*
-    * �S������p�b�P�[�W���_�E�����[�h���Ă�OpenNI��NITE��ʁX�ɃC���X�g�[�����Ă��ǂ���ł��\���܂���B�Ⴆ�ΑS������p�b�P�[�W�̏ꍇ�AOpenNI Packages> Stable > PrimeSense Package Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition ��I�����Ă��������B
-  * [https://github.com/avin2/SensorKinect/Bin avin2��SensorKinect�h���C�o]���_�E�����[�h�A�C���X�g�[�����Ă��������B*���l��32-bit�ł�I�����Ă��������B*
-    * ���̃h���C�o��Kinect for Xbox360�����T�|�[�g���Ă��炸�AKinect for Windows�͎g���܂���B
-    * [WorkingConfigurations]�y�[�W�ɓ���񍐂̂������o�[�W�����̑g�ݍ��킹���ڂ��Ă���܂��̂ŁA���Q�l�ɂǂ����B
+  * OpenNIとNITEの32-bit版を[http://www.openni.org/Downloads/OpenNIModules.aspx PrimeSenseのサイト]からダウンロード、インストールしてください。* あなたのOSが64-bitであっても必ず32-bit版を使ってください。*
+    * 全部入りパッケージをダウンロードしてもOpenNIとNITEを別々にインストールしてもどちらでも構いません。例えば全部入りパッケージの場合、OpenNI Packages> Stable > PrimeSense Package Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition を選択してください。
+  * [https://github.com/avin2/SensorKinect/Bin avin2のSensorKinectドライバ]をダウンロード、インストールしてください。*同様に32-bit版を選択してください。*
+    * このドライバはKinect for Xbox360しかサポートしておらず、Kinect for Windowsは使えません。
+    * [WorkingConfigurations]ページに動作報告のあったバージョンの組み合わせを載せてありますので、ご参考にどうぞ。
 
-== mssdk-openni-bridge�̎g�p ==
+== mssdk-openni-bridgeの使用 ==
 
-  * mssdk-openni-bridge�́ASensorKinect�̑����Kinect SDK���g����Kinect�Z���T�[�ɃA�N�Z�X����OpenNI�p�v���O�C�����W���[���ł��B�����p���Ď��̂悤�Ȗ���������邱�Ƃ��ł��܂��B
-    * Kinect SDK���C���X�g�[������ƁAKinect�Z���T�[��OpenNI�ォ�猩���Ȃ��Ȃ�܂��B����̓h���C�o�Փ˂̂���SensorKinect�h���C�o��Kinect�Z���T�[�ɃA�N�Z�X�ł��Ȃ��Ȃ邽�߂ł��B���̃u���b�W���C���X�g�[�������Kinect�Z���T�[��OpenNI��ōĂь�����悤�ɂȂ�A�h���C�o�̐؂�ւ��Ȃ���OpenNI�A�v����Kinect SDK�A�v���̗�������Kinect�Z���T�[���g�����Ƃ��\�ɂȂ�܂��B
-    * SensorKinect�h���C�o��Kinect for Xbox360�����T�|�[�g���Ă��܂��񂪁A���̃u���b�W��Kinect SDK�̏�ɍ���Ă��邽��Kinect for Windows���T�|�[�g���Ă��܂��B���Ȃ킿�A���̃u���b�W��Kinect SDK�Ƃ��C���X�g�[������ƁAKinect for Windows��OpenNI�ォ��g����悤�ɂȂ�܂��B
-  * ���̃u���b�W���g���ɂ́A[http://code.google.com/p/kinect-mssdk-openni-bridge/ kinect-mssdk-openni-bridge�v���W�F�N�g�̃T�C�g]����u���b�W���_�E�����[�h���AREADME�ɏ]���ăC���X�g�[�����Ă��������B
+  * mssdk-openni-bridgeは、SensorKinectの代わりにKinect SDKを使ってKinectセンサーにアクセスするOpenNI用プラグインモジュールです。これを用いて次のような問題を回避することができます。
+    * Kinect SDKをインストールすると、KinectセンサーはOpenNI上から見えなくなります。これはドライバ衝突のためSensorKinectドライバがKinectセンサーにアクセスできなくなるためです。このブリッジをインストールするとKinectセンサーがOpenNI上で再び見えるようになり、ドライバの切り替えなしにOpenNIアプリとKinect SDKアプリの両方からKinectセンサーを使うことが可能になります。
+    * SensorKinectドライバはKinect for Xbox360しかサポートしていません。このブリッジはKinect SDKの上に作られているため、Kinect for Windowsもサポートしています。すなわちこのブリッジをインストールするだけでKinect for WindowsがOpenNI上から使えるようになります。
+  * このブリッジを使うには、[http://code.google.com/p/kinect-mssdk-openni-bridge/ kinect-mssdk-openni-bridgeプロジェクトのサイト]からブリッジをダウンロードし、READMEに従ってインストールしてください。
 
