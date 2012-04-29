@@ -1,5 +1,0 @@
-#summary How to download Kinect SDK
-
-@en Download Kinect SDK V1.0 from [http://www.microsoft.com/en-us/kinectforwindows/develop/overview.aspx Microsoft's site]. Note it requires Windows 7.
-
-@ja [http://www.microsoft.com/en-us/kinectforwindows/develop/overview.aspx Microsoftのサイト]からKinect SDK V1.0をダウンロードしてください。Windows 7が必要です。

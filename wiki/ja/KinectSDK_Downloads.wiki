@@ -1,0 +1,3 @@
+#summary Kinect SDKのダウンロード
+
+[http://www.microsoft.com/en-us/kinectforwindows/develop/overview.aspx Microsoftのサイト]からKinect SDK V1.0をダウンロード、インストールしてください。Windows 7が必要です。
