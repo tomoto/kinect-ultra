@@ -76,7 +76,7 @@
     * Use the latest graphics driver.
   * I will investigate the reported issues as far as I can, but it is actually very difficult to track down the problems dependent on GPU and graphic driver without having the exact environment on which the issue can be reproduced. I would appreciate your help such as tracing the execution by the debugger..
 
-= Motion is not detected! =
+= It doesn't recognize my motion! =
 
 == Skeleton tracking easily lost ==
 
