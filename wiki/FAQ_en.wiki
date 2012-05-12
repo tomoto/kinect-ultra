@@ -58,6 +58,7 @@
 === "Kinect10.dll is missing" appears (for Kinect SDK) ==
 
   * Possibly Kinect SDK is not installed. See [KinectSDK_Downloads] for details.
+  * Use Kinect SDK V1.0. Kinect SDK Beta is not supported.
 
 === "OpenNI.dll is missing" appears (for OpenNI) ===
 
@@ -65,7 +66,7 @@
     * If you believe OpenNI is installed but see this error, OpenNI 64-bit may possibly be installed. Use OpenNI 32-bit. Whether your OS is 64-bit or 32-bit, OpenNI 32-bit works fine. You will not experience any performance drawback.
     * Maybe I am over-simplifying, but there are only few advantages in using OpenNI 64-bit such as you can run a program that requires a huge amount of memory. As I do not see any advantages for my program, it has not been my priority to build 64-bit version of my program. I may do it when I get some time in the future, but please use OpenNI 32-bit for the time being.
 
-=== "MSVC(foobar).dll is missing" appears ===
+=== "MSVC(foobar).dll is missing" or "side b yside configuration is incorrect" appears ===
 
   * Download Visual C++ 2010 Runtime from here: http://www.microsoft.com/en-us/download/details.aspx?id=5555
 
