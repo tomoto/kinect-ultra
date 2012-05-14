@@ -105,11 +105,15 @@
     * 派生物が幾つかありますが、現在の本家は[http://subversion.apache.org/ Apache]のようです。
     * GUIがよければ[http://tortoisesvn.tigris.org/ TortoiseSVN]がポピュラーです。
   * [http://code.google.com/p/kinect-ultra/source/checkout checkout]ページの説明に従い、次のURLから "checkout" してください: https://kinect-ultra.googlecode.com/svn/trunk
+    * 特定のブランチやタグから取得する場合には、"trunk" の部分をブランチやタグのパスに書き換えてください。
+
+== ビルドする方法は? ==
+
+  * VC++ 2010を使い、build2010フォルダ内の.slnファイルを開いてください。
+  * 一方で隣のbuildフォルダ内にはVC++ 2008用のビルドファイルがありますが、OpenNI用しかビルドできず、また内容が古くなっている可能性があります。
 
 == デバッガ上で実行できない ==
 
   * デバッガの作業ディレクトリとして ".." (親ディレクトリ)を設定してください。これをやらないと File Not Found エラーが出ます。
-
   * OpenNI.dllがデバッグモードでビルドされていないと「Cランタイムが初期化されていない」というエラーが出る場合があるようです。(OpenNI版のみ)
-
   * VC++を管理者モードで実行しないと「Cランタイムが初期化されていない」というエラーが出る場合があるようです。
