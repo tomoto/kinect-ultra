@@ -44,8 +44,10 @@ public:
 	UserProvider(INuiSensor* pSensor);
 	~UserProvider();
 
-	const XuUserID findFirstTrackedUserID();
-	bool isUserTracked(XuUserID userID);
+	XuUserID findFirstTrackedUserID();
+	XuUserID findTrackedUserIDNextTo(XuUserID userID);
+	bool isUserPositionTracked(XuUserID userID);
+	bool isUserSkeletonTracked(XuUserID userID);
 	
 	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo);
 
@@ -68,8 +70,10 @@ public:
 
 	UserGenerator* getGenerator() { return &m_userGen; }
 
-	const XuUserID findFirstTrackedUserID();
-	bool isUserTracked(XuUserID userID);
+	XuUserID findFirstTrackedUserID();
+	XuUserID findTrackedUserIDNextTo(XuUserID userID);
+	bool isUserPositionTracked(XuUserID userID);
+	bool isUserSkeletonTracked(XuUserID userID);
 	
 	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo);
 };
