@@ -73,7 +73,7 @@ void checkWin32Status(HRESULT hr, const char* detail)
 }
 
 #ifdef XU_KINECTSDK
-#include "NuiError.h"
+#include "nui_error.h"
 
 void checkNuiStatus(HRESULT hr, const char* detail)
 {
