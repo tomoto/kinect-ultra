@@ -113,7 +113,7 @@
     <ClCompile Include="..\src\UltraEyeRenderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\NuiError.cpp">
+    <ClCompile Include="..\src\nui_error.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,7 +250,7 @@
     <ClInclude Include="..\src\UltraEyeRenderer.h">
       <Filter>h</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\NuiError.h">
+    <ClInclude Include="..\src\nui_error.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>
