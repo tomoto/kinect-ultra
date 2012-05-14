@@ -63,7 +63,7 @@ int getNuiErrorString(HRESULT hr, char* buf, int size)
 	}
 
 	if (msg) {
-		strncpy(buf, msg, size);
+		strncpy_s(buf, size, msg, _TRUNCATE);
 	} else {
 		FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, hr, 0, buf, size, NULL);
 	}
