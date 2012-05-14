@@ -27,52 +27,12 @@
 //
 //@COPYRIGHT@//
 
-#include "ImageProvider.h"
+#ifndef _NUI_ERROR_H_
+#define _NUI_ERROR_H_
 
 #ifdef XU_KINECTSDK
-
-ImageProvider::ImageProvider(INuiSensor* pSensor) : AbstractImageStreamProvider(pSensor)
-{
-	CALL_SENSOR(m_pSensor->NuiImageStreamOpen(NUI_IMAGE_TYPE_COLOR, NUI_IMAGE_RESOLUTION_640x480, 0, 2, m_hNextFrameEvent, &m_hStream));
-}
-
-ImageProvider::~ImageProvider()
-{
-}
-
-bool ImageProvider::waitForNextFrameAndLockImpl(DWORD timeout)
-{
-	if (SUCCEEDED(WaitForSingleObjectEx(m_hNextFrameEvent, timeout, TRUE))) {
-		CALL_SENSOR(m_pSensor->NuiImageStreamGetNextFrame(m_hStream, timeout, &m_frame));
-		CALL_SENSOR(m_frame.pFrameTexture->LockRect(0, &m_lockedRect, NULL, 0));
-		m_isLocked = true;
-		return true;
-	} else {
-		return false;
-	}
-}
-
-void ImageProvider::unlockImpl()
-{
-	CALL_SENSOR(m_pSensor->NuiImageStreamReleaseFrame(m_hStream, &m_frame));
-	ResetEvent(m_hNextFrameEvent);
-	m_isLocked = false;
-}
-
-#else // XU_OPENNI
-
-ImageProvider::ImageProvider(Context* pContext) : AbstractImageStreamProvider(pContext)
-{
-	CALL_SENSOR( pContext->FindExistingNode(XN_NODE_TYPE_IMAGE, m_imageGen) );
-
-	ImageMetaData md;
-	m_imageGen.GetMetaData(md);
-	CHECK_ERROR(md.PixelFormat() == XN_PIXEL_FORMAT_RGB24, "This camera's data format is not supported.");
-	CHECK_ERROR(md.XRes() == 640 && md.YRes() == 480, "This camera's resolution is not supported.");
-}
-
-ImageProvider::~ImageProvider()
-{
-}
+#include "common.h"
+int getNuiErrorString(HRESULT hr, char* buf, int size);
+#endif
 
 #endif
