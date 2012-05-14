@@ -105,6 +105,12 @@
     * The master project is now in [http://subversion.apache.org/ Apache] although there are several derived works.
     * If you prefer GUI, the popular [http://tortoisesvn.tigris.org/ TortoiseSVN] is recommended.
   * Follow the instruction in the [http://code.google.com/p/kinect-ultra/source/checkout checkout] page. "Checkout" from https://kinect-ultra.googlecode.com/svn/trunk
+    * To access to a specific branch or tag, replace "trunk" with the path to the branch or the tag.
+
+== How can I build? ==
+
+  * Use VC++ 2010 and open .sln in the build2010/ folder.
+  * The build/ folder (next to build2010) contains the build files for VC++ 2008, but it can only build OpenNI version and may be obsolete.
 
 == Does not run on the debugger ==
 
