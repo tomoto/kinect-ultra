@@ -1,7 +1,7 @@
 @rem Note: (1) Set VER to release version. (2) Install ActivePerl.
 
 setlocal
-set VER=1.0a
+set VER=dev-1.0b
 
 set TARGET=release\kinect-ultra_%VER%_for_KinectSDK
 rmdir /s /q %TARGET%

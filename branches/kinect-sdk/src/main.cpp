@@ -65,7 +65,7 @@
 #define APP_VERSION_FOR "OpenNI"
 #endif
 
-#define APP_VERSION_NUMBER "1.0a"
+#define APP_VERSION_NUMBER "1.0b"
 #define APP_VERSION APP_VERSION_NUMBER " (" APP_VERSION_FOR ")"
 
 // Sensor objects
