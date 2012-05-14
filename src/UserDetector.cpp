@@ -53,11 +53,30 @@ void UserDetector::detect()
 			}
 		}
 	} else {
-		if (!m_userProvider->isUserTracked(m_trackedUserID)) {
+		if (!m_userProvider->isUserPositionTracked(m_trackedUserID)) {
 			if (m_listener) {
 				m_listener->onLostUser(m_trackedUserID);
 			}
 			m_trackedUserID = 0;
+		}
+	}
+}
+
+void UserDetector::switchUser()
+{
+	XuUserID nextUserID = m_userProvider->findTrackedUserIDNextTo(m_trackedUserID);
+	if (nextUserID != m_trackedUserID) {
+		printf("Switch user from %d to %d\n", m_trackedUserID, nextUserID);
+		if (m_listener) {
+			if (m_trackedUserID) {
+				m_listener->onLostUser(m_trackedUserID);
+			}
+			m_trackedUserID = nextUserID;
+			if (m_trackedUserID) {
+				m_listener->onNewUser(m_trackedUserID);
+			}
+		} else {
+			m_trackedUserID = nextUserID;
 		}
 	}
 }
