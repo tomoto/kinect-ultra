@@ -51,6 +51,8 @@ public:
 	void transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ);
 	void transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint);
 
+	void getFOV(float* pHFOV, float* pVFOV);
+
 protected:
 	virtual bool waitForNextFrameAndLockImpl(DWORD timeout);
 	virtual void unlockImpl();
@@ -73,6 +75,8 @@ public:
 
 	void transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ);
 	void transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint);
+
+	void getFOV(float* pHFOV, float* pVFOV);
 };
 
 #endif

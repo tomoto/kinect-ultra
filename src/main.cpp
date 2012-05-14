@@ -236,9 +236,8 @@ static void initGL(int* pArgc, char* argv[])
 
 static void initProjection()
 {
-	// TODO move to DepthGenerator
-	const float hfov = 1.0145f;
-	const float vfov = 0.7898f;
+	float hfov, vfov;
+	s_sensorMan->getDepthProvider()->getFOV(&hfov, &vfov);
 
 	GLFrustum frustum;
 	float verticalFOVInDegree = float(m3dRadToDeg(vfov));
