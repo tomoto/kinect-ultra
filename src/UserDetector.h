@@ -61,6 +61,13 @@ public:
 		return getTrackedUserID() == userID;
 	}
 
+	bool isSkeletonTracked()
+	{
+		return m_trackedUserID && m_userProvider->isUserSkeletonTracked(m_trackedUserID);
+	}
+
+	void switchUser();
+
 	void addListener(IUserListener* listener);
 
 	XV3 getSkeletonJointPosition(XuSkeletonJointIndex jointID);
