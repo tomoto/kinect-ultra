@@ -102,6 +102,12 @@ void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixe
 
 }
 
+void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+{
+	*pHFOV = 1.0145f;
+	*pVFOV = 0.7898f;
+}
+
 #else // XU_OPENNI
 
 DepthProvider::DepthProvider(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen) : AbstractImageStreamProvider(pContext)
@@ -147,6 +153,14 @@ void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixe
 	pPoint->X = rp.X;
 	pPoint->Y = rp.Y;
 	pPoint->Z = rp.Z;
+}
+
+void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+{
+	XnFieldOfView fov;
+	m_depthGen.GetFieldOfView(fov);
+	*pHFOV = (float) fov.fHFOV;
+	*pVFOV = (float) fov.fVFOV;
 }
 
 #endif
