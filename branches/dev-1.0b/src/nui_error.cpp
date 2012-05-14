@@ -29,7 +29,7 @@
 
 #ifdef XU_KINECTSDK
 
-#include "NuiError.h"
+#include "nui_error.h"
 #include "util.h"
 
 #define NUI_MSG(m) msg = m;
