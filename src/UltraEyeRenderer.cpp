@@ -29,6 +29,7 @@
 
 #include "UltraEyeRenderer.h"
 #include "util.h"
+#include <cmath>
 
 UltraEyeRenderer::UltraEyeRenderer(RenderingContext* rctx, HenshinDetector* henshinDetector) : AbstractOpenGLRenderer(rctx)
 {
