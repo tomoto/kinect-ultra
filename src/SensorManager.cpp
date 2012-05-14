@@ -32,7 +32,7 @@
 
 #ifdef XU_KINECTSDK
 
-#include "NuiError.h"
+#include "nui_error.h"
 
 static void CALLBACK dummyDeviceStatusCallback(HRESULT, const OLECHAR*, const OLECHAR*, void*)
 {
