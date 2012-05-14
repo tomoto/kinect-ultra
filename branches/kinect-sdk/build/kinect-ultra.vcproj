@@ -28,8 +28,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy ..\contrib\opencv\bin\cxcore210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\cxcore210d.dll;$(OutDir)\highgui210d.dll"
+				CommandLine="copy ..\contrib\opencv\bin\opencv_core231d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\opencv_highgui231d.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
+				Outputs="$(OutDir)\opencv_core231d.dll;$(OutDir)\opencv_highgui231d.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -63,8 +63,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gltoolsd.lib freeglut_static_d.lib highgui210d.lib cxcore210d.lib OpenNI.lib"
-				OutputFile="$(OutDir)\$(ProjectName)-debug.exe"
+				AdditionalDependencies="gltoolsd.lib freeglut_static_d.lib opencv_highgui231d.lib opencv_core231d.lib OpenNI.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OPEN_NI_LIB)&quot;;..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib"
 				IgnoreDefaultLibraryNames=""
@@ -107,8 +107,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy ..\contrib\opencv\bin\cxcore210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\highgui210.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\cxcore210.dll;$(OutDir)\highgui210.dll"
+				CommandLine="copy ..\contrib\opencv\bin\opencv_core231.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;copy ..\contrib\opencv\bin\opencv_highgui231.dll &quot;$(OutDir)\&quot;&#x0D;&#x0A;"
+				Outputs="$(OutDir)\opencv_core231.dll;$(OutDir)\opencv_highgui231.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -142,7 +142,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gltools.lib freeglut_static.lib highgui210.lib cxcore210.lib OpenNI.lib"
+				AdditionalDependencies="gltools.lib freeglut_static.lib opencv_highgui231.lib opencv_core231.lib OpenNI.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPEN_NI_LIB)&quot;;..\contrib\gltools\lib;..\contrib\freeglut\lib;..\contrib\opencv\lib"
 				IgnoreDefaultLibraryNames=""
@@ -196,6 +196,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\AbstractPowerPoseDetector.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\AbstractSensorDataProvider.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\AbstractSimpleBeamRenderer.cpp"
 				>
 			</File>
@@ -212,7 +220,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\DepthRenderer.cpp"
+				RelativePath="..\src\DepthProvider.cpp"
 				>
 			</File>
 			<File
@@ -236,11 +244,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\EyeSluggerDetectorEx.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\EyeSluggerRenderer.cpp"
 				>
 			</File>
 			<File
+				RelativePath="..\src\EyeSluggerRendererEx.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\HenshinDetector.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ImageProvider.cpp"
 				>
 			</File>
 			<File
@@ -252,7 +272,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\nui_error.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\RenderingContext.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\SensorManager.cpp"
 				>
 			</File>
 			<File
@@ -272,11 +300,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\UltraEyeRenderer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\UserDetector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\UserListener.cpp"
+				RelativePath="..\src\UserProvider.cpp"
 				>
 			</File>
 			<File
@@ -314,11 +346,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\AbstractImageStreamProvider.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\AbstractOpenGLRenderer.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\AbstractPoseDetector.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\AbstractPowerPoseDetector.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\AbstractSensorDataProvider.h"
 				>
 			</File>
 			<File
@@ -346,7 +390,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\DepthRenderer.h"
+				RelativePath="..\src\DepthProvider.h"
 				>
 			</File>
 			<File
@@ -370,7 +414,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\EyeSluggerDetectorEx.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\EyeSluggerRenderer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\EyeSluggerRendererEx.h"
 				>
 			</File>
 			<File
@@ -382,7 +434,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\Holder.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ImageProvider.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ImageRenderer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\IUserListener.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\joint.h"
 				>
 			</File>
 			<File
@@ -390,7 +458,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\nui_error.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\RenderingContext.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\SensorManager.h"
 				>
 			</File>
 			<File
@@ -410,11 +486,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\UltraEyeRenderer.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\UserDetector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\UserListener.h"
+				RelativePath="..\src\UserProvider.h"
 				>
 			</File>
 			<File
