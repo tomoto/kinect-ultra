@@ -45,7 +45,11 @@ bool UserProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 {
 	if (SUCCEEDED(WaitForSingleObjectEx(m_hNextFrameEvent, timeout, TRUE))) {
 		CALL_NUI(m_pSensor->NuiSkeletonGetNextFrame(timeout, &m_frame));
-		// m_pSensor->NuiTransformSmooth(&m_frame, NULL); // smoothing does not work well
+		NUI_TRANSFORM_SMOOTH_PARAMETERS smoothingParams = {
+			// 0.5f, 0.5f, 0.5f, 0.05f, 0.04f // default
+			0.4f, 0.2f, 0.3f, 0.05f, 0.04f
+		};
+		m_pSensor->NuiTransformSmooth(&m_frame, &smoothingParams);
 		m_isLocked = true;
 		return true;
 	} else {
@@ -155,6 +159,7 @@ UserProvider::UserProvider(Context* pContext) : AbstractSensorDataProvider(pCont
 
 	CHECK_ERROR( m_userGen.IsCapabilitySupported(XN_CAPABILITY_SKELETON), "This configuration does not support skeleton tracking." );
 	CALL_XN( m_userGen.GetSkeletonCap().SetSkeletonProfile(XN_SKEL_PROFILE_ALL) );
+	CALL_XN( m_userGen.GetSkeletonCap().SetSmoothing(0.4f) );
 }
 
 UserProvider::~UserProvider()
