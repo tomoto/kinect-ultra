@@ -171,3 +171,11 @@ void toggleFullScreenMode()
 	}
 }
 
+char* chomp(char* buf)
+{
+	for (int i = strlen(buf); i > 0 && (buf[i-1] == '\n' || buf[i-1] == '\r'); i--) {
+		buf[i-1] = '\0';
+	}
+	return buf;
+}
+
