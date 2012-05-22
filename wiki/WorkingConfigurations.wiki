@@ -26,9 +26,16 @@
 
 (`*1`) Driver version = 6.14.10.5303. Note 6.14.10.4953 does not support shader.
 
+=== Kinect SDK ===
+
+|| *Kinect SDK* || *Remark* || *Reported by* ||
+|| 1.5 || || tomoto ||
+|| 1.0 || || tomoto ||
+
 === OpenNI & Kinect Drivers ===
 
 || *OpenNI* || *NITE* || *Kinect Driver* || *Remark* || *Reported by* ||
+|| 1.5.2.23 || 1.5.2.21 || kinect-mssdk-openni-bridge 1.5.0.0 for 1.5.2.23 + Kinect SDK V1.5|| || tomoto ||
 || 1.5.2.23 || 1.5.2.21 || SensorKinect by avin2 5.0.3.4 || || tomoto ||
 || 1.3.4.3 || 1.4.2.4 || SensorKinect by avin2 5.0.3.4 || ZigFu's all-in-one package || tomoto ||
 || stable 1.3.3.6 || stable 1.4.2.4 || SensorKinect by avin2 5.0.3.4 || || tomoto ||
