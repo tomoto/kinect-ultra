@@ -20,6 +20,8 @@
     * http://technabob.com/blog/2011/01/11/kinect-superhero-hack/
   * Se7enSins
     * http://www.se7ensins.com/forums/topic/403311-kinect-hack-ultra-seven-superhero/
+  * Microsoft Channel 9
+    * http://channel9.msdn.com/coding4fun/kinect/Kinect-Ultra-Transform-into-Ultra-Seven
 
 == Japanese ==
 
