@@ -108,16 +108,16 @@ void DepthProviderImpl::getFOV(float* pHFOV, float* pVFOV)
 	*pVFOV = 0.7898f;
 }
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 DepthProviderImpl::DepthProviderImpl(openni::Device* pDevice) : AbstractImageStreamProvider(pDevice)
 {
-	CALL_SENSOR( m_stream.create(*pDevice, openni::SensorType::SENSOR_DEPTH ) );
+	CALL_SENSOR( m_stream.create(*pDevice, openni::/*SensorType::*/SENSOR_DEPTH ) );
 
 	openni::VideoMode vm;
 	vm.setFps(30);
 	vm.setResolution(640, 480);
-	vm.setPixelFormat(openni::PixelFormat::PIXEL_FORMAT_DEPTH_1_MM);
+	vm.setPixelFormat(openni::/*PixelFormat::*/PIXEL_FORMAT_DEPTH_1_MM);
 	CALL_SENSOR( m_stream.setVideoMode(vm) );
 
 	CALL_SENSOR( m_stream.start() );
@@ -131,16 +131,16 @@ DepthProviderImpl::~DepthProviderImpl()
 	m_stream.destroy();
 }
 
-void DepthProviderImpl::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
+void DepthProviderImpl::transformSkeletonToDepthImage(const XV3& p, int* pX, int* pY, XuRawDepthPixel* pZ)
 {
 	XV3 pp;
-	m_userTracker.convertJointCoordinatesToDepth(p.X, p.Y, p.Z, &pp.X, &pp.Y);
-	*pX = (LONG) pp.X;
-	*pY = (LONG) pp.Y;
-	*pZ = (XuRawDepthPixel) p.Z;
+	m_userTracker.convertJointCoordinatesToDepth(float(p.X), float(p.Y), float(p.Z), &pp.X, &pp.Y);
+	*pX = int(pp.X);
+	*pY = int(pp.Y);
+	*pZ = XuRawDepthPixel(p.Z);
 }
 
-void DepthProviderImpl::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
+void DepthProviderImpl::transformDepthImageToSkeleton(int x, int y, XuRawDepthPixel z, XV3* pPoint)
 {
 	m_userTracker.convertDepthCoordinatesToJoint(int(x), int(y), int(z), &(pPoint->X), &(pPoint->Y));
 	pPoint->Z = z;

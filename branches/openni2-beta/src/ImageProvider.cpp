@@ -59,16 +59,16 @@ void ImageProviderImpl::unlockImpl()
 	m_isLocked = false;
 }
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 ImageProviderImpl::ImageProviderImpl(openni::Device* pDevice) : AbstractImageStreamProvider(pDevice)
 {
-	CALL_SENSOR( m_stream.create(*pDevice, openni::SensorType::SENSOR_COLOR ) );
+	CALL_SENSOR( m_stream.create(*pDevice, openni::/*SensorType::*/SENSOR_COLOR ) );
 
 	openni::VideoMode vm;
 	vm.setFps(30);
 	vm.setResolution(640, 480);
-	vm.setPixelFormat(openni::PixelFormat::PIXEL_FORMAT_RGB888);
+	vm.setPixelFormat(openni::/*PixelFormat::*/PIXEL_FORMAT_RGB888);
 	CALL_SENSOR( m_stream.setVideoMode(vm) );
 
 	CALL_SENSOR( m_stream.start() );

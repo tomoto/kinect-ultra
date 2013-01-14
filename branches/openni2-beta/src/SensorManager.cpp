@@ -99,7 +99,7 @@ void SensorManager::unlock()
 	m_imageProvider->unlock();
 }
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 SensorManager::SensorManager()
 {
@@ -118,7 +118,7 @@ SensorManager::SensorManager()
 	// It's weird, but we have to set this AFTER the streams are started...
 	if (m_device.isPropertySupported(openni::DEVICE_PROPERTY_IMAGE_REGISTRATION)) {
 		// Today, color-depth registration is not supported for Kinect
-		CALL_SENSOR( m_device.setImageRegistrationMode(openni::ImageRegistrationMode::IMAGE_REGISTRATION_DEPTH_TO_COLOR) );
+		CALL_SENSOR( m_device.setImageRegistrationMode(openni::/*ImageRegistrationMode::*/IMAGE_REGISTRATION_DEPTH_TO_COLOR) );
 	}
 }
 

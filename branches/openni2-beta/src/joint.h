@@ -57,7 +57,7 @@ typedef NUI_SKELETON_POSITION_INDEX XuSkeletonJointIndex;
 #define XU_SKEL_CENTER_SHOULDER NUI_SKELETON_POSITION_COUNT // needs special handling
 #define XU_SKEL_JOINT_COUNT (NUI_SKELETON_POSITION_COUNT+1)
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 typedef nite::JointType XuSkeletonJointIndex;
 
 #define XU_SKEL_LEFT_SHOULDER nite::JOINT_LEFT_SHOULDER

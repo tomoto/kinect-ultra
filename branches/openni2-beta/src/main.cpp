@@ -280,6 +280,11 @@ static void initRenderers()
 	LOG( takeImageSnapshot() );
 }
 
+#ifndef WIN32
+// Fake Win32 function
+inline int GetConsoleCP() { return 0; }
+#endif
+
 static void displayWelcomeMessage()
 {
 	puts("kinect-ultra " APP_VERSION);
@@ -311,10 +316,12 @@ static void displayWelcomeMessage()
 	}
 }
 
-void main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
+#ifdef WIN32
 	// enable memory leak report for Win32 debug
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 
 	displayWelcomeMessage();
 
@@ -324,4 +331,6 @@ void main(int argc, char* argv[])
 	glutShowWindow();
 	// toggleFullScreenMode(); // remove comment to run in the full-screen mode by default
 	glutMainLoop();
+
+	return 0;
 }

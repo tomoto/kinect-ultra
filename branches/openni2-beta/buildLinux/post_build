@@ -1,0 +1,7 @@
+# $1: OPENNI2_REDSIT
+# $2: NITE2_REDIST
+
+find . -type l | xargs rm
+ln -s $1/* .
+ln -s $2/* .
+ln -s ../data .

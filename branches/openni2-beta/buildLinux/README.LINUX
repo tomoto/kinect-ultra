@@ -1,0 +1,39 @@
+Experimental build environment for Linux with OpenNI2/NiTE2
+
+1. Required sensor
+
+- PrimeSense's sensors such as PrimeSensor, ASUS Xtion.
+- Kinect is not supported. There seems to be a way to use it, but don't ask me.
+
+2. Requierd software [and what I used]
+
+- Linux OS 32bit [Ubuntu 12.10 desktop on VMware Player 5.0.1]
+- Basic build tools
+  - build-essential [use apt-get]
+  - cmake [use apt-get]
+  - git, git-svn, git-gui, gitk [use apt-get]
+- Eclipse CDT [3.8.0 / use apt-get]
+- Eclipse CDT [8.1.1 / install from http://download.eclipse.org/tools/cdt/releases/juno on Eclipse]
+- freeglut3-dev [use apt-get]
+- libglew-dev [use apt-get]
+- OpenNI2 Linux 32bit [2.0.0.29 Beta / get archive and run install.sh (may need to restart the machine)]
+- NiTE2 Linux 32bit [2.0.0.29 Beta / get archive and run install.sh]
+- OpenCV [2.4.3 / get archive, then run "cmake -DCMAKE_INSTALL_PREFIX=/usr" and "make install"]
+
+3. Steps
+
+(1) Get source code
+- git svn clone -s https://kinect-ultra.googlecode.com/svn kinect-ultra
+  cd kinect-ultra
+  git branch --set-upstream openni2-beta openni2-beta
+  git checkout openni2-beta
+  
+(2) Setup Eclipse and build
+- Open Window -> Preferences -> C/C++ -> Build -> Build Variables and
+  Define 4 variables as to OpenNIDevEnvironment and NiTEDevEnvironment created by OpenNI2/NiTE2 installer. 
+- Import the project from kinect-ultra directory.
+- Now you are good to build.
+
+(3) Run
+- cd to Linux_OpenNI2_Debug or Release and run ./kinect-ultra
+- It works, but not stable. It often freezes & crashes by segmentation faults. There may be some resource leaks.

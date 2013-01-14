@@ -35,9 +35,19 @@ TimeTicker::TimeTicker()
 	m_isLocked = false;
 }
 
+#ifndef WIN32
+// Fake Win32 function
+#include <sys/time.h>
+static unsigned int GetTickCount() {
+	timeval t;
+	gettimeofday(&t, NULL);
+	return t.tv_sec * 1000 + t.tv_usec / 1000;
+}
+#endif
+
 float TimeTicker::tick()
 {
-	DWORD currentTime = GetTickCount();
+	unsigned int currentTime = GetTickCount();
 	float dt = (m_lastTime == 0) ? 0.0f : (currentTime - m_lastTime) / 1000.0f;
 	if (!m_isLocked) {
 		m_lastTime = currentTime;

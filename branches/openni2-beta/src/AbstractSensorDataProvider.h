@@ -56,7 +56,7 @@ protected:
 	virtual void unlockImpl() = 0;
 };
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 class AbstractSensorDataProvider
 {

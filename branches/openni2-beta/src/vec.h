@@ -47,9 +47,9 @@
  */
 class XV3 {
 public:
-	FLOAT X;
-	FLOAT Y;
-	FLOAT Z;
+	float X;
+	float Y;
+	float Z;
 
 	// ctors
 	XV3() { X = Y = Z = 0; }

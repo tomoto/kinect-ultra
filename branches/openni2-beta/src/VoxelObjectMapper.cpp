@@ -101,7 +101,7 @@ void VoxelObjectMapper::update()
 
 bool VoxelObjectMapper::test(const XV3& p, const XV3& v)
 {
-	float k = std::max(std::max(abs(v.X / VOXEL_SCALE_X), abs(v.Y / VOXEL_SCALE_Y)), abs(v.Z / VOXEL_SCALE_Z));
+	float k = std::max(std::max(fabs(v.X / VOXEL_SCALE_X), fabs(v.Y / VOXEL_SCALE_Y)), fabs(v.Z / VOXEL_SCALE_Z));
 	XV3 v0(v.X / k, v.Y / k, v.Z / k);
 	XV3 p0(p);
 	for (int i = 0; i < k; i++) {
