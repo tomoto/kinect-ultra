@@ -34,16 +34,31 @@
 #include "AbstractImageStreamProvider.h"
 #include "vec.h"
 
+class DepthProvider
+{
+public:
+	DepthProvider() {}
+	virtual ~DepthProvider() {}
+
+	virtual const XuRawDepthPixel* getData() const = 0;
+	virtual const XuRawUserIDPixel* getUserIDData() const = 0;
+
+	virtual void transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ) = 0;
+	virtual void transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint) = 0;
+
+	virtual void getFOV(float* pHFOV, float* pVFOV) = 0;
+};
+
 #ifdef XU_KINECTSDK
 
-class DepthProvider : public AbstractImageStreamProvider
+class DepthProviderImpl : public DepthProvider, public AbstractImageStreamProvider
 {
 private:
 	XuRawDepthPixel* m_data;
 
 public:
-	DepthProvider(INuiSensor* pSensor);
-	~DepthProvider();
+	DepthProviderImpl(INuiSensor* pSensor);
+	~DepthProviderImpl();
 
 	const XuRawDepthPixel* getData() const { return m_data; }
 	const XuRawUserIDPixel* getUserIDData() const { return m_data; }
@@ -60,7 +75,7 @@ protected:
 
 #elif XU_OPENNI2
 
-class DepthProvider : public AbstractImageStreamProvider
+class DepthProviderImpl : public DepthProvider, public AbstractImageStreamProvider
 {
 private:
 	typedef AbstractImageStreamProvider SuperClass;
@@ -69,8 +84,8 @@ private:
 	nite::UserTrackerFrameRef m_userFrameRef;
 
 public:
-	DepthProvider(openni::Device* pDevice);
-	~DepthProvider();
+	DepthProviderImpl(openni::Device* pDevice);
+	~DepthProviderImpl();
 
 	nite::UserTracker* getUserTracker() { return &m_userTracker; }
 	nite::UserTrackerFrameRef* getUserTrackerFrame() { return &m_userFrameRef; }
@@ -88,15 +103,15 @@ public:
 
 #else // XU_OPENNI
 
-class DepthProvider : public AbstractImageStreamProvider
+class DepthProviderImpl : public DepthProvider, public AbstractImageStreamProvider
 {
 private:
 	DepthGenerator m_depthGen;
 	UserGenerator* m_pUserGen;
 
 public:
-	DepthProvider(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen);
-	~DepthProvider();
+	DepthProviderImpl(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen);
+	~DepthProviderImpl();
 
 	const XuRawDepthPixel* getData() const { return m_depthGen.GetDepthMap(); }
 	const XuRawUserIDPixel* getUserIDData() const;

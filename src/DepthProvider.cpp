@@ -32,7 +32,7 @@
 
 #ifdef XU_KINECTSDK
 
-DepthProvider::DepthProvider(INuiSensor* pSensor) : AbstractImageStreamProvider(pSensor)
+DepthProviderImpl::DepthProviderImpl(INuiSensor* pSensor) : AbstractImageStreamProvider(pSensor)
 {
 	CALL_SENSOR(m_pSensor->NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH_AND_PLAYER_INDEX, NUI_IMAGE_RESOLUTION_320x240, 0, 2, m_hNextFrameEvent, &m_hStream));
 	m_data = new XuRawDepthPixel[X_RES * Y_RES];
@@ -42,11 +42,11 @@ DepthProvider::DepthProvider(INuiSensor* pSensor) : AbstractImageStreamProvider(
 	assert(X_RES == 640 && Y_RES == 480);
 }
 
-DepthProvider::~DepthProvider()
+DepthProviderImpl::~DepthProviderImpl()
 {
 }
 
-bool DepthProvider::waitForNextFrameAndLockImpl(DWORD timeout)
+bool DepthProviderImpl::waitForNextFrameAndLockImpl(DWORD timeout)
 {
 	if (SUCCEEDED(WaitForSingleObjectEx(m_hNextFrameEvent, timeout, TRUE))) {
 		CALL_SENSOR(m_pSensor->NuiImageStreamGetNextFrame(m_hStream, timeout, &m_frame));
@@ -77,14 +77,14 @@ bool DepthProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 	}
 }
 
-void DepthProvider::unlockImpl()
+void DepthProviderImpl::unlockImpl()
 {
 	CALL_SENSOR(m_pSensor->NuiImageStreamReleaseFrame(m_hStream, &m_frame));
 	ResetEvent(m_hNextFrameEvent);
 	m_isLocked = false;
 }
 
-void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
+void DepthProviderImpl::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
 {
 	Vector4 v;
 	v.x = p.X / 1000.0f;
@@ -93,7 +93,7 @@ void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* 
 	NuiTransformSkeletonToDepthImage(v, pX, pY, pZ, NUI_IMAGE_RESOLUTION_640x480);
 }
 
-void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
+void DepthProviderImpl::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
 {
 	Vector4 v = NuiTransformDepthImageToSkeleton(x, y, z, NUI_IMAGE_RESOLUTION_640x480);
 	pPoint->X = v.x * 1000;
@@ -102,7 +102,7 @@ void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixe
 
 }
 
-void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+void DepthProviderImpl::getFOV(float* pHFOV, float* pVFOV)
 {
 	*pHFOV = 1.0145f;
 	*pVFOV = 0.7898f;
@@ -110,7 +110,7 @@ void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
 
 #elif XU_OPENNI2
 
-DepthProvider::DepthProvider(openni::Device* pDevice) : AbstractImageStreamProvider(pDevice)
+DepthProviderImpl::DepthProviderImpl(openni::Device* pDevice) : AbstractImageStreamProvider(pDevice)
 {
 	CALL_SENSOR( m_stream.create(*pDevice, openni::SensorType::SENSOR_DEPTH ) );
 
@@ -125,13 +125,13 @@ DepthProvider::DepthProvider(openni::Device* pDevice) : AbstractImageStreamProvi
 	CALL_SENSOR( m_userTracker.create(pDevice) );
 }
 
-DepthProvider::~DepthProvider()
+DepthProviderImpl::~DepthProviderImpl()
 {
 	m_userTracker.destroy();
 	m_stream.destroy();
 }
 
-void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
+void DepthProviderImpl::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
 {
 	XV3 pp;
 	m_userTracker.convertJointCoordinatesToDepth(p.X, p.Y, p.Z, &pp.X, &pp.Y);
@@ -140,19 +140,19 @@ void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* 
 	*pZ = (XuRawDepthPixel) p.Z;
 }
 
-void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
+void DepthProviderImpl::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
 {
 	m_userTracker.convertDepthCoordinatesToJoint(int(x), int(y), int(z), &(pPoint->X), &(pPoint->Y));
 	pPoint->Z = z;
 }
 
-void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+void DepthProviderImpl::getFOV(float* pHFOV, float* pVFOV)
 {
 	*pHFOV = m_stream.getHorizontalFieldOfView();
 	*pVFOV = m_stream.getVerticalFieldOfView();
 }
 
-bool DepthProvider::waitForNextFrame() {
+bool DepthProviderImpl::waitForNextFrame() {
 	CALL_SENSOR( m_stream.readFrame(&m_frameRef) );
 	CALL_SENSOR( m_userTracker.readFrame(&m_userFrameRef) );
 	return true;
@@ -160,7 +160,7 @@ bool DepthProvider::waitForNextFrame() {
 
 #else // XU_OPENNI
 
-DepthProvider::DepthProvider(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen) : AbstractImageStreamProvider(pContext)
+DepthProviderImpl::DepthProviderImpl(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen) : AbstractImageStreamProvider(pContext)
 {
 	CALL_SENSOR( pContext->FindExistingNode(XN_NODE_TYPE_DEPTH, m_depthGen) );
 	CALL_SENSOR( m_depthGen.GetAlternativeViewPointCap().SetViewPoint(*pImageGen) );
@@ -172,18 +172,18 @@ DepthProvider::DepthProvider(Context* pContext, ImageGenerator* pImageGen, UserG
 	CHECK_ERROR(md.XRes() == 640 && md.YRes() == 480, "This camera's resolution is not supported.");
 }
 
-DepthProvider::~DepthProvider()
+DepthProviderImpl::~DepthProviderImpl()
 {
 }
 
-const XuRawUserIDPixel* DepthProvider::getUserIDData() const
+const XuRawUserIDPixel* DepthProviderImpl::getUserIDData() const
 {
 	SceneMetaData md;
 	m_pUserGen->GetUserPixels(0, md);
 	return md.Data();
 }
 
-void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
+void DepthProviderImpl::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
 {
 	// TODO performance concern
 
@@ -194,7 +194,7 @@ void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* 
 	*pZ = (XuRawDepthPixel) pp.Z;
 }
 
-void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
+void DepthProviderImpl::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
 {
 	// TODO performance concern
 	
@@ -205,7 +205,7 @@ void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixe
 	pPoint->Z = rp.Z;
 }
 
-void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+void DepthProviderImpl::getFOV(float* pHFOV, float* pVFOV)
 {
 	XnFieldOfView fov;
 	m_depthGen.GetFieldOfView(fov);
