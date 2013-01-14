@@ -43,8 +43,8 @@ public:
 	virtual const XuRawDepthPixel* getData() const = 0;
 	virtual const XuRawUserIDPixel* getUserIDData() const = 0;
 
-	virtual void transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ) = 0;
-	virtual void transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint) = 0;
+	virtual void transformSkeletonToDepthImage(const XV3& p, int* pX, int* pY, XuRawDepthPixel* pZ) = 0;
+	virtual void transformDepthImageToSkeleton(int x, int y, XuRawDepthPixel z, XV3* pPoint) = 0;
 
 	virtual void getFOV(float* pHFOV, float* pVFOV) = 0;
 };
@@ -73,7 +73,7 @@ protected:
 	virtual void unlockImpl();
 };
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 class DepthProviderImpl : public DepthProvider, public AbstractImageStreamProvider
 {
@@ -93,8 +93,8 @@ public:
 	const XuRawDepthPixel* getData() const { return (XuRawDepthPixel*) m_frameRef.getData(); }
 	const XuRawUserIDPixel* getUserIDData() const { return m_userFrameRef.getUserMap().getPixels(); }
 
-	void transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ);
-	void transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint);
+	void transformSkeletonToDepthImage(const XV3& p, int* pX, int* pY, XuRawDepthPixel* pZ);
+	void transformDepthImageToSkeleton(int x, int y, XuRawDepthPixel z, XV3* pPoint);
 
 	void getFOV(float* pHFOV, float* pVFOV);
 

@@ -69,8 +69,8 @@ bool WideshotDetector::isPosing(float dt)
 
 
 	bool areArmsClose = (pl1 - pr0).magnitude() < getArmDistanceThreshold();
-	bool isArmsOrthogonal = abs(vl01.dotNormalized(vr01)) < getArmAngleThresnold();
-	// bool isRightArmOrthogonal = abs(vr01.dotNormalized(vrs0)) < getArmAngleThresnold(); // this was too strict
+	bool isArmsOrthogonal = fabs(vl01.dotNormalized(vr01)) < getArmAngleThresnold();
+	// bool isRightArmOrthogonal = fabs(vr01.dotNormalized(vrs0)) < getArmAngleThresnold(); // this was too strict
 	bool isRightHandHigherThanLeft = pr1.Y > pl1.Y;
 
 	return areArmsClose && isArmsOrthogonal && isRightHandHigherThanLeft;

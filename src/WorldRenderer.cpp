@@ -103,8 +103,8 @@ void WorldRenderer::getHenshinData(XuUserID* pUserID, XV3* pHeadPoint, XV3* pNec
 			case HenshinDetector::STAGE_HENSHINING:
 				{
 					const int HENSHIN_STEPS = 15;
-					USHORT d;
-					LONG x, y;
+					XuRawDepthPixel d;
+					int x, y;
 					m_depthProvider->transformSkeletonToDepthImage(headPos.position, &x, &y, &d);
 					float t = m_henshinDetector->getHenshiningProgress();
 					t = floor(t * t * HENSHIN_STEPS) / HENSHIN_STEPS;
@@ -184,7 +184,7 @@ void WorldRenderer::drawHenshiningGlow()
 
 	float t = m_henshinDetector->getHenshiningProgress();
 
-	M3DVector4f color = { 1.0f, 1.0f, 1.0f, 1.0f-abs(t-0.5f)*2 };
+	M3DVector4f color = { 1.0f, 1.0f, 1.0f, 1.0f-fabs(t-0.5f)*2 };
 	m_rctx->shaderMan->UseStockShader(GLT_SHADER_TEXTURE_MODULATE, m_rctx->transform.GetModelViewProjectionMatrix(), color, 0);
 
 	glBindTexture(GL_TEXTURE_2D, m_henshinGlowTextureID);

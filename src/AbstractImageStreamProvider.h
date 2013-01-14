@@ -51,7 +51,7 @@ public:
 	}
 };
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 class AbstractImageStreamProvider : public AbstractSensorDataProvider
 {

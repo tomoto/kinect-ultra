@@ -35,8 +35,8 @@
 class TimeTicker
 {
 private:
-	DWORD m_lastTime;
-	BOOL m_isLocked;
+	unsigned int m_lastTime;
+	bool m_isLocked;
 
 public:
 	TimeTicker();

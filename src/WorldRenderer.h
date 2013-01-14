@@ -80,7 +80,7 @@ public:
 
 	void addDepthAdjustment(float value) { m_depthAdjustment += value; }
 private:
-	DWORD getNumPoints() { return m_width * m_height; }
+	int getNumPoints() { return m_width * m_height; }
 
 	void getHenshinData(XuUserID* pUserID, XV3* pHeadPoint, XV3* pNeckPoint, int* pHenshinBottom, float* pFlyingOffset);
 

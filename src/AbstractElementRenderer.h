@@ -32,6 +32,7 @@
 
 #include "common.h"
 #include "vec.h"
+#include "util.h"
 #include "AbstractOpenGLRenderer.h"
 #include "TimeTicker.h"
 #include <GLFrame.h>
@@ -49,7 +50,11 @@ template <class ElementType> class AbstractElementRenderer : public AbstractOpen
 protected:
 	GLuint m_textureID;
 	TimeTicker m_ticker;
-	std::list<ElementType> m_elements;
+
+	typedef typename std::list<ElementType> ElementTypeList;
+	typedef typename ElementTypeList::iterator ElementTypeListIterator;
+
+	ElementTypeList m_elements;
 
 	float m_gravity;
 
@@ -88,7 +93,7 @@ protected:
 
 	void progress(float dt)
 	{
-		std::list<ElementType>::iterator i = m_elements.begin();
+		ElementTypeListIterator i = m_elements.begin();
 		while (i != m_elements.end()) {
 			i->p += i->v * dt;
 			i->v.Y -= m_gravity * dt;

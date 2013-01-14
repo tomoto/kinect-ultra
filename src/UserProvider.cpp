@@ -163,7 +163,7 @@ void UserProviderImpl::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointInde
 	}
 }
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 UserProviderImpl::UserProviderImpl(DepthProviderImpl* depthProvider) : m_depthProvider(depthProvider), AbstractSensorDataProvider(depthProvider->getDevice())
 {
@@ -213,7 +213,7 @@ bool UserProviderImpl::isUserPositionTracked(XuUserID userID)
 bool UserProviderImpl::isUserSkeletonTracked(XuUserID userID)
 {
 	const nite::UserData* user = getUserTrackerFrame()->getUserById(userID);
-	return user && user->getSkeleton().getState() == nite::SkeletonState::SKELETON_TRACKED;
+	return user && user->getSkeleton().getState() == nite::/*SkeletonState::*/SKELETON_TRACKED;
 }
 
 void UserProviderImpl::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo)

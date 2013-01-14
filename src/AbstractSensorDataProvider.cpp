@@ -61,7 +61,7 @@ void AbstractSensorDataProvider::unlock()
 	}
 }
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 AbstractSensorDataProvider::AbstractSensorDataProvider(openni::Device* pDevice) : m_pDevice(pDevice)
 {

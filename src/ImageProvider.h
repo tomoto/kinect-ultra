@@ -55,7 +55,7 @@ protected:
 	virtual void unlockImpl();
 };
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 class ImageProviderImpl : public ImageProvider, public AbstractImageStreamProvider {
 public:

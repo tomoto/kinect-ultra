@@ -29,17 +29,16 @@
 
 #include "common.h"
 #include "util.h"
-#include <conio.h>
 
 static void (*s_errorExitFunc)();
 
 void errorExit()
 {
-	printf("Error occured. Press any key to close this window.\n");
+	printf("Error occured. Press [ENTER] to close this window.\n");
 	if (s_errorExitFunc) {
 		s_errorExitFunc();
 	}
-	_getch();
+	getchar();
 	exit(1);
 }
 
@@ -55,6 +54,9 @@ void checkError(int expr, const char* message, const char* detail)
 		errorExit();
 	}
 }
+
+#ifdef XU_KINECTSDK
+#include "nui_error.h"
 
 static int getHResultString(HRESULT hr, char* buf, int size)
 {
@@ -72,9 +74,6 @@ void checkWin32Status(HRESULT hr, const char* detail)
 	}
 }
 
-#ifdef XU_KINECTSDK
-#include "nui_error.h"
-
 void checkNuiStatus(HRESULT hr, const char* detail)
 {
 	if (FAILED(hr)) {
@@ -85,10 +84,10 @@ void checkNuiStatus(HRESULT hr, const char* detail)
 	}
 }
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 void checkXnStatus(openni::Status rc, const char* detail)
 {
-	if (rc != openni::Status::STATUS_OK) {
+	if (rc != openni::STATUS_OK) {
 		printf("OpenNI Failed: %s (%s)\n", openni::OpenNI::getExtendedError(), detail);
 		errorExit();
 	}
@@ -96,7 +95,7 @@ void checkXnStatus(openni::Status rc, const char* detail)
 
 void checkXnStatus(nite::Status rc, const char* detail)
 {
-	if (rc != nite::Status::STATUS_OK) {
+	if (rc != nite::STATUS_OK) {
 		printf("NiTE Failed: %d (%s)\n", rc, detail);
 		errorExit();
 	}

@@ -106,7 +106,7 @@ void AbstractSimpleBeamRenderer::fireSpark(const AbstractSimpleBeamElement& e)
 		// TODO could be more elegant
 		GLFrame f;
 		f.SetForwardVector(e.v.X, e.v.Y, e.v.Z);
-		f.RotateWorld(float(M_PI_2*(1+abs(m_random.gaussian(0.2)))), e.d.X, e.d.Y, e.d.Z);
+		f.RotateWorld(float(M_PI_2*(1+fabs(m_random.gaussian(0.2)))), e.d.X, e.d.Y, e.d.Z);
 		f.RotateWorld(float(m_random.uniform(0.0, M_PI*2)), e.v.X, e.v.Y, e.v.Z);
 		f.Normalize();
 

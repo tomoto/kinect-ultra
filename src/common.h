@@ -30,6 +30,8 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
+#ifdef WIN32
+
 #pragma warning(disable:4819) // disable annoying warning for UTF-8 characters
 #pragma warning(disable:4482) // disable annoying warning for enum qualifier
 
@@ -37,16 +39,23 @@
 
 // enable memory leak test for Win32 debug
 #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
 #include <crtdbg.h>
-#include <assert.h>
 
 #define NOMINMAX
 #include <Windows.h>
 
+#else // For non-Win32
+
+typedef unsigned char BYTE;
+
+#endif
+
+#include <stdlib.h>
+#include <assert.h>
+
 #ifdef XU_KINECTSDK
 #include <NuiApi.h>
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 #include <OpenNI.h>
 #include <NiTE.h>
 #else // XU_OPENNI
@@ -67,7 +76,7 @@ struct XuRawColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
 const GLenum XU_RAW_COLOR_PIXEL_GL_FORMAT = GL_BGRA;
 typedef DWORD XuDepthPixel;
 typedef USHORT XuRawDepthPixel;
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 typedef nite::UserId XuRawUserIDPixel;
 typedef nite::UserId XuUserID;
 struct XuColorPixel { BYTE nRed; BYTE nGreen; BYTE nBlue; };
@@ -108,14 +117,13 @@ void errorExit();
 #define CHECK_ERROR(expr, message) checkError(expr, message, #expr);
 void checkError(int expr, const char* message, const char* detail);
 
+#ifdef XU_KINECTSDK
 #define CALL_WIN32 checkWin32Status(f, #f);
 void checkWin32Status(HRESULT hr, const char* detail);
-
-#ifdef XU_KINECTSDK
 #define CALL_SENSOR(f) checkNuiStatus(f, #f);
 void checkNuiStatus(HRESULT hr, const char* detail);
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 #define CALL_SENSOR(f) checkXnStatus(f, #f);
 void checkXnStatus(openni::Status rc, const char* detail);
 void checkXnStatus(nite::Status rc, const char* detail);

@@ -71,7 +71,7 @@ protected:
 	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
 };
 
-#elif XU_OPENNI2
+#elif defined XU_OPENNI2
 
 #include "DepthProvider.h"
 
