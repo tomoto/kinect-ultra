@@ -8,7 +8,7 @@
 == Which version ("for Kinect SDK" or "for OpenNI") should I use? ==
 
   * "For Kinect SDK" version is recommended for those who:
-    * have Windows 7 and want to run the application with a minimum burden
+    * have Kinect and Windows 7 and want to run the application with a minimum burden
   * "For OpenNI" version is recommended for those who:
     * want to run the application on Windows Vista or earlier OSes that Kinect SDK does not support
     * cannot install Kinect SDK for some other reasons such as avoiding negative impacts on the existing OpenNI applications
