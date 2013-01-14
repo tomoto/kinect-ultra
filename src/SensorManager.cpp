@@ -113,6 +113,8 @@ SensorManager::SensorManager()
 	m_depthProvider = new DepthProviderImpl(&m_device);
 	m_userProvider = new UserProviderImpl(m_depthProvider);
 
+	m_device.setDepthColorSyncEnabled(true);
+
 	// It's weird, but we have to set this AFTER the streams are started...
 	if (m_device.isPropertySupported(openni::DEVICE_PROPERTY_IMAGE_REGISTRATION)) {
 		// Today, color-depth registration is not supported for Kinect
