@@ -1,17 +1,14 @@
-#summary How to download OpenNI and other related components.
+#summary How to download OpenNI (legacy) and other related components.
 #labels Featured
 
 == Download ==
 
-  * Download OpenNI and NITE from [http://www.openni.org/Downloads/OpenNIModules.aspx PrimeSense's site] and install them. *Select 32-bit version although your OS may be 64-bit.*
-    * You may download the all-in-one package or download OpenNI and NITE individually. For example, if you want to download the all-in-one package, choose OpenNI Packages> Stable > PrimeSense Package Stable Build for Windows x86 (32-bit) vX.X.X.X Development Edition.
-  * Download [https://github.com/avin2/SensorKinect/Bin avin2's SensorKinect driver] and install it. *Select 32-bit version as well.*
-    * Note this driver only supports Kinect for Xbox360 but not Kinect for Windows.
-  * If interested, see WorkingConfigurations for the version combinations we tested.
+  * Download OpenNI and NITE from the [http://www.openni.org/openni-sdk/openni-sdk-history-2/ archive site]. To use PrimeSense sensors (not Kinect), download the sensor driver as well. *Choose 32bit version regardless of whether your platform is 32bit or 64bit.*
+  * To use Kinect, download Avin2's SensorKinect driver from [https://github.com/avin2/SensorKinect/raw/unstable/Bin/ here] and install it. *Choose 32bit.* To avoid the driver conflict problems, consider using mssdk-openni-bridge introduced below.
+  * If interested, see WorkingConfigurations for the tested version combinations.
 
-== Using mssdk-openni-bridge bridge ==
+== Using kinect-mssdk-openni-bridge ==
 
-  * mssdk-openni-bridge is a plug-in module for OpenNI that accesses to the Kinect sensor via Kinect SDK instead of SensorKinect driver. You may want to use it to workaround some issues such as:
-    * If you install Kinect SDK, your Kinect sensor become unavalable on OpenNI because SensorKinect driver cannot connect to your Kinect sensor due to driver conflict. This bridge recovers your Kinect sensor back on OpenNI, and both OpenNI applications and Kinect SDK applications can use it without installing/uninstalling the driver.
-    * SensorKinect driver only supports Kinect for Xbox360. But this bridge is built on Kinect SDK hence supports Kinect for Windows also. That means, you can now use Kinect for Windows on OpenNI by just installing this module.
-  * To use this bridge, first download and install Kinect SDK (See [KinectSDK_Downloads]), then download the bridge from the [http://code.google.com/p/kinect-mssdk-openni-bridge/ kinect-mssdk-openni-bridge project site] and install it according to the README.
+  * You cannot install SensorKinect driver and Microsoft Kinect SDK at the same time because of the driver conflict.
+  * kinect-mssdk-openni-bridge is a replacement of SensorKinect to workaround this issue. This bridge leverages Kinect SDK to access to Kinect rather than conflicting to it.
+  * To use this bridge, first download and install Kinect SDK (See [KinectSDK_Downloads]), then download the bridge from the [http://code.google.com/p/kinect-mssdk-openni-bridge/ kinect-mssdk-openni-bridge project site] and follow README to install it.
