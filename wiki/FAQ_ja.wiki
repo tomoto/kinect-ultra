@@ -8,7 +8,7 @@
 == Kinect SDK版とOpenNI版どちらを使えばいいの？ ==
 
   * 次のような方にはKinect SDK版がお勧めです。
-    * Windows 7を持っており、とにかく簡単に動かしてみたい方
+    * KinectとWindows 7を持っており、とにかく簡単に動かしてみたい方
   * 次のような方にはOpenNI版がお勧めです。
     * Kinect SDKのサポート外であるWindows Vista以前のOSで動かしてみたい方
     * 既にインストールされたOpenNIアプリケーションに影響を与えたくない、といった理由によりKinect SDKを入れられない方
