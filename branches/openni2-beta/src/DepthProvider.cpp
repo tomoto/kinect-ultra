@@ -108,6 +108,56 @@ void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
 	*pVFOV = 0.7898f;
 }
 
+#elif XU_OPENNI2
+
+DepthProvider::DepthProvider(openni::Device* pDevice) : AbstractImageStreamProvider(pDevice)
+{
+	CALL_SENSOR( m_stream.create(*pDevice, openni::SensorType::SENSOR_DEPTH ) );
+
+	openni::VideoMode vm;
+	vm.setFps(30);
+	vm.setResolution(640, 480);
+	vm.setPixelFormat(openni::PixelFormat::PIXEL_FORMAT_DEPTH_1_MM);
+	CALL_SENSOR( m_stream.setVideoMode(vm) );
+
+	CALL_SENSOR( m_stream.start() );
+
+	CALL_SENSOR( m_userTracker.create(pDevice) );
+}
+
+DepthProvider::~DepthProvider()
+{
+	m_userTracker.destroy();
+	m_stream.destroy();
+}
+
+void DepthProvider::transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ)
+{
+	XV3 pp;
+	m_userTracker.convertJointCoordinatesToDepth(p.X, p.Y, p.Z, &pp.X, &pp.Y);
+	*pX = (LONG) pp.X;
+	*pY = (LONG) pp.Y;
+	*pZ = (XuRawDepthPixel) p.Z;
+}
+
+void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint)
+{
+	m_userTracker.convertDepthCoordinatesToJoint(int(x), int(y), int(z), &(pPoint->X), &(pPoint->Y));
+	pPoint->Z = z;
+}
+
+void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+{
+	*pHFOV = m_stream.getHorizontalFieldOfView();
+	*pVFOV = m_stream.getVerticalFieldOfView();
+}
+
+bool DepthProvider::waitForNextFrame() {
+	CALL_SENSOR( m_stream.readFrame(&m_frameRef) );
+	CALL_SENSOR( m_userTracker.readFrame(&m_userFrameRef) );
+	return true;
+}
+
 #else // XU_OPENNI
 
 DepthProvider::DepthProvider(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen) : AbstractImageStreamProvider(pContext)

@@ -3,6 +3,8 @@
 /build2010/MSSDK_Release
 /build2010/OpenNI_Debug
 /build2010/OpenNI_Release
+/build2010/OpenNI2_Debug
+/build2010/OpenNI2_Release
 /build2010/ipch
 /tool/release
 /build/Debug
