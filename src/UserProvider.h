@@ -58,6 +58,29 @@ protected:
 	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
 };
 
+#elif XU_OPENNI2
+
+#include "DepthProvider.h"
+
+class UserProvider : public AbstractSensorDataProvider {
+private:
+	DepthProvider* m_depthProvider;
+
+public:
+	UserProvider(DepthProvider* depthProvider);
+	~UserProvider();
+
+	nite::UserTracker* getUserTracker() { return m_depthProvider->getUserTracker(); }
+	nite::UserTrackerFrameRef* getUserTrackerFrame() { return m_depthProvider->getUserTrackerFrame(); }
+
+	XuUserID findFirstTrackedUserID();
+	XuUserID findTrackedUserIDNextTo(XuUserID userID);
+	bool isUserPositionTracked(XuUserID userID);
+	bool isUserSkeletonTracked(XuUserID userID);
+	
+	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo);
+};
+
 #else // XU_OPENNI
 
 class UserProvider : public AbstractSensorDataProvider {

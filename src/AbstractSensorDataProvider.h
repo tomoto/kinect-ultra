@@ -56,6 +56,20 @@ protected:
 	virtual void unlockImpl() = 0;
 };
 
+#elif XU_OPENNI2
+
+class AbstractSensorDataProvider
+{
+protected:
+	openni::Device* m_pDevice;
+
+public:
+	AbstractSensorDataProvider(openni::Device* pDevice);
+	virtual ~AbstractSensorDataProvider() = 0;
+
+	openni::Device* getDevice() { return m_pDevice; }
+};
+
 #else // XU_OPENNI
 
 class AbstractSensorDataProvider

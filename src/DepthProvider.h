@@ -58,6 +58,34 @@ protected:
 	virtual void unlockImpl();
 };
 
+#elif XU_OPENNI2
+
+class DepthProvider : public AbstractImageStreamProvider
+{
+private:
+	typedef AbstractImageStreamProvider SuperClass;
+
+	nite::UserTracker m_userTracker;
+	nite::UserTrackerFrameRef m_userFrameRef;
+
+public:
+	DepthProvider(openni::Device* pDevice);
+	~DepthProvider();
+
+	nite::UserTracker* getUserTracker() { return &m_userTracker; }
+	nite::UserTrackerFrameRef* getUserTrackerFrame() { return &m_userFrameRef; }
+
+	const XuRawDepthPixel* getData() const { return (XuRawDepthPixel*) m_frameRef.getData(); }
+	const XuRawUserIDPixel* getUserIDData() const { return m_userFrameRef.getUserMap().getPixels(); }
+
+	void transformSkeletonToDepthImage(const XV3& p, LONG* pX, LONG* pY, XuRawDepthPixel* pZ);
+	void transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixel z, XV3* pPoint);
+
+	void getFOV(float* pHFOV, float* pVFOV);
+
+	bool waitForNextFrame();
+};
+
 #else // XU_OPENNI
 
 class DepthProvider : public AbstractImageStreamProvider

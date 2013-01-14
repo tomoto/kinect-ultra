@@ -163,6 +163,70 @@ const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIn
 	}
 }
 
+#elif XU_OPENNI2
+
+UserProvider::UserProvider(DepthProvider* depthProvider) : m_depthProvider(depthProvider), AbstractSensorDataProvider(depthProvider->getDevice())
+{
+	getUserTracker()->setSkeletonSmoothingFactor(0.4f);
+}
+
+UserProvider::~UserProvider()
+{
+}
+
+XuUserID UserProvider::findFirstTrackedUserID()
+{
+	return findTrackedUserIDNextTo(0);
+}
+
+XuUserID UserProvider::findTrackedUserIDNextTo(XuUserID baseUserID)
+{
+	const nite::Array<nite::UserData>& users = getUserTrackerFrame()->getUsers();
+	XuUserID numOfUsers = users.getSize();
+
+	if (numOfUsers == 0) {
+		return 0;
+	}
+
+	XuUserID baseIndex = 0;
+	if (baseUserID > 0) {
+		for (int i = 0; i < numOfUsers; i++) {
+			if (users[i].getId() == baseUserID) {
+				baseIndex = i + 1;
+				break;
+			}
+		}
+	}
+	
+	XuUserID u = users[baseIndex % numOfUsers].getId();
+	getUserTracker()->startSkeletonTracking(u);
+	return u;
+}
+
+
+bool UserProvider::isUserPositionTracked(XuUserID userID)
+{
+	const nite::UserData* user = getUserTrackerFrame()->getUserById(userID);
+	return user != NULL;
+}
+
+bool UserProvider::isUserSkeletonTracked(XuUserID userID)
+{
+	const nite::UserData* user = getUserTrackerFrame()->getUserById(userID);
+	return user && user->getSkeleton().getState() == nite::SkeletonState::SKELETON_TRACKED;
+}
+
+const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo)
+{
+	const nite::UserData* user = getUserTrackerFrame()->getUserById(userID);
+	nite::SkeletonJoint j = user->getSkeleton().getJoint(jointIndex);
+
+	pJointInfo->fConfidence = j.getPositionConfidence();
+	pJointInfo->position.X = j.getPosition().x;
+	pJointInfo->position.Y = j.getPosition().y;
+	pJointInfo->position.Z = j.getPosition().z;
+}
+
 #else // XU_OPENNI
 
 UserProvider::UserProvider(Context* pContext) : AbstractSensorDataProvider(pContext)

@@ -51,6 +51,23 @@ public:
 	}
 };
 
+#elif XU_OPENNI2
+
+class AbstractImageStreamProvider : public AbstractSensorDataProvider
+{
+protected:
+	openni::VideoStream m_stream;
+	openni::VideoFrameRef m_frameRef;
+
+public:
+	AbstractImageStreamProvider(openni::Device* pDevice) : AbstractSensorDataProvider(pDevice)
+	{
+	}
+
+	virtual ~AbstractImageStreamProvider() {
+	}
+};
+
 #else // XU_OPENNI
 
 class AbstractImageStreamProvider : public AbstractSensorDataProvider

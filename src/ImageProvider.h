@@ -47,6 +47,17 @@ protected:
 	virtual void unlockImpl();
 };
 
+#elif XU_OPENNI2
+
+class ImageProvider : public AbstractImageStreamProvider {
+public:
+	ImageProvider(openni::Device* pDevice);
+	~ImageProvider();
+
+	bool waitForNextFrame();
+	const XuRawColorPixel* getData() const { return (const XuRawColorPixel*) m_frameRef.getData(); }
+};
+
 #else // XU_OPENNI
 
 class ImageProvider : public AbstractImageStreamProvider {

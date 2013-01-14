@@ -85,6 +85,23 @@ void checkNuiStatus(HRESULT hr, const char* detail)
 	}
 }
 
+#elif XU_OPENNI2
+void checkXnStatus(openni::Status rc, const char* detail)
+{
+	if (rc != openni::Status::STATUS_OK) {
+		printf("OpenNI Failed: %s (%s)\n", openni::OpenNI::getExtendedError(), detail);
+		errorExit();
+	}
+}
+
+void checkXnStatus(nite::Status rc, const char* detail)
+{
+	if (rc != nite::Status::STATUS_OK) {
+		printf("NiTE Failed: %d (%s)\n", rc, detail);
+		errorExit();
+	}
+}
+
 #else // XU_OPENNI
 void checkXnStatus(XnStatus rc, const char* detail)
 {

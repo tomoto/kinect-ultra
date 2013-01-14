@@ -61,6 +61,16 @@ void AbstractSensorDataProvider::unlock()
 	}
 }
 
+#elif XU_OPENNI2
+
+AbstractSensorDataProvider::AbstractSensorDataProvider(openni::Device* pDevice) : m_pDevice(pDevice)
+{
+}
+
+AbstractSensorDataProvider::~AbstractSensorDataProvider()
+{
+}
+
 #else // XU_OPENNI
 
 AbstractSensorDataProvider::AbstractSensorDataProvider(Context* pContext) : m_pContext(pContext)

@@ -31,6 +31,7 @@
 #define _COMMON_H_
 
 #pragma warning(disable:4819) // disable annoying warning for UTF-8 characters
+#pragma warning(disable:4482) // disable annoying warning for enum qualifier
 
 #define _CRT_SECURE_NO_WARNINGS // disable warnings to fopen, sprintf, etc.
 
@@ -45,6 +46,9 @@
 
 #ifdef XU_KINECTSDK
 #include <NuiApi.h>
+#elif XU_OPENNI2
+#include <OpenNI.h>
+#include <NiTE.h>
 #else // XU_OPENNI
 #include <XnCppWrapper.h>
 using namespace xn;
@@ -63,6 +67,14 @@ struct XuRawColorPixel { BYTE nBlue; BYTE nGreen; BYTE nRed; BYTE nAlpha; };
 const GLenum XU_RAW_COLOR_PIXEL_GL_FORMAT = GL_BGRA;
 typedef DWORD XuDepthPixel;
 typedef USHORT XuRawDepthPixel;
+#elif XU_OPENNI2
+typedef nite::UserId XuRawUserIDPixel;
+typedef nite::UserId XuUserID;
+struct XuColorPixel { BYTE nRed; BYTE nGreen; BYTE nBlue; };
+struct XuRawColorPixel { BYTE nRed; BYTE nGreen; BYTE nBlue; };
+const GLenum XU_RAW_COLOR_PIXEL_GL_FORMAT = GL_RGB;
+typedef openni::DepthPixel XuDepthPixel;
+typedef openni::DepthPixel XuRawDepthPixel;
 #else // XU_OPENNI
 typedef XnLabel XuRawUserIDPixel;
 typedef XnUserID XuUserID;
@@ -102,6 +114,12 @@ void checkWin32Status(HRESULT hr, const char* detail);
 #ifdef XU_KINECTSDK
 #define CALL_SENSOR(f) checkNuiStatus(f, #f);
 void checkNuiStatus(HRESULT hr, const char* detail);
+
+#elif XU_OPENNI2
+#define CALL_SENSOR(f) checkXnStatus(f, #f);
+void checkXnStatus(openni::Status rc, const char* detail);
+void checkXnStatus(nite::Status rc, const char* detail);
+
 #else // XU_OPENNI
 #define CALL_SENSOR(f) checkXnStatus(f, #f);
 void checkXnStatus(XnStatus rc, const char* detail);

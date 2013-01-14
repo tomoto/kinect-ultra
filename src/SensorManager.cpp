@@ -99,6 +99,47 @@ void SensorManager::unlock()
 	m_imageProvider->unlock();
 }
 
+#elif XU_OPENNI2
+
+SensorManager::SensorManager()
+{
+	CALL_SENSOR( openni::OpenNI::initialize() );
+	CALL_SENSOR( nite::NiTE::initialize() );
+
+	CALL_SENSOR( m_device.open(openni::ANY_DEVICE) );
+	// CALL_SENSOR( m_device.setDepthColorSyncEnabled(TRUE) );
+
+	m_imageProvider = new ImageProvider(&m_device);
+	m_depthProvider = new DepthProvider(&m_device);
+	m_userProvider = new UserProvider(m_depthProvider);
+
+	// It's weird, but we have to set this AFTER the streams are started...
+	if (m_device.isPropertySupported(openni::DEVICE_PROPERTY_IMAGE_REGISTRATION)) {
+		// Today, color-depth registration is not supported for Kinect
+		CALL_SENSOR( m_device.setImageRegistrationMode(openni::ImageRegistrationMode::IMAGE_REGISTRATION_DEPTH_TO_COLOR) );
+	}
+}
+
+SensorManager::~SensorManager()
+{
+	m_userProvider = NULL;
+	m_depthProvider = NULL;
+	m_imageProvider = NULL;
+	m_device.close();
+
+	nite::NiTE::shutdown();
+	openni::OpenNI::shutdown();
+}
+
+bool SensorManager::waitAllForNextFrameAndLock()
+{
+	return m_imageProvider->waitForNextFrame() && m_depthProvider->waitForNextFrame();
+}
+
+void SensorManager::unlock()
+{
+}
+
 #else // XU_OPENNI
 
 SensorManager::SensorManager()
