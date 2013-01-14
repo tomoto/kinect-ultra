@@ -34,7 +34,7 @@
 
 DepthProvider::DepthProvider(INuiSensor* pSensor) : AbstractImageStreamProvider(pSensor)
 {
-	CALL_NUI(m_pSensor->NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH_AND_PLAYER_INDEX, NUI_IMAGE_RESOLUTION_320x240, 0, 2, m_hNextFrameEvent, &m_hStream));
+	CALL_SENSOR(m_pSensor->NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH_AND_PLAYER_INDEX, NUI_IMAGE_RESOLUTION_320x240, 0, 2, m_hNextFrameEvent, &m_hStream));
 	m_data = new XuRawDepthPixel[X_RES * Y_RES];
 	//m_depthData = new XuDepthPixel[X_RES * Y_RES];
 	//m_userIdData = new XuUserID[X_RES * Y_RES];
@@ -49,8 +49,8 @@ DepthProvider::~DepthProvider()
 bool DepthProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 {
 	if (SUCCEEDED(WaitForSingleObjectEx(m_hNextFrameEvent, timeout, TRUE))) {
-		CALL_NUI(m_pSensor->NuiImageStreamGetNextFrame(m_hStream, timeout, &m_frame));
-		CALL_NUI(m_frame.pFrameTexture->LockRect(0, &m_lockedRect, NULL, 0));
+		CALL_SENSOR(m_pSensor->NuiImageStreamGetNextFrame(m_hStream, timeout, &m_frame));
+		CALL_SENSOR(m_frame.pFrameTexture->LockRect(0, &m_lockedRect, NULL, 0));
 		XuRawDepthPixel* data = (XuRawDepthPixel*) m_lockedRect.pBits;
 
 		memset(m_data, 0, X_RES * Y_RES * sizeof(XuRawDepthPixel));
@@ -79,7 +79,7 @@ bool DepthProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 
 void DepthProvider::unlockImpl()
 {
-	CALL_NUI(m_pSensor->NuiImageStreamReleaseFrame(m_hStream, &m_frame));
+	CALL_SENSOR(m_pSensor->NuiImageStreamReleaseFrame(m_hStream, &m_frame));
 	ResetEvent(m_hNextFrameEvent);
 	m_isLocked = false;
 }
@@ -102,12 +102,18 @@ void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixe
 
 }
 
+void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+{
+	*pHFOV = 1.0145f;
+	*pVFOV = 0.7898f;
+}
+
 #else // XU_OPENNI
 
 DepthProvider::DepthProvider(Context* pContext, ImageGenerator* pImageGen, UserGenerator* pUserGen) : AbstractImageStreamProvider(pContext)
 {
-	CALL_XN( pContext->FindExistingNode(XN_NODE_TYPE_DEPTH, m_depthGen) );
-	CALL_XN( m_depthGen.GetAlternativeViewPointCap().SetViewPoint(*pImageGen) );
+	CALL_SENSOR( pContext->FindExistingNode(XN_NODE_TYPE_DEPTH, m_depthGen) );
+	CALL_SENSOR( m_depthGen.GetAlternativeViewPointCap().SetViewPoint(*pImageGen) );
 
 	m_pUserGen = pUserGen;
 
@@ -147,6 +153,14 @@ void DepthProvider::transformDepthImageToSkeleton(LONG x, LONG y, XuRawDepthPixe
 	pPoint->X = rp.X;
 	pPoint->Y = rp.Y;
 	pPoint->Z = rp.Z;
+}
+
+void DepthProvider::getFOV(float* pHFOV, float* pVFOV)
+{
+	XnFieldOfView fov;
+	m_depthGen.GetFieldOfView(fov);
+	*pHFOV = (float) fov.fHFOV;
+	*pVFOV = (float) fov.fVFOV;
 }
 
 #endif

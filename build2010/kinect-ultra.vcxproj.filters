@@ -113,6 +113,9 @@
     <ClCompile Include="..\src\UltraEyeRenderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\nui_error.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\AbstractElementRenderer.h">
@@ -245,6 +248,9 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="..\src\UltraEyeRenderer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\nui_error.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>

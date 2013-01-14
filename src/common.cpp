@@ -28,6 +28,8 @@
 //@COPYRIGHT@//
 
 #include "common.h"
+#include "util.h"
+#include <conio.h>
 
 static void (*s_errorExitFunc)();
 
@@ -37,11 +39,66 @@ void errorExit()
 	if (s_errorExitFunc) {
 		s_errorExitFunc();
 	}
-	getchar();
+	_getch();
 	exit(1);
 }
 
 void registerErrorExitFunc(void(*f)())
 {
 	s_errorExitFunc = f;
+}
+
+void checkError(int expr, const char* message, const char* detail)
+{
+	if (!expr) {
+		printf("Failed: %s (%s)\n", message, detail);
+		errorExit();
+	}
+}
+
+static int getHResultString(HRESULT hr, char* buf, int size)
+{
+	FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, hr, 0, buf, size, NULL);
+	return strlen(chomp(buf));
+}
+
+void checkWin32Status(HRESULT hr, const char* detail)
+{
+	if (FAILED(hr)) {
+		char msg[1024];
+		getHResultString(hr, msg, sizeof(msg)) || strcpy(msg, "?");
+		printf("Failed: %s [%08x] (%s)\n", msg, hr, detail);
+		errorExit();
+	}
+}
+
+#ifdef XU_KINECTSDK
+#include "nui_error.h"
+
+void checkNuiStatus(HRESULT hr, const char* detail)
+{
+	if (FAILED(hr)) {
+		char msg[1024];
+		getNuiErrorString(hr, msg, sizeof(msg)) || strcpy(msg, "?");
+		printf("Failed: %s [%08x] (%s)\n", msg, hr, detail);
+		errorExit();
+	}
+}
+
+#else // XU_OPENNI
+void checkXnStatus(XnStatus rc, const char* detail)
+{
+	if (rc != XN_STATUS_OK) {
+		printf("Failed: %s (%s)\n", xnGetStatusString(rc), detail);
+		errorExit();
+	}
+}
+#endif
+
+void checkGlewStatus(int rc, const char* detail)
+{
+	if (rc != GLEW_OK) {
+		printf("Failed: %s (%s)\n", glewGetErrorString(rc), detail);
+		errorExit();
+	}
 }

@@ -65,7 +65,7 @@
 #define APP_VERSION_FOR "OpenNI"
 #endif
 
-#define APP_VERSION_NUMBER "1.0a"
+#define APP_VERSION_NUMBER "1.0b"
 #define APP_VERSION APP_VERSION_NUMBER " (" APP_VERSION_FOR ")"
 
 // Sensor objects
@@ -81,8 +81,8 @@ static ImageRenderer* s_flatImageRenderer;
 static WorldRenderer* s_worldRenderer;
 static SkeletonRenderer* s_skeletonRenderer;
 static WideshotRenderer* s_wideshotRenderer;
-EmeriumBeamRenderer1* s_emeriumBeamRenderer1;
-EmeriumBeamRenderer2* s_emeriumBeamRenderer2;
+static EmeriumBeamRenderer1* s_emeriumBeamRenderer1;
+static EmeriumBeamRenderer2* s_emeriumBeamRenderer2;
 static SparkRenderer* s_sparkRenderer;
 static EyeSluggerRendererEx* s_eyeSluggerRenderer;
 static UltraEyeRenderer* s_ultraEyeRenderer;
@@ -91,8 +91,8 @@ static UltraEyeRenderer* s_ultraEyeRenderer;
 static UserDetector* s_userDetector;
 static HenshinDetector* s_henshinDetector;
 static WideshotDetector* s_wideshotDetector;
-EmeriumBeamDetector1* s_emeriumBeamDetector1;
-EmeriumBeamDetector2* s_emeriumBeamDetector2;
+static EmeriumBeamDetector1* s_emeriumBeamDetector1;
+static EmeriumBeamDetector2* s_emeriumBeamDetector2;
 static VoxelObjectMapper* s_voxelObjectMapper;
 static EyeSluggerDetectorEx* s_eyeSluggerDetector;
 
@@ -129,11 +129,6 @@ static void onGlutKeyboard(unsigned char key, int x, int y)
 			s_renderingContext->mirror();
 			break;
 	}
-}
-
-static BOOL waitForEvent(HANDLE hEvent, DWORD timeout)
-{
-	return WaitForSingleObjectEx(hEvent, timeout, TRUE) != WAIT_TIMEOUT;
 }
 
 static void onGlutDisplay()
@@ -241,8 +236,8 @@ static void initGL(int* pArgc, char* argv[])
 
 static void initProjection()
 {
-	const float hfov = 1.0145f;
-	const float vfov = 0.7898f;
+	float hfov, vfov;
+	s_sensorMan->getDepthProvider()->getFOV(&hfov, &vfov);
 
 	GLFrustum frustum;
 	float verticalFOVInDegree = float(m3dRadToDeg(vfov));

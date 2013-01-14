@@ -4,3 +4,6 @@
 /build2010/OpenNI_Debug
 /build2010/OpenNI_Release
 /build2010/ipch
+/tool/release
+/build/Debug
+/build/Release

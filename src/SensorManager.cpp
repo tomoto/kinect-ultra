@@ -32,11 +32,45 @@
 
 #ifdef XU_KINECTSDK
 
+#include "nui_error.h"
+
+static void CALLBACK dummyDeviceStatusCallback(HRESULT, const OLECHAR*, const OLECHAR*, void*)
+{
+}
+
+static INuiSensor* findFirstAvailableSensor()
+{
+	// Register dummy device status callback to avoid freezing. Kinect SDK's bug?
+	NuiSetDeviceStatusCallback(dummyDeviceStatusCallback, NULL);
+
+	int sensorCount;
+	CALL_SENSOR(NuiGetSensorCount(&sensorCount));
+	CHECK_ERROR(sensorCount > 0, "No devices are connected.");
+
+	INuiSensor* pSensor = NULL;
+	for (int i = 0; i < sensorCount; i++) {
+		CALL_SENSOR(NuiCreateSensorByIndex(i, &pSensor));
+		DWORD flags = NUI_INITIALIZE_FLAG_USES_COLOR | NUI_INITIALIZE_FLAG_USES_DEPTH_AND_PLAYER_INDEX | NUI_INITIALIZE_FLAG_USES_SKELETON;
+		HRESULT hr = pSensor->NuiInitialize(flags);
+		if (FAILED(hr)) {
+			char msg[1024];
+			getNuiErrorString(hr, msg, sizeof(msg)) || strcpy(msg, "?");
+			printf("Device #%d is not available: %s [%08x]\n", i, msg, hr);
+			pSensor->Release();
+			pSensor = NULL;
+			CHECK_ERROR(i < sensorCount-1, "No available devices."); // this was the last one
+			continue; // retry
+		}
+		break; // got one
+	}
+
+	return pSensor;
+}
+
 SensorManager::SensorManager() : m_pSensor(NULL)
 {
-	CALL_NUI(NuiCreateSensorByIndex(0, &m_pSensor));
-	DWORD flags = NUI_INITIALIZE_FLAG_USES_COLOR | NUI_INITIALIZE_FLAG_USES_DEPTH_AND_PLAYER_INDEX | NUI_INITIALIZE_FLAG_USES_SKELETON;
-	CALL_NUI(m_pSensor->NuiInitialize(flags));
+	m_pSensor = findFirstAvailableSensor();
+
 	m_imageProvider = new ImageProvider(m_pSensor);
 	m_depthProvider = new DepthProvider(m_pSensor);
 	m_userProvider = new UserProvider(m_pSensor);
@@ -70,8 +104,8 @@ void SensorManager::unlock()
 SensorManager::SensorManager()
 {
 	ScriptNode scriptNode;
-	CALL_XN( m_context.InitFromXmlFile(getResourceFile("config", "OpenNIConfig.xml").c_str(), scriptNode) );
-	CALL_XN( m_context.SetGlobalMirror(TRUE) );
+	CALL_SENSOR( m_context.InitFromXmlFile(getResourceFile("config", "OpenNIConfig.xml").c_str(), scriptNode) );
+	CALL_SENSOR( m_context.SetGlobalMirror(TRUE) );
 	m_imageProvider = new ImageProvider(&m_context);
 	m_userProvider = new UserProvider(&m_context);
 	m_depthProvider = new DepthProvider(&m_context, m_imageProvider->getGenerator(), m_userProvider->getGenerator());

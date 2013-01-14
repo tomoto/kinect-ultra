@@ -33,7 +33,7 @@
 
 ImageProvider::ImageProvider(INuiSensor* pSensor) : AbstractImageStreamProvider(pSensor)
 {
-	CALL_NUI(m_pSensor->NuiImageStreamOpen(NUI_IMAGE_TYPE_COLOR, NUI_IMAGE_RESOLUTION_640x480, 0, 2, m_hNextFrameEvent, &m_hStream));
+	CALL_SENSOR(m_pSensor->NuiImageStreamOpen(NUI_IMAGE_TYPE_COLOR, NUI_IMAGE_RESOLUTION_640x480, 0, 2, m_hNextFrameEvent, &m_hStream));
 }
 
 ImageProvider::~ImageProvider()
@@ -43,8 +43,8 @@ ImageProvider::~ImageProvider()
 bool ImageProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 {
 	if (SUCCEEDED(WaitForSingleObjectEx(m_hNextFrameEvent, timeout, TRUE))) {
-		CALL_NUI(m_pSensor->NuiImageStreamGetNextFrame(m_hStream, timeout, &m_frame));
-		CALL_NUI(m_frame.pFrameTexture->LockRect(0, &m_lockedRect, NULL, 0));
+		CALL_SENSOR(m_pSensor->NuiImageStreamGetNextFrame(m_hStream, timeout, &m_frame));
+		CALL_SENSOR(m_frame.pFrameTexture->LockRect(0, &m_lockedRect, NULL, 0));
 		m_isLocked = true;
 		return true;
 	} else {
@@ -54,7 +54,7 @@ bool ImageProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 
 void ImageProvider::unlockImpl()
 {
-	CALL_NUI(m_pSensor->NuiImageStreamReleaseFrame(m_hStream, &m_frame));
+	CALL_SENSOR(m_pSensor->NuiImageStreamReleaseFrame(m_hStream, &m_frame));
 	ResetEvent(m_hNextFrameEvent);
 	m_isLocked = false;
 }
@@ -63,7 +63,7 @@ void ImageProvider::unlockImpl()
 
 ImageProvider::ImageProvider(Context* pContext) : AbstractImageStreamProvider(pContext)
 {
-	CALL_XN( pContext->FindExistingNode(XN_NODE_TYPE_IMAGE, m_imageGen) );
+	CALL_SENSOR( pContext->FindExistingNode(XN_NODE_TYPE_IMAGE, m_imageGen) );
 
 	ImageMetaData md;
 	m_imageGen.GetMetaData(md);

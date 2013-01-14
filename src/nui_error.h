@@ -27,57 +27,12 @@
 //
 //@COPYRIGHT@//
 
-#ifndef _USER_PROVIDER_H_
-#define _USER_PROVIDER_H_
-
-#include "common.h"
-#include "AbstractSensorDataProvider.h"
-#include "joint.h"
+#ifndef _NUI_ERROR_H_
+#define _NUI_ERROR_H_
 
 #ifdef XU_KINECTSDK
-
-class UserProvider : public AbstractSensorDataProvider {
-private:
-	NUI_SKELETON_FRAME m_frame;
-
-public:
-	UserProvider(INuiSensor* pSensor);
-	~UserProvider();
-
-	XuUserID findFirstTrackedUserID();
-	XuUserID findTrackedUserIDNextTo(XuUserID userID);
-	bool isUserPositionTracked(XuUserID userID);
-	bool isUserSkeletonTracked(XuUserID userID);
-	
-	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo);
-
-protected:
-	virtual bool waitForNextFrameAndLockImpl(DWORD timeout);
-	virtual void unlockImpl();
-
-	const NUI_SKELETON_DATA* getSkeletonData(XuUserID userID);
-};
-
-#else // XU_OPENNI
-
-class UserProvider : public AbstractSensorDataProvider {
-private:
-	UserGenerator m_userGen;
-
-public:
-	UserProvider(Context* pContext);
-	~UserProvider();
-
-	UserGenerator* getGenerator() { return &m_userGen; }
-
-	XuUserID findFirstTrackedUserID();
-	XuUserID findTrackedUserIDNextTo(XuUserID userID);
-	bool isUserPositionTracked(XuUserID userID);
-	bool isUserSkeletonTracked(XuUserID userID);
-	
-	const void getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo);
-};
-
+#include "common.h"
+int getNuiErrorString(HRESULT hr, char* buf, int size);
 #endif
 
 #endif

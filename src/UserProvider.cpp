@@ -34,7 +34,7 @@
 
 UserProvider::UserProvider(INuiSensor* pSensor) : AbstractSensorDataProvider(pSensor)
 {
-	CALL_NUI(m_pSensor->NuiSkeletonTrackingEnable(m_hNextFrameEvent, NUI_SKELETON_TRACKING_FLAG_SUPPRESS_NO_FRAME_DATA));
+	CALL_SENSOR(m_pSensor->NuiSkeletonTrackingEnable(m_hNextFrameEvent, NUI_SKELETON_TRACKING_FLAG_SUPPRESS_NO_FRAME_DATA));
 }
 
 UserProvider::~UserProvider()
@@ -44,7 +44,7 @@ UserProvider::~UserProvider()
 bool UserProvider::waitForNextFrameAndLockImpl(DWORD timeout)
 {
 	if (SUCCEEDED(WaitForSingleObjectEx(m_hNextFrameEvent, timeout, TRUE))) {
-		CALL_NUI(m_pSensor->NuiSkeletonGetNextFrame(timeout, &m_frame));
+		CALL_SENSOR(m_pSensor->NuiSkeletonGetNextFrame(timeout, &m_frame));
 		NUI_TRANSFORM_SMOOTH_PARAMETERS smoothingParams = {
 			// 0.5f, 0.5f, 0.5f, 0.05f, 0.04f // default
 			0.4f, 0.2f, 0.3f, 0.05f, 0.04f
@@ -68,21 +68,33 @@ const NUI_SKELETON_DATA* UserProvider::getSkeletonData(XuUserID userID)
 	return (userID > 0) ? &m_frame.SkeletonData[userID-1] : NULL;
 }
 
-const XuUserID UserProvider::findFirstTrackedUserID()
+XuUserID UserProvider::findFirstTrackedUserID()
 {
-	for (int i = 0; i < NUI_SKELETON_COUNT; i++) {
-		if (m_frame.SkeletonData[i].eTrackingState == NUI_SKELETON_TRACKED) {
-			return i+1;
+	return findTrackedUserIDNextTo(0);
+}
+
+XuUserID UserProvider::findTrackedUserIDNextTo(XuUserID baseUserID)
+{
+	for (int i = 1; i <= NUI_SKELETON_COUNT; i++) {
+		XuUserID userID = (i + baseUserID) % NUI_SKELETON_COUNT;
+		if (isUserPositionTracked(userID)) {
+			return userID;
 		}
 	}
 
 	return 0;
 }
 
-bool UserProvider::isUserTracked(XuUserID userID)
+bool UserProvider::isUserPositionTracked(XuUserID userID)
 {
 	const NUI_SKELETON_DATA* skeleton = getSkeletonData(userID);
 	return skeleton && skeleton->eTrackingState != NUI_SKELETON_NOT_TRACKED;
+}
+
+bool UserProvider::isUserSkeletonTracked(XuUserID userID)
+{
+	const NUI_SKELETON_DATA* skeleton = getSkeletonData(userID);
+	return skeleton && skeleton->eTrackingState == NUI_SKELETON_TRACKED;
 }
 
 static float convertSkeletonTrackingStateToConfidence(NUI_SKELETON_POSITION_TRACKING_STATE state)
@@ -155,18 +167,23 @@ const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIn
 
 UserProvider::UserProvider(Context* pContext) : AbstractSensorDataProvider(pContext)
 {
-	CALL_XN( pContext->FindExistingNode(XN_NODE_TYPE_USER, m_userGen) );
+	CALL_SENSOR( pContext->FindExistingNode(XN_NODE_TYPE_USER, m_userGen) );
 
 	CHECK_ERROR( m_userGen.IsCapabilitySupported(XN_CAPABILITY_SKELETON), "This configuration does not support skeleton tracking." );
-	CALL_XN( m_userGen.GetSkeletonCap().SetSkeletonProfile(XN_SKEL_PROFILE_ALL) );
-	CALL_XN( m_userGen.GetSkeletonCap().SetSmoothing(0.4f) );
+	CALL_SENSOR( m_userGen.GetSkeletonCap().SetSkeletonProfile(XN_SKEL_PROFILE_ALL) );
+	CALL_SENSOR( m_userGen.GetSkeletonCap().SetSmoothing(0.4f) );
 }
 
 UserProvider::~UserProvider()
 {
 }
 
-const XuUserID UserProvider::findFirstTrackedUserID()
+XuUserID UserProvider::findFirstTrackedUserID()
+{
+	return findTrackedUserIDNextTo(0);
+}
+
+XuUserID UserProvider::findTrackedUserIDNextTo(XuUserID baseUserID)
 {
 	const XnUInt16 MAX_USERS = 16;
 	XuUserID userIDs[MAX_USERS];
@@ -177,19 +194,36 @@ const XuUserID UserProvider::findFirstTrackedUserID()
 		return 0;
 	}
 
-	for (int i = 0; i < numOfUsers; i++) {
-		XuUserID u = userIDs[i];
-		if (isUserTracked(u)) {
-			return u;
+	XnUInt16 baseIndex = 0;
+	if (baseUserID > 0) {
+		for (int i = 0; i < numOfUsers; i++) {
+			if (userIDs[i] == baseUserID) {
+				baseIndex = i + 1;
+				break;
+			}
 		}
 	}
-
-	XnUserID u = userIDs[0];
+	
+	XnUserID u = userIDs[baseIndex % numOfUsers];
 	m_userGen.GetSkeletonCap().StartTracking(u);
-	return 0;
+	return u;
 }
 
-bool UserProvider::isUserTracked(XuUserID userID)
+
+bool UserProvider::isUserPositionTracked(XuUserID userID)
+{
+	const XnUInt16 MAX_USERS = 16;
+	XuUserID userIDs[MAX_USERS];
+	XnUInt16 numOfUsers = MAX_USERS;
+	m_userGen.GetUsers(userIDs, numOfUsers);
+
+	for (int i = 0; i < numOfUsers; i++) {
+		if (userIDs[i] == userID) return true;
+	}
+	return false;
+}
+
+bool UserProvider::isUserSkeletonTracked(XuUserID userID)
 {
 	return !!m_userGen.GetSkeletonCap().IsTracking(userID);
 }
@@ -197,7 +231,7 @@ bool UserProvider::isUserTracked(XuUserID userID)
 const void UserProvider::getSkeletonJointInfo(XuUserID userID, XuSkeletonJointIndex jointIndex, XuSkeletonJointInfo* pJointInfo)
 {
 	XnSkeletonJointPosition j;
-	CALL_XN( m_userGen.GetSkeletonCap().GetSkeletonJointPosition(userID, jointIndex, j) );
+	CALL_SENSOR( m_userGen.GetSkeletonCap().GetSkeletonJointPosition(userID, jointIndex, j) );
 	pJointInfo->fConfidence = j.fConfidence;
 	pJointInfo->position.X = j.position.X;
 	pJointInfo->position.Y = j.position.Y;
