@@ -23,6 +23,8 @@
 || Core 2 Athlon II X2 250@3GHz || Radeon HD 5700 || Win 7 Pro 64 || dim... || ||
 || Core i3-350M@2.26GHz || GeForce 310M (512MB) || || coji... ||
 || Celeron U3400@1.07GHz || Intel || || sergey.s... || Slowly ||
+|| Core i5@3GHz || Intel HD Graphics || Win 7 || koyanagister || ||
+
 
 (`*1`) Driver version = 6.14.10.5303. Note 6.14.10.4953 does not support shader.
 
