@@ -1,7 +1,7 @@
 # Transform yourself to superhero by Kinect / Kinectでスーパーヒーローに変身
 
 * Video: https://youtu.be/RUG-Uvq-J-w and https://youtu.be/Uuq9SCL_LXY
-* Download: https://github.com/tomoto/kinect-ultra/blob/master/release/kinect-ultra_1.0a_for_KinectSDK.zip
+* Download: https://github.com/tomoto/kinect-ultra/blob/master/release/kinect-ultra_1.0a_for_KinectSDK.zip?raw=true
 
 # Under construction below. Just copied from Google Code...
 
